@@ -19,10 +19,10 @@
 <meta property="og:image" content="https://api.lemonprefect.cn/image/hdslb/archive/48b68dea-3588-11ec-a5a8-0a80ff2603de/1635220434218560/59017a6238af0418e64f40496360ec11834b8e47.png">
 <meta property="og:image" content="https://api.lemonprefect.cn/image/hdslb/archive/48b68dea-3588-11ec-a5a8-0a80ff2603de/1635221100747529/33913466561c08ce38a4906ed0f19e88286f0d44.png">
 <meta property="og:image" content="https://api.lemonprefect.cn/image/hdslb/archive/48b68dea-3588-11ec-a5a8-0a80ff2603de/1635221770612980/86934c8a3f8ee9e0552c79063e1c9dc8ddf799a9.png">
-<meta property="og:image" content="c:/Users/Du1L0v3/AppData/Roaming/Typora/typora-user-images/image-20211026122830501.png">
+<meta property="og:image" content="https://api.lemonprefect.cn/image/hdslb/archive/48b68dea-3588-11ec-a5a8-0a80ff2603de/1635766590778144/ac5f0edea78ee2d214a853864ca22f2bc7a21469.png">
 <meta property="og:image" content="https://api.lemonprefect.cn/image/hdslb/archive/48b68dea-3588-11ec-a5a8-0a80ff2603de/1635222716091494/11f1498e1db1c4dca4cbe16458c57e666a882007.png">
 <meta property="article:published_time" content="2021-11-01T11:28:00.000Z">
-<meta property="article:modified_time" content="2021-11-01T11:35:53.436Z">
+<meta property="article:modified_time" content="2021-11-01T11:36:39.947Z">
 <meta property="article:author" content="Du1L0v3">
 <meta property="article:tag" content="奇技淫巧">
 <meta property="article:tag" content="PHP">
@@ -151,7 +151,7 @@
       
         <time datetime="2021-11-01T11:28:00.000Z" itemprop="datePublished">2021-11-01</time>
         
-        (Updated: <time datetime="2021-11-01T11:35:53.436Z" itemprop="dateModified">2021-11-01</time>)
+        (Updated: <time datetime="2021-11-01T11:36:39.947Z" itemprop="dateModified">2021-11-01</time>)
         
       
     </div>
@@ -206,7 +206,7 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (read_chain) &#123;</span><br><span class="line">			<span class="keyword">if</span> ((temp_filter = php_stream_filter_create(p, <span class="literal">NULL</span>, php_stream_is_persistent(stream)))) &#123;</span><br><span class="line">				php_stream_filter_append(&amp;stream-&gt;readfilters, temp_filter);</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				php_error_docref(<span class="literal">NULL</span>, E_WARNING, <span class="string">&quot;Unable to create filter (%s)&quot;</span>, p);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
 
 <p>不难发现，它会尝试以这个字符串为过滤器名去创建这个过滤器，如果创建成功，则会对我们之前读取的文件流进行过滤器的相关操作，而如果不存在的话，则会弹一个警告：</p>
-<p><img src="C:\Users\Du1L0v3\AppData\Roaming\Typora\typora-user-images\image-20211026122830501.png"></p>
+<p><img src="https://api.lemonprefect.cn/image/hdslb/archive/48b68dea-3588-11ec-a5a8-0a80ff2603de/1635766590778144/ac5f0edea78ee2d214a853864ca22f2bc7a21469.png"></p>
 <p>所以到这里我们也就理解了它的搞法，不难构造出 <code>php://filter/resource=a/convert.base64-decode/../../a.txt</code>：</p>
 <p><img src="https://api.lemonprefect.cn/image/hdslb/archive/48b68dea-3588-11ec-a5a8-0a80ff2603de/1635222716091494/11f1498e1db1c4dca4cbe16458c57e666a882007.png"></p>
 <p>不局限于 base64 编码，也可以尝试些别的。</p>
